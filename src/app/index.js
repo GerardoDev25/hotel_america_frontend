@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import 'antd/dist/antd.min.css';
 import Router from './router';
 
 const MainContainer = styled.main`

@@ -1,11 +1,13 @@
-import React from 'react'
+import Buttons from '../components/buttons';
 
 const LoginPage = () => {
-    return (
-        <div>
-            hola desde Login
-        </div>
-    )
-}
 
-export default LoginPage
+  return (
+    <div>
+      <p>hola desde Login</p>
+      <Buttons.Test color='green'>hola </Buttons.Test>;
+    </div>
+  );
+};
+
+export default LoginPage;
