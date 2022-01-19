@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-const Test = styled.button`
-  background-color: ${({ color }) => color || 'yellow'};
+export const Login = styled.button`
+  background-color: ${({ color }) => color || 'blue'};
   width: 3rem;
   height: 2rem;
 `;
 
-const Buttons = { Test };
+// const Buttons = { Login };
 
-export default Buttons;
+// export default {Login};
