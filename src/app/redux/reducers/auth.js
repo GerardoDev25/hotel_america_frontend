@@ -1,4 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { loginAsync } from '../ActionsAsync';
 
 const initialState = {
   loading: false,
@@ -6,18 +7,6 @@ const initialState = {
   error: null,
   staff: {},
 };
-
-const testLogin = async () => {
-  return { data: { name: 'jonh doe', role: 'test' } };
-};
-
-export const loginAsync = createAsyncThunk('auth/login', async () => {
-  try {
-    const response = await testLogin();
-    // console.log(response);
-    return response.data;
-  } catch (e) {}
-});
 
 const testSlice = createSlice({
   name: 'auth',
