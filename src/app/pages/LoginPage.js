@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Form, Input, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { Container } from '../components/styledComponents';
 import { selectAuth } from '../redux/reducers/auth';
@@ -13,15 +14,17 @@ const Title = styled.h1``;
 
 const LoginPage = () => {
   const dispatch = useDispatch();
+  const navigator = useNavigate();
   const auth = useSelector(selectAuth);
+
   const [fields, setFields] = useState({
-    username: '',
-    password: '',
+    username: 'jonhDoe1',
+    password: '123456',
   });
 
   useEffect(() => {
-    console.log(auth);
-  }, [auth]);
+    if (auth.login) navigator('/dashboard', { replace: true });
+  }, [auth, navigator]);
 
   const { username, password } = fields;
 
