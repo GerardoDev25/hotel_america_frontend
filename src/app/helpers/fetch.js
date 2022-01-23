@@ -1,3 +1,6 @@
+import { message } from 'antd';
+import { capitalizeWorlds } from '.';
+
 import { ENPOINT } from './settings';
 
 export const loginFetch = async (fields) => {
@@ -11,6 +14,16 @@ export const loginFetch = async (fields) => {
     });
 
     const result = await res.json();
-    return result;
+    if (result.ok) {
+      message.success({
+        content: capitalizeWorlds(result.msg),
+        className: 'custom-class',
+        style: {
+          marginTop: '5vh',
+          marginLeft: '80%',
+        },
+      });
+      return result;
+    } else message.error(capitalizeWorlds(result.msg));
   } catch (error) {}
 };
