@@ -6,6 +6,7 @@ const init = {
   login: false,
   error: null,
   staff: {},
+  token: null,
 };
 
 const authSlice = createSlice({
@@ -26,6 +27,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.login = action.payload.ok;
         state.staff = action.payload.data;
+        state.token = action.payload.token;
         localStorage.setItem('auth', JSON.stringify(state));
       })
       .addCase(loginAsync.rejected, (state, action) => {

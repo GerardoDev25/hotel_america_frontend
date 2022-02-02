@@ -1,9 +1,39 @@
 import { Layout } from 'antd';
-import React from 'react';
+import { useSelector } from 'react-redux';
+
+import { selectAuth } from '../../redux/reducers/auth';
+
+import Admin from '../../views/Admin';
+import Laundry from '../../views/Laundry';
+import NotFound from '../../views/NotFound';
+import Cafeteria from '../../views/Cafeteria';
+import Reception from '../../views/Reception';
 
 const { Content } = Layout;
 
 const ContentComponent = () => {
+  const { staff } = useSelector(selectAuth);
+  const { role } = staff;
+
+  const View = () => {
+    switch (role) {
+      case 'role_admin':
+        return <Admin />;
+
+      case 'role_laundry':
+        return <Laundry />;
+
+      case 'role_reception':
+        return <Reception />;
+
+      case 'role_Cafeteria':
+        return <Cafeteria />;
+
+      default:
+        <NotFound />;
+        break;
+    }
+  };
   return (
     <Content
       className="site-layout-background"
@@ -14,7 +44,7 @@ const ContentComponent = () => {
         backgroundColor: 'blue',
       }}
     >
-      Content
+      <View />
     </Content>
   );
 };

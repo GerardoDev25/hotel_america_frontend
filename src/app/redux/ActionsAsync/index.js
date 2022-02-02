@@ -15,7 +15,7 @@ export const loginAsync = createAsyncThunk('auth/login', async (fields) => {
     const { token, ok, msg } = result;
     const data = parseJwt(token);
 
-    return { data, ok, msg };
+    return { data, ok, msg, token };
   } catch (error) {
     return error.toString();
   }
