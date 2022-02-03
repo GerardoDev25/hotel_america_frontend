@@ -14,7 +14,7 @@ const roomSlice = createSlice({
   initialState: JSON.parse(localStorage.getItem('room')) || init,
   reducers: {
     cheanRoom() {
-      localStorage.removeItem('auth');
+      localStorage.removeItem('room');
       return init;
     },
   },
@@ -26,6 +26,8 @@ const roomSlice = createSlice({
       .addCase(getAllRoomAsync.fulfilled, (state, action) => {
         state.loading = false;
         state.rooms = action.payload.data.rows;
+        state.pageCount = action.payload.data.pageCount;
+        state.total = action.payload.data.total;
         state.ok = action.payload.ok;
         state.msg = action.payload.msg;
       })

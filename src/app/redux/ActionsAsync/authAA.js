@@ -23,6 +23,7 @@ const loginFetch = async (fields) => {
     });
 
     const result = await res.json();
+
     if (result.ok) {
       message.success({
         content: capitalizeWorlds(result.msg),
@@ -34,16 +35,23 @@ const loginFetch = async (fields) => {
       });
       return result;
     } else message.error(capitalizeWorlds(result.msg));
-  } catch (error) {}
+  } catch (error) {
+    console.log({ step: 'error loginFetch', error: error.toString() });
+    return { error };
+  }
 };
 
 export const loginAsync = createAsyncThunk('auth/login', async (fields) => {
   try {
     const result = await loginFetch(fields);
-    const { token, ok, msg } = result;
-    const data = parseJwt(token);
+    const { token, ok, msg, error } = result;
 
+    if (error) throw new Error(error);
+
+    const data = parseJwt(token);
     return { data, ok, msg, token };
+
+    //
   } catch (error) {
     return error.toString();
   }
