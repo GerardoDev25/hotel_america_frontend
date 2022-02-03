@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginAsync } from '../ActionsAsync';
+import { loginAsync } from '../ActionsAsync/authAA';
 
 const init = {
   loading: false,

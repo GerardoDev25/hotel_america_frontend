@@ -30,8 +30,7 @@ const ContentComponent = () => {
         return <Cafeteria />;
 
       default:
-        <NotFound />;
-        break;
+        return <NotFound />;
     }
   };
   return (
@@ -41,7 +40,6 @@ const ContentComponent = () => {
         margin: '24px 16px',
         padding: 24,
         minHeight: 280,
-        backgroundColor: 'blue',
       }}
     >
       <View />

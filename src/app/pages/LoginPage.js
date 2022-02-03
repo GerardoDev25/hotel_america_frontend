@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Container } from '../components/styledComponents';
 import { selectAuth } from '../redux/reducers/auth';
-import { loginAsync } from '../redux/ActionsAsync';
+import { loginAsync } from '../redux/ActionsAsync/authAA';
 
 // * styled components
 const Title = styled.h1``;
