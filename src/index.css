@@ -38,4 +38,6 @@ code {
 
 .site-layout .site-layout-background {
   background: #fff;
+  /* min-height: 100vh; */
+  height: auto;
 }
