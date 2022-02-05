@@ -6,6 +6,7 @@ const CardComponent = styled(Card)`
   height: 200px;
   background-color: red;
   border-radius: 1rem;
+  padding-left: auto;
 `;
 
 const CardRoom = () => {

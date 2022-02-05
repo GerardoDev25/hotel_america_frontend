@@ -1,16 +1,24 @@
-import { useState, useEffect } from 'react';
-
 import styled from 'styled-components';
 import { Form, Input, Button } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Container } from '../components/styledComponents';
 import { selectAuth } from '../redux/reducers/auth';
 import { loginAsync } from '../redux/ActionsAsync/authAA';
 
 // * styled components
 const Title = styled.h1``;
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  width: ${({ width }) => (width ? width : '100%')};
+  height: ${({ height }) => (height ? height : '100vh')};
+`;
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -18,8 +26,8 @@ const LoginPage = () => {
   const auth = useSelector(selectAuth);
 
   const [fields, setFields] = useState({
-    username: 'jonhDoe1',
-    password: '123456',
+    username: '',
+    password: '',
   });
 
   useEffect(() => {
@@ -37,7 +45,7 @@ const LoginPage = () => {
   };
 
   return (
-    <Container style={{ flexDirection: 'column' }}>
+    <Container>
       <Form
         name="login"
         autoComplete="off"

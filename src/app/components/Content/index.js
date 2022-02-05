@@ -1,15 +1,21 @@
 import { Layout } from 'antd';
+import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 import { selectAuth } from '../../redux/reducers/auth';
 
-import Admin from '../../views/Admin';
-import Laundry from '../../views/Laundry';
-import NotFound from '../../views/NotFound';
-import Cafeteria from '../../views/Cafeteria';
-import Reception from '../../views/Reception';
+import Admin from './views/Admin';
+import Laundry from './views/Laundry';
+import NotFound from './views/NotFound';
+import Cafeteria from './views/Cafeteria';
+import Reception from './views/Reception';
 
 const { Content } = Layout;
+
+const ContentStyled = styled(Content)`
+  width: 100%;
+  height: 86%;
+`;
 
 const ContentComponent = () => {
   const { staff } = useSelector(selectAuth);
@@ -33,19 +39,11 @@ const ContentComponent = () => {
         return <NotFound />;
     }
   };
+
   return (
-    <Content
-      className="site-layout-background"
-      style={{
-        margin: '24px 16px',
-        padding: 24,
-        minHeight: '100vh',
-        height: 'auto',
-        backgroundColor:'blue !important'
-      }}
-    >
+    <ContentStyled className="site-layout-background">
       <View />
-    </Content>
+    </ContentStyled>
   );
 };
 
