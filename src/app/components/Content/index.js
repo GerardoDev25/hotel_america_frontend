@@ -1,8 +1,9 @@
 import { Layout } from 'antd';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { selectAuth } from '../../redux/reducers/auth';
+import { clesedPanel } from '../../redux/reducers/navbar';
 
 import Admin from './views/Admin';
 import Laundry from './views/Laundry';
@@ -18,8 +19,13 @@ const ContentStyled = styled(Content)`
 `;
 
 const ContentComponent = () => {
+  const dispach = useDispatch();
   const { staff } = useSelector(selectAuth);
   const { role } = staff;
+
+  const handleClick = () => {
+    dispach(clesedPanel());
+  };
 
   const View = () => {
     switch (role) {
@@ -41,7 +47,7 @@ const ContentComponent = () => {
   };
 
   return (
-    <ContentStyled className="site-layout-background">
+    <ContentStyled className="site-layout-background" onClick={handleClick}>
       <View />
     </ContentStyled>
   );

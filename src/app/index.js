@@ -9,7 +9,6 @@ import store from './redux';
 const MainContainer = styled.main`
   width: 100%;
   height: 100vh;
-  outline: 2px dotted black;
 `;
 
 const index = () => {

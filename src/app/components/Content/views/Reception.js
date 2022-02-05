@@ -42,9 +42,9 @@ const Reception = () => {
   const dispatch = useDispatch();
   const rooms = useSelector(selectRoom);
 
-  useEffect(() => {
-    console.log({ rooms: rooms.rooms });
-  }, [rooms]);
+  // useEffect(() => {
+  //   console.log({ rooms: rooms.rooms });
+  // }, [rooms]);
 
   useEffect(() => {
     dispatch(getAllRoomAsync());
