@@ -14,13 +14,19 @@ const HeaderMain = styled(Header)`
   height: 7%;
   padding: 0;
   width: 100%;
-  background-color: white;
+  max-width: 1450px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ccc;
+  overflow: hidden;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  margin-bottom: 5px;
 `;
 
 const NavContainer = styled.div`
   width: 100%;
   height: 100%;
-  max-width: 1450px;
   margin-left: auto;
   margin-right: auto;
 
@@ -49,7 +55,9 @@ const NavContainerRight = styled.div`
   justify-content: space-between;
 
   @media screen and (max-width: 600px) {
-    right: 1rem;
+    right: 1.5rem;
+    border-radius: 1rem;
+    border-top-right-radius: 0;
     z-index: 10;
     width: 15rem;
     height: 10rem;
@@ -60,7 +68,7 @@ const NavContainerRight = styled.div`
     align-items: flex-start;
     transition: top 0.2s ease-in;
     background-color: rgba(0, 0, 0, 0.3);
-    top: ${({ panel }) => (panel ? '140%' : '-300%')};
+    top: ${({ panel }) => (panel ? '140%' : '-350%')};
 
     ::after {
       content: '';
@@ -75,6 +83,7 @@ const NavContainerRight = styled.div`
 
 const InfoContainer = styled.div`
   width: 65%;
+  /* max-width: 10rem; */
   height: 100%;
   line-height: 0.7;
 
@@ -176,7 +185,7 @@ const Navbar = () => {
               <ParagraphComponent>{roles[staff.role]}</ParagraphComponent>
             </InfoContainerLeft>
             <InfoContainerRight>
-              <AvatarContainer size={60}>{getLetersInitials(staff.name)}</AvatarContainer>
+              <AvatarContainer size={45}>{getLetersInitials(staff.name)}</AvatarContainer>
             </InfoContainerRight>
           </InfoContainer>
           <LogoutContainer>

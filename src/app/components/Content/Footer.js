@@ -7,6 +7,13 @@ const { Footer } = Layout;
 
 const FooterStyled = styled(Footer)`
   height: 7%;
+  width: 100%;
+  max-width: 1450px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ccc;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 `;
 
 const FooterComponent = () => {

@@ -4,17 +4,19 @@ import styled from 'styled-components';
 const CardComponent = styled(Card)`
   width: 200px;
   height: 200px;
-  background-color: red;
+  background-color: #bbb;
   border-radius: 1rem;
   padding-left: auto;
 `;
 
-const CardRoom = () => {
+const CardRoom = ({ room }) => {
   const { Meta } = Card;
 
+  const { numberRoom, available } = room;
+
   return (
-    <CardComponent hoverable>
-      <Meta title="Europe Street beat" description="www.instagram.com" />
+    <CardComponent hoverable={available}>
+      <Meta title={`Room Number - ${numberRoom}`} description="www.instagram.com" />
     </CardComponent>
   );
 };
