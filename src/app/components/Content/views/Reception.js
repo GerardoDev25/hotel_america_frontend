@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectRoom } from '../../../redux/reducers/room';
+import { selectRegister } from '../../../redux/reducers/register';
 import { getAllRoomAsync } from '../../../redux/ActionsAsync/roomAA';
 
 import CardRoom from '../../buttons/CardRoom';
@@ -34,17 +35,25 @@ const Container = styled.div`
 `;
 
 const Reception = () => {
+  // total, error, loading, msg, pageCount, ok
+
   const dispatch = useDispatch();
-  const { rooms, total, error, loading, msg, pageCount } = useSelector(selectRoom);
+  const Room = useSelector(selectRoom);
+  const Register = useSelector(selectRegister);
 
   useEffect(() => {
     dispatch(getAllRoomAsync());
   }, [dispatch]);
 
+  const Rooms = () => {
+    const RegisterIdArr = Array.from(Register.registers.map((e) => e.roomId));
+    return Room.rooms.map((room) => <CardRoom key={room.roomId} room={room} roomId={RegisterIdArr.find((id) => id === room.roomId)} />);
+  };
+
   return (
     <Main>
-      <Container>{rooms && rooms.map((room) => <CardRoom key={room.roomId} room={room} />)}</Container>
-      <PaginationComponent total={total} type="room" />
+      <Container>{Room.rooms && Register.registers && <Rooms />}</Container>
+      <PaginationComponent total={Room.total} type="room" />
     </Main>
   );
 };

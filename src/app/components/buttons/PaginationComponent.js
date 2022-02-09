@@ -24,7 +24,7 @@ const PaginationComponent = ({ total, type }) => {
   const handleChange = (e) => {
     dispatch(getAllRoomAsync(e));
   };
-  console.log(type);
+
   return (
     <Container>
       <PaginatorStyled defaultCurrent={1} total={total} onChange={handleChange} size="default" />

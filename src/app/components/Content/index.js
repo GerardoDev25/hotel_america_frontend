@@ -11,6 +11,7 @@ import NotFound from './views/NotFound';
 import Cafeteria from './views/Cafeteria';
 import Reception from './views/Reception';
 import { useCallback } from 'react';
+// import { getAllRegisterAsync } from '../../redux/ActionsAsync/registerAA';
 
 const { Content } = Layout;
 
@@ -33,9 +34,11 @@ const ContentComponent = () => {
     panel && dispach(clesedPanel());
   };
 
-  console.log('me volvi a llamar index view');
-
   const View = useCallback(() => {
+    //
+
+    // dispach(getAllRegisterAsync());
+
     switch (role) {
       case 'role_admin':
         return <Admin />;
