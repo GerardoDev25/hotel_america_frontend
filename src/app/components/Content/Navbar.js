@@ -5,7 +5,7 @@ import { Avatar, Layout, Button, Typography, message } from 'antd';
 
 import { logout, selectAuth } from '../../redux/reducers/auth';
 import { capitalizeWorlds, getLetersInitials } from '../../helpers';
-import { openPanel, selectNavbar, clesedPanel } from '../../redux/reducers/navbar';
+import { openPanel, selectNavbar } from '../../redux/reducers/navbar';
 
 const { Header } = Layout;
 const { Paragraph, Title } = Typography;
@@ -55,7 +55,8 @@ const NavContainerRight = styled.div`
   justify-content: space-between;
 
   @media screen and (max-width: 600px) {
-    right: 1.5rem;
+    display: none;
+    /* right: 1.5rem;
     border-radius: 1rem;
     border-top-right-radius: 0;
     z-index: 10;
@@ -76,8 +77,8 @@ const NavContainerRight = styled.div`
       top: -2rem;
       position: absolute;
       border: 1rem solid transparent;
-      border-bottom: 1rem solid rgba(0, 0, 0, 0.3);
-    }
+      border-bottom: 1rem solid rgba(0, 0, 0, 0.3); 
+    }*/
   }
 `;
 
@@ -162,11 +163,7 @@ const Navbar = () => {
 
   const handlePanelOpen = (e) => {
     e.stopPropagation();
-    panel ? dispatch(clesedPanel()) : dispatch(openPanel());
-  };
-
-  const handlePanelClose = () => {
-    panel && dispatch(clesedPanel());
+    !panel && dispatch(openPanel());
   };
 
   const handleClick = () => {
@@ -175,7 +172,7 @@ const Navbar = () => {
     message.info('logged');
   };
   return (
-    <HeaderMain onClick={handlePanelClose}>
+    <HeaderMain>
       <NavContainer>
         <NavContainerLeft>logo</NavContainerLeft>
         <NavContainerRight panel={panel}>

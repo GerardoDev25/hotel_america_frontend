@@ -20,6 +20,5 @@ const NavbarSlice = createSlice({
 export const selectNavbar = (state) => state.navbar;
 
 export const { openPanel, clesedPanel } = NavbarSlice.actions;
-// export const { openPanel } = NavbarSlice.actions;
 
 export default NavbarSlice.reducer;
