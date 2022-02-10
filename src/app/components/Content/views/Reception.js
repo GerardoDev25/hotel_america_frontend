@@ -6,8 +6,8 @@ import { selectRoom } from '../../../redux/reducers/room';
 import { selectRegister } from '../../../redux/reducers/register';
 import { getAllRoomAsync } from '../../../redux/ActionsAsync/roomAA';
 
-import CardRoom from '../../buttons/CardRoom';
-import PaginationComponent from '../../buttons/PaginationComponent';
+import CardRoom from '../../sliceComponents/CardRoom';
+import PaginationComponent from '../../sliceComponents/PaginationComponent';
 
 const Main = styled.div`
   height: 100%;
