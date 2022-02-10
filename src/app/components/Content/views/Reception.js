@@ -46,8 +46,11 @@ const Reception = () => {
   }, [dispatch]);
 
   const Rooms = () => {
-    const RegisterIdArr = Array.from(Register.registers.map((e) => e.roomId));
-    return Room.rooms.map((room) => <CardRoom key={room.roomId} room={room} roomId={RegisterIdArr.find((id) => id === room.roomId)} />);
+    const RegisterIdArr = Array.from(Register.registers.map((e) => ({ registerId: e.registerId, roomId: e.roomId })));
+
+    return Room.rooms.map((room) => (
+      <CardRoom key={room.roomId} room={room} ids={RegisterIdArr.find((e) => (e.roomId === room.roomId ? e : false))} />
+    ));
   };
 
   return (
