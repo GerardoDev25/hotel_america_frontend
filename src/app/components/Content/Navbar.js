@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, Layout, Button, Typography, message } from 'antd';
 
+import { roles } from '../../helpers/settings';
 import { logout, selectAuth } from '../../redux/reducers/auth';
 import { capitalizeWorlds, getLetersInitials } from '../../helpers';
 import { openPanel, selectNavbar } from '../../redux/reducers/navbar';
@@ -56,35 +57,11 @@ const NavContainerRight = styled.div`
 
   @media screen and (max-width: 600px) {
     display: none;
-    /* right: 1.5rem;
-    border-radius: 1rem;
-    border-top-right-radius: 0;
-    z-index: 10;
-    width: 15rem;
-    height: 10rem;
-    cursor: pointer;
-    padding: 1.5rem;
-    position: absolute;
-    flex-direction: column;
-    align-items: flex-start;
-    transition: top 0.2s ease-in;
-    background-color: rgba(0, 0, 0, 0.3);
-    top: ${({ panel }) => (panel ? '140%' : '-350%')};
-
-    ::after {
-      content: '';
-      right: 0;
-      top: -2rem;
-      position: absolute;
-      border: 1rem solid transparent;
-      border-bottom: 1rem solid rgba(0, 0, 0, 0.3); 
-    }*/
   }
 `;
 
 const InfoContainer = styled.div`
   width: 65%;
-  /* max-width: 10rem; */
   height: 100%;
   line-height: 0.7;
 
@@ -128,17 +105,6 @@ const InfoContainerRight = styled.div`
   }
 `;
 
-const TitleComponent = styled(Title)`
-  @media screen and (max-width: 600px) {
-    color: white !important;
-  }
-`;
-
-const ParagraphComponent = styled(Paragraph)`
-  @media screen and (max-width: 600px) {
-    color: white;
-  }
-`;
 const AvatarContainer = styled(Avatar)`
   background-color: red;
 `;
@@ -159,8 +125,6 @@ const Navbar = () => {
   const { staff } = useSelector(selectAuth);
   const { panel } = useSelector(selectNavbar);
 
-  const roles = { role_admin: 'Admin', role_laundry: 'Laundry', role_reception: 'Reception', role_Cafeteria: 'Cafeteria' };
-
   const handlePanelOpen = (e) => {
     e.stopPropagation();
     !panel && dispatch(openPanel());
@@ -171,6 +135,7 @@ const Navbar = () => {
     navigate('/login', { replace: true });
     message.info('logged');
   };
+
   return (
     <HeaderMain>
       <NavContainer>
@@ -178,8 +143,8 @@ const Navbar = () => {
         <NavContainerRight panel={panel}>
           <InfoContainer>
             <InfoContainerLeft>
-              <TitleComponent level={5}>{capitalizeWorlds(staff.name)}</TitleComponent>
-              <ParagraphComponent>{roles[staff.role]}</ParagraphComponent>
+              <Title level={5}>{capitalizeWorlds(staff.name)}</Title>
+              <Paragraph>{roles[staff.role]}</Paragraph>
             </InfoContainerLeft>
             <InfoContainerRight>
               <AvatarContainer size={45}>{getLetersInitials(staff.name)}</AvatarContainer>
@@ -191,7 +156,7 @@ const Navbar = () => {
             </Button>
           </LogoutContainer>
         </NavContainerRight>
-        <AvatarContainerMedia size={50} onClick={handlePanelOpen}>
+        <AvatarContainerMedia size={45} onClick={handlePanelOpen}>
           {getLetersInitials(staff.name)}
         </AvatarContainerMedia>
       </NavContainer>
