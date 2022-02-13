@@ -1,28 +1,26 @@
 import { Modal } from 'antd';
 // import { useEffect } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectModal, clesedModal } from '../../redux/reducers/modal';
+import { useDispatch } from 'react-redux';
 
-const ModalComponent = styled(Modal)`
-  width: 90%;
-  height: 90vh !important;
-`;
+import { getByIdRegisterAsync } from '../../redux/ActionsAsync/registerAA';
+import { useEffect } from 'react';
 
-const ModalCardRoomInfo = ({ registerId }) => {
+const ModalComponent = styled(Modal)``;
+
+const ModalCardRoomInfo = ({ modalVisible, handleOk, handleCancel, registerId }) => {
   const dispatch = useDispatch();
-  const { isOpen } = useSelector(selectModal);
 
-  const handleOk = () => {
-    dispatch(clesedModal());
-  };
-
-  const handleCancel = () => {
-    dispatch(clesedModal());
-  };
+  useEffect(() => {
+    registerId && dispatch(getByIdRegisterAsync(registerId));
+    console.log('componenete montado');
+    return () => {
+      console.log('componenete desmontado');
+    };
+  }, [registerId, dispatch]);
 
   return (
-    <ModalComponent visible={isOpen} onOk={handleOk} onCancel={handleCancel} width={1300}>
+    <ModalComponent visible={modalVisible} onOk={handleOk} onCancel={handleCancel} width={1300}>
       {registerId}
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur adipisci ipsam voluptas labore, culpa temporibus sit obcaecati esse

@@ -12,6 +12,13 @@ const init = {
   },
   ok: false,
   msg: '',
+  current: {
+    loading: false,
+    register: null,
+    error: null,
+    ok: false,
+    msg: '',
+  },
 };
 
 const registerSlice = createSlice({
@@ -40,6 +47,7 @@ const registerSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       });
+<<<<<<< HEAD
 
     builder
       .addCase(getByIdRegisterAsync.pending, (state) => {
@@ -50,6 +58,15 @@ const registerSlice = createSlice({
         state.currentItem.ok = action.payload.ok;
         state.currentItem.msg = action.payload.msg;
         state.currentItem.data = action.payload.data[0];
+=======
+    builder
+      .addCase(getByIdRegisterAsync.pending, (state, action) => {
+        state.current.loading = false;
+      })
+      .addCase(getByIdRegisterAsync.fulfilled, (state, action) => {
+        state.current.loading = true;
+        console.log(action.payload);
+>>>>>>> branch-modal
       });
   },
 });

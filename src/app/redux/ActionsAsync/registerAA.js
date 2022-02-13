@@ -38,6 +38,7 @@ export const getAllRegisterAsync = createAsyncThunk('register/getAll', async () 
 export const getByIdRegisterAsync = createAsyncThunk('register/getById', async (registerId) => {
   try {
     //
+
     const result = await getRegisterFetch(registerId);
     const { data, ok, msg, error } = result;
 
