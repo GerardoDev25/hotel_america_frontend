@@ -98,6 +98,7 @@ const Description = ({ status, kindOfRoom, maxGuest, registerId }) => {
     case 'used':
       return (
         <CardInfo>
+          
           {/* {isOpen && <ModalCardRoomInfo modalVisible={modalVisible} handleOk={handleOk} handleCancel={handleCancel} registerId={registerId} />} */}
           {isOpen && <ModalCardRoomInfo registerId={registerId} />}
           <SectionTop>
