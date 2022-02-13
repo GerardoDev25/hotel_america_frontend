@@ -1,10 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllRegisterAsync } from '../ActionsAsync/registerAA';
+import { getAllRegisterAsync, getByIdRegisterAsync } from '../ActionsAsync/registerAA';
 
 const init = {
   loading: false,
   registers: null,
-  error: null,
+  currentItem: {
+    data: null,
+    msg: '',
+    ok: false,
+    loading: false,
+  },
   ok: false,
   msg: '',
 };
@@ -34,6 +39,17 @@ const registerSlice = createSlice({
       .addCase(getAllRegisterAsync.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      });
+
+    builder
+      .addCase(getByIdRegisterAsync.pending, (state) => {
+        state.currentItem.loading = false;
+      })
+      .addCase(getByIdRegisterAsync.fulfilled, (state, action) => {
+        state.currentItem.loading = true;
+        state.currentItem.ok = action.payload.ok;
+        state.currentItem.msg = action.payload.msg;
+        state.currentItem.data = action.payload.data[0];
       });
   },
 });

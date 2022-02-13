@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 import { Card, Button, Typography } from 'antd';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getByIdRegisterAsync } from '../../redux/ActionsAsync/registerAA';
+import { selectModal, openModal } from '../../redux/reducers/modal';
+
 import ModalCardRoomInfo from './ModalCardRoomInfo';
-import { useState } from 'react';
 
 const { Meta } = Card;
 const { Paragraph } = Typography;
@@ -59,25 +64,42 @@ const H2Text = styled.p`
 `;
 
 const Description = ({ status, kindOfRoom, maxGuest, registerId }) => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const dispatch = useDispatch();
+  const { isOpen } = useSelector(selectModal);
+  // const [modalVisible, setModalVisible] = useState(false);
 
-  const handleOk = () => {
-    setModalVisible(false);
-  };
+  useEffect(() => {
+    console.log('componenete montado');
+    return () => {
+      console.log('componenete desmontado');
+    };
+  }, []);
 
-  const handleCancel = () => {
-    setModalVisible(false);
-  };
+  // const handleOk = () => {
+  // setModalVisible(false);
+  // };
+
+  // const handleCancel = () => {
+  // setModalVisible(false);
+  // };
+
+  // const handleDispach = useCallback(() => {
+  // }, [registerId, dispatch]);
 
   const handleClick = () => {
-    setModalVisible(true);
+    // handleDispach();
+    // setModalVisible(true);
+    registerId && dispatch(getByIdRegisterAsync(registerId));
+    console.log('hola');
+    dispatch(openModal());
   };
 
   switch (status) {
     case 'used':
       return (
         <CardInfo>
-          {modalVisible && <ModalCardRoomInfo modalVisible={modalVisible} handleOk={handleOk} handleCancel={handleCancel} registerId={registerId} />}
+          {/* {isOpen && <ModalCardRoomInfo modalVisible={modalVisible} handleOk={handleOk} handleCancel={handleCancel} registerId={registerId} />} */}
+          {isOpen && <ModalCardRoomInfo registerId={registerId} />}
           <SectionTop>
             <ParagraphText>
               <strong>Kind of Room: </strong>
@@ -99,7 +121,9 @@ const Description = ({ status, kindOfRoom, maxGuest, registerId }) => {
     case 'free':
       return (
         <CardInfo>
-          {modalVisible && <ModalCardRoomInfo modalVisible={modalVisible} handleOk={handleOk} handleCancel={handleCancel} registerId={registerId} />}
+          {/* {modalVisible && <ModalCardRoomInfo modalVisible={modalVisible} handleOk={handleOk} handleCancel={handleCancel} registerId={registerId} />} */}
+          {isOpen && <ModalCardRoomInfo registerId={registerId} />}
+
           <SectionTop>
             <ParagraphText>
               <strong>Kind of Room: </strong>
@@ -133,6 +157,7 @@ const Description = ({ status, kindOfRoom, maxGuest, registerId }) => {
       );
   }
 };
+
 const CardRoom = ({ room, ids = {} }) => {
   const { registerId = false } = ids;
   const { numberRoom, available, kindOfRoom, maxGuest } = room;

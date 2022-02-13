@@ -7,8 +7,9 @@ import register from './reducers/register';
 import staff from './reducers/staff';
 
 import navbar from './reducers/navbar';
+import modal from './reducers/modal';
 
 const store = configureStore({
-  reducer: { auth, room, amount, goest, register, staff, navbar },
+  reducer: { auth, room, amount, goest, register, staff, navbar, modal },
 });
 export default store;
