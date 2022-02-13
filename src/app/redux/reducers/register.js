@@ -47,18 +47,6 @@ const registerSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       });
-<<<<<<< HEAD
-
-    builder
-      .addCase(getByIdRegisterAsync.pending, (state) => {
-        state.currentItem.loading = false;
-      })
-      .addCase(getByIdRegisterAsync.fulfilled, (state, action) => {
-        state.currentItem.loading = true;
-        state.currentItem.ok = action.payload.ok;
-        state.currentItem.msg = action.payload.msg;
-        state.currentItem.data = action.payload.data[0];
-=======
     builder
       .addCase(getByIdRegisterAsync.pending, (state, action) => {
         state.current.loading = false;
@@ -66,7 +54,6 @@ const registerSlice = createSlice({
       .addCase(getByIdRegisterAsync.fulfilled, (state, action) => {
         state.current.loading = true;
         console.log(action.payload);
->>>>>>> branch-modal
       });
   },
 });
