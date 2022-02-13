@@ -1,7 +1,9 @@
-import styled from 'styled-components';
-import { Card, Button, Typography } from 'antd';
-import ModalCardRoomInfo from './ModalCardRoomInfo';
 import { useState } from 'react';
+import styled from 'styled-components';
+import React, { useCallback } from 'react';
+import { Card, Button, Typography } from 'antd';
+
+import ModalCardRoomInfo from './ModalCardRoomInfo';
 
 const { Meta } = Card;
 const { Paragraph } = Typography;
@@ -61,13 +63,13 @@ const H2Text = styled.p`
 const Description = ({ status, kindOfRoom, maxGuest, registerId }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleOk = () => {
+  const handleOk = useCallback(() => {
     setModalVisible(false);
-  };
+  }, []);
 
-  const handleCancel = () => {
+  const handleCancel = useCallback(() => {
     setModalVisible(false);
-  };
+  }, []);
 
   const handleClick = () => {
     setModalVisible(true);
@@ -133,6 +135,7 @@ const Description = ({ status, kindOfRoom, maxGuest, registerId }) => {
       );
   }
 };
+
 const CardRoom = ({ room, ids = {} }) => {
   const { registerId = false } = ids;
   const { numberRoom, available, kindOfRoom, maxGuest } = room;

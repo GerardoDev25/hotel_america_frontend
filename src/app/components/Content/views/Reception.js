@@ -8,6 +8,7 @@ import { getAllRoomAsync } from '../../../redux/ActionsAsync/roomAA';
 
 import CardRoom from '../../sliceComponents/CardRoom';
 import PaginationComponent from '../../sliceComponents/PaginationComponent';
+import { useCallback } from 'react';
 
 const Main = styled.div`
   height: 100%;
@@ -38,25 +39,23 @@ const Reception = () => {
   // total, error, loading, msg, pageCount, ok
 
   const dispatch = useDispatch();
-  const Room = useSelector(selectRoom);
-  const Register = useSelector(selectRegister);
+  const { rooms, total: totalRoom } = useSelector(selectRoom);
+  const { registers } = useSelector(selectRegister);
 
   useEffect(() => {
     dispatch(getAllRoomAsync());
   }, [dispatch]);
 
-  const Rooms = () => {
-    const RegisterIdArr = Array.from(Register.registers.map((e) => ({ registerId: e.registerId, roomId: e.roomId })));
+  const Rooms = useCallback(() => {
+    const RegisterIdArr = Array.from(registers.map((e) => ({ registerId: e.registerId, roomId: e.roomId })));
 
-    return Room.rooms.map((room) => (
-      <CardRoom key={room.roomId} room={room} ids={RegisterIdArr.find((e) => (e.roomId === room.roomId ? e : false))} />
-    ));
-  };
+    return rooms.map((room) => <CardRoom key={room.roomId} room={room} ids={RegisterIdArr.find((e) => (e.roomId === room.roomId ? e : false))} />);
+  }, [registers, rooms]);
 
   return (
     <Main>
-      <Container>{Room.rooms && Register.registers && <Rooms />}</Container>
-      <PaginationComponent total={Room.total} type="room" />
+      <Container>{rooms && registers && <Rooms />}</Container>
+      <PaginationComponent total={totalRoom} type="room" />
     </Main>
   );
 };

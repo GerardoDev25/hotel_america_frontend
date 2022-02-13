@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllRegisterAsync } from '../ActionsAsync/registerAA';
+import { getAllRegisterAsync, getByIdRegisterAsync } from '../ActionsAsync/registerAA';
 
 const init = {
   loading: false,
@@ -7,6 +7,13 @@ const init = {
   error: null,
   ok: false,
   msg: '',
+  current: {
+    loading: false,
+    register: null,
+    error: null,
+    ok: false,
+    msg: '',
+  },
 };
 
 const registerSlice = createSlice({
@@ -34,6 +41,14 @@ const registerSlice = createSlice({
       .addCase(getAllRegisterAsync.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      });
+    builder
+      .addCase(getByIdRegisterAsync.pending, (state, action) => {
+        state.current.loading = false;
+      })
+      .addCase(getByIdRegisterAsync.fulfilled, (state, action) => {
+        state.current.loading = true;
+        console.log(action.payload);
       });
   },
 });
