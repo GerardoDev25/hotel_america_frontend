@@ -22,6 +22,8 @@ const ContentStyled = styled(Content)`
 `;
 
 const ContentComponent = () => {
+  //
+
   const { staff } = useSelector(selectAuth);
   const { role } = staff;
 

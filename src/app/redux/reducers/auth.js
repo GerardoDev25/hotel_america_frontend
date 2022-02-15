@@ -4,7 +4,6 @@ import { loginAsync } from '../ActionsAsync/authAA';
 const init = {
   loading: false,
   login: false,
-  error: null,
   staff: {},
   token: null,
 };

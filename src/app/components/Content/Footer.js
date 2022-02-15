@@ -15,6 +15,8 @@ const FooterStyled = styled(Footer)`
 `;
 
 const FooterComponent = () => {
+  //
+
   return (
     <FooterStyled>
       <p style={{ textAlign: 'center' }}> Footer </p>

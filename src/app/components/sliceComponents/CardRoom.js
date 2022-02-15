@@ -41,26 +41,28 @@ const CardInfo = styled.div`
 
 const SectionTop = styled.div`
   margin-top: 1rem;
+  line-height: 0.35rem;
   align-self: flex-start;
   justify-self: flex-start;
-  line-height: 0.35rem;
 `;
 
 const ParagraphText = styled(Paragraph)`
-  text-transform: capitalize;
   color: white;
+  text-transform: capitalize;
 `;
 
 const H2Text = styled.p`
   ::before {
     color: white;
-    text-decoration: underline;
     font-size: 2.3rem;
     content: 'Disabled';
+    text-decoration: underline;
   }
 `;
 
 const Description = ({ status, kindOfRoom, maxGuest, registerId }) => {
+  //
+
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleOk = useCallback(() => {
@@ -137,6 +139,8 @@ const Description = ({ status, kindOfRoom, maxGuest, registerId }) => {
 };
 
 const CardRoom = ({ room, ids = {} }) => {
+  //
+
   const { registerId = false } = ids;
   const { numberRoom, available, kindOfRoom, maxGuest } = room;
   const status = available && registerId ? 'used' : available && !registerId ? 'free' : 'disabled';

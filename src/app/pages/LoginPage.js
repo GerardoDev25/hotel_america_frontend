@@ -12,15 +12,17 @@ const Title = styled.h1``;
 
 const Container = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
 
   width: ${({ width }) => (width ? width : '100%')};
   height: ${({ height }) => (height ? height : '100vh')};
 `;
 
 const LoginPage = () => {
+  //
+
   const dispatch = useDispatch();
   const navigator = useNavigate();
   const auth = useSelector(selectAuth);

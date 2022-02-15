@@ -1,12 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllAmountAsync } from '../ActionsAsync/amountAA';
+import { getAllAmountAsync, getByIdRegisterAsync, getWhereGoestAsync } from '../ActionsAsync/amountAA';
 
 const init = {
-  loading: false,
-  amounts: null,
-  error: null,
-  ok: false,
-  msg: '',
+  current: {
+    data: {},
+    ok: false,
+    loading: false,
+  },
+  where: {
+    data: {},
+    ok: false,
+    loading: false,
+  },
+  all: { loading: false, ok: false, data: {} },
 };
 
 const amountSlice = createSlice({
@@ -21,24 +27,51 @@ const amountSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getAllAmountAsync.pending, (state) => {
-        state.loading = true;
+        state.all.loading = true;
       })
       .addCase(getAllAmountAsync.fulfilled, (state, action) => {
-        state.loading = false;
-        state.ok = action.payload.ok;
-        state.msg = action.payload.msg;
-        state.amounts = action.payload.data.rows;
-        state.total = action.payload.data.total;
-        state.pageCount = action.payload.data.pageCount;
+        state.all.loading = false;
+        state.all = action.payload;
+        localStorage.setItem('amount', JSON.stringify(state));
       })
       .addCase(getAllAmountAsync.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
+        state.all.loading = false;
+        state.all.error = action.payload;
+      });
+
+    builder
+      .addCase(getByIdRegisterAsync.pending, (state) => {
+        state.current.loading = true;
+      })
+      .addCase(getByIdRegisterAsync.fulfilled, (state, action) => {
+        state.current.loading = false;
+        state.current = action.payload;
+        localStorage.setItem('amount', JSON.stringify(state));
+      })
+      .addCase(getByIdRegisterAsync.rejected, (state, action) => {
+        state.current.loading = false;
+        state.current.error = action.payload;
+      });
+
+    builder
+      .addCase(getWhereGoestAsync.pending, (state) => {
+        state.where.loading = true;
+      })
+      .addCase(getWhereGoestAsync.fulfilled, (state, action) => {
+        state.where = action.payload;
+        state.where.loading = false;
+        localStorage.setItem('amount', JSON.stringify(state));
+      })
+      .addCase(getWhereGoestAsync.rejected, (state, action) => {
+        state.where.loading = false;
+        state.where.error = action.payload;
       });
   },
 });
 
-export const selectAmount = (state) => state.amount;
+export const selectAllAmount = (state) => state.amount.all;
+export const selectWhereAmount = (state) => state.amount.where;
+export const selectCurrentAmount = (state) => state.amount.current;
 
 export const { cheanAmount } = amountSlice.actions;
 

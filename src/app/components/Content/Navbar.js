@@ -15,14 +15,14 @@ const HeaderMain = styled(Header)`
   height: 7%;
   padding: 0;
   width: 100%;
+  overflow: hidden;
   max-width: 1450px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 5px;
   background-color: #ccc;
-  overflow: hidden;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  margin-bottom: 5px;
 `;
 
 const NavContainer = styled.div`
@@ -120,6 +120,8 @@ const AvatarContainerMedia = styled(Avatar)`
 `;
 
 const Navbar = () => {
+  //
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { staff } = useSelector(selectAuth);

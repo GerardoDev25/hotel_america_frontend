@@ -5,9 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { roles } from '../../helpers/settings';
 import { capitalizeWorlds } from '../../helpers';
-import { selectNavbar, clesedPanel } from '../../redux/reducers/navbar';
-
 import { selectAuth, logout } from '../../redux/reducers/auth';
+import { selectNavbar, clesedPanel } from '../../redux/reducers/navbar';
 
 const MainContainer = styled.div`
   width: 100%;
@@ -17,13 +16,10 @@ const MainContainer = styled.div`
   padding: 2rem;
   padding-top: 5rem;
   position: absolute;
-  background-color: transparent;
-
   border-radius: 1rem;
-  top: ${({ panel }) => (panel ? '0%' : '-150%')};
-
   transition: top 0.2s ease-in;
-
+  background-color: transparent;
+  top: ${({ panel }) => (panel ? '0%' : '-150%')};
   @media screen and (max-width: 600px) {
     display: block;
   }
@@ -32,14 +28,13 @@ const MainContainer = styled.div`
 const PanelInfo = styled.div`
   width: 20rem;
   height: 15rem;
+  display: grid;
   margin-left: auto;
   margin-right: auto;
-  display: grid;
-  grid-template-rows: 2fr 1fr;
-  background-color: rgba(0, 0, 0, 0.7);
-
   border-radius: 1rem;
+  grid-template-rows: 2fr 1fr;
   transition: top 0.2s ease-in;
+  background-color: rgba(0, 0, 0, 0.7);
 `;
 
 const TopSecption = styled.div`
@@ -47,10 +42,10 @@ const TopSecption = styled.div`
 `;
 
 const BottomSecption = styled.div`
-  padding-right: 2rem;
   display: flex;
-  justify-content: flex-end;
+  padding-right: 2rem;
   align-items: center;
+  justify-content: flex-end;
 `;
 
 const TitleComponent = styled(Typography.Title)`
@@ -67,6 +62,8 @@ const ButtonComponent = styled(Button)`
 `;
 
 const PanelComponent = () => {
+  //
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { staff } = useSelector(selectAuth);
