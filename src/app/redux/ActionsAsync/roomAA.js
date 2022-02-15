@@ -2,27 +2,47 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { ENPOINT } from '../../helpers/settings';
 
-const getAllRoomFetch = async (page, roomId = false) => {
+export const getAllRoomAsync = createAsyncThunk('room/getAll', async (page = 1) => {
   try {
     //
 
     let res;
-    if (roomId) fetch(ENPOINT.room_getAll + roomId);
-    else {
-      page > 1 ? (res = await fetch(`${ENPOINT.room_getAll}/?limit=10&offset=${page * 10 - 10}`)) : (res = await fetch(ENPOINT.room_getAll));
-    }
+    page > 1 ? (res = await fetch(`${ENPOINT.room_getAll}/?limit=10&offset=${page * 10 - 10}`)) : (res = await fetch(ENPOINT.room_getAll));
 
     const result = await res.json();
-    return result;
+    const { data, ok, msg, error } = result;
+
+    if (error) throw new Error(error);
+    return { data, ok, msg };
 
     //
   } catch (error) {
-    console.log({ step: 'error getAllRoomFetch', error: error.toString() });
-    return { error };
+    console.log({ step: 'error getAllRoomAsync room/getAll', error: error.toString() });
+    return { ok: false, error: error.toString() };
   }
-};
+});
 
-const getWhereRoomFetch = async (where = {}) => {
+export const getByIdRoomAsync = createAsyncThunk('room/getById', async (roomId) => {
+  try {
+    //
+
+    if (!roomId) throw new Error('id is required');
+
+    const res = await fetch(ENPOINT.register_getAll + roomId);
+    const result = await res.json();
+    const { data, ok, msg, error } = result;
+
+    if (error) throw new Error(error);
+    return { data, ok, msg };
+
+    //
+  } catch (error) {
+    console.log({ step: 'error getByIdRegisterAsync room/getById', error: error.toString() });
+    return { ok: false, error: error.toString() };
+  }
+});
+
+export const getWhereRoomAsync = createAsyncThunk('room/getWhere', async (where = {}) => {
   try {
     //
 
@@ -36,21 +56,6 @@ const getWhereRoomFetch = async (where = {}) => {
 
     const res = await fetch(ENPOINT.room_getWhere, params);
     const result = await res.json();
-
-    return result;
-
-    //
-  } catch (error) {
-    console.log({ step: 'error getWhereRoomFetch', error: error.toString() });
-    return { error };
-  }
-};
-
-export const getAllRoomAsync = createAsyncThunk('room/getAll', async (page = 1) => {
-  try {
-    //
-
-    const result = await getAllRoomFetch(page);
     const { data, ok, msg, error } = result;
 
     if (error) throw new Error(error);
@@ -58,38 +63,7 @@ export const getAllRoomAsync = createAsyncThunk('room/getAll', async (page = 1) 
 
     //
   } catch (error) {
-    return error.toString();
-  }
-});
-
-export const getByIdRoomAsync = createAsyncThunk('room/getById', async (roomId) => {
-  try {
-    //
-
-    const result = await getAllRoomFetch(roomId);
-    const { data, ok, msg, error } = result;
-
-    if (error) throw new Error(error);
-    return { data, ok, msg };
-
-    //
-  } catch (error) {
-    return error.toString();
-  }
-});
-
-export const getWhereGoestAsync = createAsyncThunk('room/getWhere', async (where) => {
-  try {
-    //
-
-    const result = await getWhereRoomFetch(where);
-    const { data, ok, msg, error } = result;
-
-    if (error) throw new Error(error);
-    return { data, ok, msg };
-
-    //
-  } catch (error) {
-    return { error: error.toString() };
+    console.log({ step: 'error getWhereRoomAsync room/getWhere', error: error.toString() });
+    return { ok: false, error: error.toString() };
   }
 });

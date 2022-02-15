@@ -8,6 +8,12 @@ import { logout, selectAuth } from '../../redux/reducers/auth';
 import { capitalizeWorlds, getLetersInitials } from '../../helpers';
 import { openPanel, selectNavbar } from '../../redux/reducers/navbar';
 
+import { cheanRoom } from '../../redux/reducers/room';
+import { cheanGoest } from '../../redux/reducers/goest';
+import { cheanStaff } from '../../redux/reducers/staff';
+import { cheanAmount } from '../../redux/reducers/amount';
+import { cheanRegister } from '../../redux/reducers/register';
+
 const { Header } = Layout;
 const { Paragraph, Title } = Typography;
 
@@ -134,6 +140,11 @@ const Navbar = () => {
 
   const handleClick = () => {
     dispatch(logout());
+    dispatch(cheanRoom());
+    dispatch(cheanGoest());
+    dispatch(cheanStaff());
+    dispatch(cheanAmount());
+    dispatch(cheanRegister());
     navigate('/login', { replace: true });
     message.info('logged');
   };

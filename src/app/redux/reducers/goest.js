@@ -32,25 +32,11 @@ const goestSlice = createSlice({
       .addCase(getAllGoestAsync.fulfilled, (state, action) => {
         state.all.loading = false;
         state.all = action.payload;
-        localStorage.setItem('register', JSON.stringify(state));
+        localStorage.setItem('goest', JSON.stringify(state));
       })
       .addCase(getAllGoestAsync.rejected, (state, action) => {
         state.all.loading = false;
         state.all.error = action.payload;
-      });
-
-    builder
-      .addCase(getWhereGoestAsync.pending, (state) => {
-        state.where.loading = true;
-      })
-      .addCase(getWhereGoestAsync.fulfilled, (state, action) => {
-        state.where.loading = false;
-        state.where = action.payload;
-        localStorage.setItem('register', JSON.stringify(state));
-      })
-      .addCase(getWhereGoestAsync.rejected, (state, action) => {
-        state.where.loading = false;
-        state.where.error = action.payload;
       });
 
     builder
@@ -60,11 +46,25 @@ const goestSlice = createSlice({
       .addCase(getByIdGoestAsync.fulfilled, (state, action) => {
         state.current.loading = false;
         state.current = action.payload;
-        localStorage.setItem('register', JSON.stringify(state));
+        localStorage.setItem('goest', JSON.stringify(state));
       })
       .addCase(getByIdGoestAsync.rejected, (state, action) => {
         state.current.loading = false;
         state.current.error = action.payload;
+      });
+
+    builder
+      .addCase(getWhereGoestAsync.pending, (state) => {
+        state.where.loading = true;
+      })
+      .addCase(getWhereGoestAsync.fulfilled, (state, action) => {
+        state.where.loading = false;
+        state.where = action.payload;
+        localStorage.setItem('goest', JSON.stringify(state));
+      })
+      .addCase(getWhereGoestAsync.rejected, (state, action) => {
+        state.where.loading = false;
+        state.where.error = action.payload;
       });
   },
 });

@@ -2,24 +2,46 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { ENPOINT } from '../../helpers/settings';
 
-const getAllStaffFetch = async (staffId) => {
+export const getAllStaffAsync = createAsyncThunk('staff/getAll', async (page = 1) => {
   try {
     //
 
     let res;
-    staffId ? (res = await fetch(ENPOINT.staff_getAll + staffId)) : (res = await fetch(ENPOINT.staff_getAll));
+    page > 1 ? (res = await fetch(`${ENPOINT.staff_getAll}/?limit=10&offset=${page * 10 - 10}`)) : (res = await fetch(ENPOINT.staff_getAll));
     const result = await res.json();
+    const { data, ok, msg, error } = result;
 
-    return result;
+    if (error) throw new Error(error);
+    return { data, ok, msg };
 
     //
   } catch (error) {
-    console.log({ step: 'error getAllStaffFetch', error: error.toString() });
-    return { error };
+    console.log({ step: 'error getAllStaffAsync staff/getAll', error: error.toString() });
+    return { ok: false, error: error.toString() };
   }
-};
+});
 
-const getWhereStaffFetch = async (where = {}) => {
+export const getByIdStaffAsync = createAsyncThunk('staff/getById', async (staffId) => {
+  try {
+    //
+
+    if (!staffId) throw new Error('id is required');
+
+    const res = await fetch(ENPOINT.staff_getAll + staffId);
+    const result = await res.json();
+    const { data, ok, msg, error } = result;
+
+    if (error) throw new Error(error);
+    return { data, ok, msg };
+
+    //
+  } catch (error) {
+    console.log({ step: 'error getByIdStaffAsync staff/getById', error: error.toString() });
+    return { ok: false, error: error.toString() };
+  }
+});
+
+export const getWhereStaffAsync = createAsyncThunk('staff/getWhere', async (where = {}) => {
   try {
     //
 
@@ -33,21 +55,6 @@ const getWhereStaffFetch = async (where = {}) => {
 
     const res = await fetch(ENPOINT.staff_getWhere, params);
     const result = await res.json();
-
-    return result;
-
-    //
-  } catch (error) {
-    console.log({ step: 'error getWhereStaffFetch', error: error.toString() });
-    return { error };
-  }
-};
-
-export const getAllStaffAsync = createAsyncThunk('staff/getAll', async () => {
-  try {
-    //
-
-    const result = await getAllStaffFetch();
     const { data, ok, msg, error } = result;
 
     if (error) throw new Error(error);
@@ -55,38 +62,7 @@ export const getAllStaffAsync = createAsyncThunk('staff/getAll', async () => {
 
     //
   } catch (error) {
-    return error.toString();
-  }
-});
-
-export const getByIdStaffAsync = createAsyncThunk('staff/getById', async (staffId) => {
-  try {
-    //
-
-    const result = await getAllStaffFetch(staffId);
-    const { data, ok, msg, error } = result;
-
-    if (error) throw new Error(error);
-    return { data, ok, msg };
-
-    //
-  } catch (error) {
-    return error.toString();
-  }
-});
-
-export const getWhereStaffAsync = createAsyncThunk('staff/getWhere', async (where) => {
-  try {
-    //
-
-    const result = await getWhereStaffFetch(where);
-    const { data, ok, msg, error } = result;
-
-    if (error) throw new Error(error);
-    return { data, ok, msg };
-
-    //
-  } catch (error) {
-    return error.toString();
+    console.log({ step: 'error getWhereStaffAsync staff/getWhere', error: error.toString() });
+    return { ok: false, error: error.toString() };
   }
 });

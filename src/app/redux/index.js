@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
+
 import auth from './reducers/auth';
 import room from './reducers/room';
-import amount from './reducers/amount';
-import goest from './reducers/goest';
-import register from './reducers/register';
 import staff from './reducers/staff';
+import goest from './reducers/goest';
+import amount from './reducers/amount';
+import register from './reducers/register';
 
 import navbar from './reducers/navbar';
 

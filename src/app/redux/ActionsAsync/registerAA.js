@@ -2,24 +2,46 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { ENPOINT } from '../../helpers/settings';
 
-const getRegisterFetch = async (registerId) => {
+export const getAllRegisterAsync = createAsyncThunk('register/getAll', async (page = 1) => {
   try {
     //
+
     let res;
-
-    registerId ? (res = await fetch(ENPOINT.register_getAll + registerId)) : (res = await fetch(ENPOINT.register_getAll));
+    page > 1 ? (res = await fetch(`${ENPOINT.register_getAll}/?limit=10&offset=${page * 10 - 10}`)) : (res = await fetch(ENPOINT.register_getAll));
     const result = await res.json();
+    const { data, ok, msg, error } = result;
 
-    return result;
+    if (error) throw new Error(error);
+    return { data, ok, msg };
 
     //
   } catch (error) {
-    console.log({ step: 'error geuRegisterFetch', error: error.toString() });
-    return { error };
+    console.log({ step: 'error getAllRegisterAsync register/getAll', error: error.toString() });
+    return { ok: false, error: error.toString() };
   }
-};
+});
 
-const getWhereRegisterFetch = async (where = {}) => {
+export const getByIdRegisterAsync = createAsyncThunk('register/getById', async (registerId) => {
+  try {
+    //
+
+    if (!registerId) throw new Error('id is required');
+
+    const res = await fetch(ENPOINT.register_getAll + registerId);
+    const result = await res.json();
+    const { data, ok, msg, error } = result;
+
+    if (error) throw new Error(error);
+    return { data, ok, msg };
+
+    //
+  } catch (error) {
+    console.log({ step: 'error getByIdRegisterAsync register/getById', error: error.toString() });
+    return { ok: false, error: error.toString() };
+  }
+});
+
+export const getWhereGoestAsync = createAsyncThunk('register/getWhere', async (where = {}) => {
   try {
     //
 
@@ -33,21 +55,6 @@ const getWhereRegisterFetch = async (where = {}) => {
 
     const res = await fetch(ENPOINT.register_getWhere, params);
     const result = await res.json();
-
-    return result;
-
-    //
-  } catch (error) {
-    console.log({ step: 'error getWhereRegisterFetch', error: error.toString() });
-    return { error };
-  }
-};
-
-export const getAllRegisterAsync = createAsyncThunk('register/getAll', async () => {
-  try {
-    //
-
-    const result = await getRegisterFetch();
     const { data, ok, msg, error } = result;
 
     if (error) throw new Error(error);
@@ -55,38 +62,7 @@ export const getAllRegisterAsync = createAsyncThunk('register/getAll', async () 
 
     //
   } catch (error) {
-    return error.toString();
-  }
-});
-
-export const getByIdRegisterAsync = createAsyncThunk('register/getById', async (registerId) => {
-  try {
-    //
-
-    const result = await getRegisterFetch(registerId);
-    const { data, ok, msg, error } = result;
-
-    if (error) throw new Error(error);
-    return { data, ok, msg };
-
-    //
-  } catch (error) {
-    return error.toString();
-  }
-});
-
-export const getWhereGoestAsync = createAsyncThunk('register/getWhere', async (where) => {
-  try {
-    //
-
-    const result = await getWhereRegisterFetch(where);
-    const { data, ok, msg, error } = result;
-
-    if (error) throw new Error(error);
-    return { data, ok, msg };
-
-    //
-  } catch (error) {
-    return { error: error.toString() };
+    console.log({ step: 'error getWhereGoestAsync register/getWhere', error: error.toString() });
+    return { ok: false, error: error.toString() };
   }
 });

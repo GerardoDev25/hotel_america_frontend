@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllAmountAsync, getByIdRegisterAsync, getWhereGoestAsync } from '../ActionsAsync/amountAA';
+import { getAllAmountAsync, getByIdAmountAsync, getWhereAmountAsync } from '../ActionsAsync/amountAA';
 
 const init = {
   current: {
@@ -40,29 +40,29 @@ const amountSlice = createSlice({
       });
 
     builder
-      .addCase(getByIdRegisterAsync.pending, (state) => {
+      .addCase(getByIdAmountAsync.pending, (state) => {
         state.current.loading = true;
       })
-      .addCase(getByIdRegisterAsync.fulfilled, (state, action) => {
+      .addCase(getByIdAmountAsync.fulfilled, (state, action) => {
         state.current.loading = false;
         state.current = action.payload;
         localStorage.setItem('amount', JSON.stringify(state));
       })
-      .addCase(getByIdRegisterAsync.rejected, (state, action) => {
+      .addCase(getByIdAmountAsync.rejected, (state, action) => {
         state.current.loading = false;
         state.current.error = action.payload;
       });
 
     builder
-      .addCase(getWhereGoestAsync.pending, (state) => {
+      .addCase(getWhereAmountAsync.pending, (state) => {
         state.where.loading = true;
       })
-      .addCase(getWhereGoestAsync.fulfilled, (state, action) => {
+      .addCase(getWhereAmountAsync.fulfilled, (state, action) => {
         state.where = action.payload;
         state.where.loading = false;
         localStorage.setItem('amount', JSON.stringify(state));
       })
-      .addCase(getWhereGoestAsync.rejected, (state, action) => {
+      .addCase(getWhereAmountAsync.rejected, (state, action) => {
         state.where.loading = false;
         state.where.error = action.payload;
       });

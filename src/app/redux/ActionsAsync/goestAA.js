@@ -2,24 +2,46 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { ENPOINT } from '../../helpers/settings';
 
-const getAllGoestFetch = async (goestId = false) => {
+export const getAllGoestAsync = createAsyncThunk('goest/getAll', async (page = 1) => {
   try {
     //
 
     let res;
-    goestId ? (res = await fetch(ENPOINT.goest_getAll + goestId)) : (res = await fetch(ENPOINT.goest_getAll));
+    page > 1 ? (res = await fetch(`${ENPOINT.goest_getAll}/?limit=10&offset=${page * 10 - 10}`)) : (res = await fetch(ENPOINT.goest_getAll));
     const result = await res.json();
+    const { data, ok, msg, error } = result;
 
-    return result;
+    if (error) throw new Error(error);
+    return { data, ok, msg };
 
     //
   } catch (error) {
-    console.log({ step: 'error getAllGoestFetch', error: error.toString() });
-    return { error };
+    console.log({ step: 'error getAllGoestAsync goest/getAll', error: error.toString() });
+    return { ok: false, error: error.toString() };
   }
-};
+});
 
-const getWhereGoestFetch = async (where = {}) => {
+export const getByIdGoestAsync = createAsyncThunk('goest/getById', async (goestId) => {
+  try {
+    //
+
+    if (!goestId) throw new Error('id is required');
+
+    const res = await fetch(ENPOINT.goest_getAll + goestId);
+    const result = await res.json();
+    const { data, ok, msg, error } = result;
+
+    if (error) throw new Error(error);
+    return { data, ok, msg };
+
+    //
+  } catch (error) {
+    console.log({ step: 'error getByIdGoestAsync goest/getById', error: error.toString() });
+    return { ok: false, error: error.toString() };
+  }
+});
+
+export const getWhereGoestAsync = createAsyncThunk('goest/getWhere', async (where = {}) => {
   try {
     //
 
@@ -33,21 +55,6 @@ const getWhereGoestFetch = async (where = {}) => {
 
     const res = await fetch(ENPOINT.goest_getWhere, params);
     const result = await res.json();
-
-    return result;
-
-    //
-  } catch (error) {
-    console.log({ step: 'error getWhereGoestFetch', error: error.toString() });
-    return { error };
-  }
-};
-
-export const getAllGoestAsync = createAsyncThunk('goest/getAll', async () => {
-  try {
-    //
-
-    const result = await getAllGoestFetch();
     const { data, ok, msg, error } = result;
 
     if (error) throw new Error(error);
@@ -55,38 +62,7 @@ export const getAllGoestAsync = createAsyncThunk('goest/getAll', async () => {
 
     //
   } catch (error) {
-    return { error: error.toString() };
-  }
-});
-
-export const getByIdGoestAsync = createAsyncThunk('goest/getById', async (registerId) => {
-  try {
-    //
-
-    const result = await getAllGoestFetch(registerId);
-    const { data, ok, msg, error } = result;
-
-    if (error) throw new Error(error);
-    return { data, ok, msg };
-
-    //
-  } catch (error) {
-    return error.toString();
-  }
-});
-
-export const getWhereGoestAsync = createAsyncThunk('goest/getWhere', async (where) => {
-  try {
-    //
-
-    const result = await getWhereGoestFetch(where);
-    const { data, ok, msg, error } = result;
-
-    if (error) throw new Error(error);
-    return { data, ok, msg };
-
-    //
-  } catch (error) {
-    return { error: error.toString() };
+    console.log({ step: 'error getWhereGoestFetch goest/getWhere', error: error.toString() });
+    return { ok: false, error: error.toString() };
   }
 });

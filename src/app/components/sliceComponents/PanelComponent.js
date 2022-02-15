@@ -5,6 +5,12 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { roles } from '../../helpers/settings';
 import { capitalizeWorlds } from '../../helpers';
+
+import { cheanRoom } from '../../redux/reducers/room';
+import { cheanGoest } from '../../redux/reducers/goest';
+import { cheanStaff } from '../../redux/reducers/staff';
+import { cheanAmount } from '../../redux/reducers/amount';
+import { cheanRegister } from '../../redux/reducers/register';
 import { selectAuth, logout } from '../../redux/reducers/auth';
 import { selectNavbar, clesedPanel } from '../../redux/reducers/navbar';
 
@@ -76,6 +82,11 @@ const PanelComponent = () => {
 
   const handleClick = () => {
     dispatch(logout());
+    dispatch(cheanRoom());
+    dispatch(cheanGoest());
+    dispatch(cheanStaff());
+    dispatch(cheanAmount());
+    dispatch(cheanRegister());
     navigate('/login', { replace: true });
     message.info('logged');
   };

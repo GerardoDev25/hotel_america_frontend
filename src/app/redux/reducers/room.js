@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllRoomAsync, getByIdRoomAsync, getWhereGoestAsync } from '../ActionsAsync/roomAA';
+import { getAllRoomAsync, getByIdRoomAsync, getWhereRoomAsync } from '../ActionsAsync/roomAA';
 
 const init = {
   current: {
@@ -54,15 +54,15 @@ const roomSlice = createSlice({
       });
 
     builder
-      .addCase(getWhereGoestAsync.pending, (state) => {
+      .addCase(getWhereRoomAsync.pending, (state) => {
         state.where.loading = true;
       })
-      .addCase(getWhereGoestAsync.fulfilled, (state, action) => {
+      .addCase(getWhereRoomAsync.fulfilled, (state, action) => {
         state.where.loading = false;
         state.where = action.payload;
         localStorage.setItem('room', JSON.stringify(state));
       })
-      .addCase(getWhereGoestAsync.rejected, (state, action) => {
+      .addCase(getWhereRoomAsync.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

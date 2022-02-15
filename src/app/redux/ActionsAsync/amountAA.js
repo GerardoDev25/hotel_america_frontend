@@ -2,28 +2,47 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { ENPOINT } from '../../helpers/settings';
 
-const getAllAmountFetch = async (amountId) => {
+export const getAllAmountAsync = createAsyncThunk('amount/getAll', async (page = 1) => {
   try {
     //
 
     let res;
-
-    amountId ? (res = await fetch(ENPOINT.amount_getAll + amountId)) : await fetch(ENPOINT.amount_getAll);
+    page > 1 ? (res = await fetch(`${ENPOINT.amount_getAll}/?limit=10&offset=${page * 10 - 10}`)) : (res = await fetch(ENPOINT.amount_getAll));
     const result = await res.json();
+    const { data, ok, msg, error } = result;
 
-    return result;
+    if (error) throw new Error(error);
+    return { data, ok, msg };
 
     //
   } catch (error) {
-    console.log({ step: 'error getAllAmountFetch', error: error.toString() });
-    return { error };
+    console.log({ step: 'error getAllAmountAsync amount/getAll', error: error.toString() });
+    return { ok: false, error: error.toString() };
   }
-};
+});
 
-const getWhereAmountFetch = async (where = {}) => {
+export const getByIdAmountAsync = createAsyncThunk('amount/getById', async (amountId) => {
   try {
     //
 
+    if (!amountId) throw new Error('id is required');
+
+    const res = await fetch(ENPOINT.amount_getAll + amountId);
+    const result = await res.json();
+    const { data, ok, msg, error } = result;
+
+    if (error) throw new Error(error);
+    return { data, ok, msg };
+
+    //
+  } catch (error) {
+    console.log({ step: 'error getByIdAmountAsync amount/getById', error: error.toString() });
+    return { ok: false, error: error.toString() };
+  }
+});
+
+export const getWhereAmountAsync = createAsyncThunk('amount/getWhere', async (where = {}) => {
+  try {
     const params = {
       method: 'POST',
       body: JSON.stringify(where),
@@ -35,20 +54,6 @@ const getWhereAmountFetch = async (where = {}) => {
     const res = await fetch(ENPOINT.amount_getWhere, params);
     const result = await res.json();
 
-    return result;
-
-    //
-  } catch (error) {
-    console.log({ step: 'error getWhereAmountFetch', error: error.toString() });
-    return { error };
-  }
-};
-
-export const getAllAmountAsync = createAsyncThunk('amount/getAll', async () => {
-  try {
-    //
-
-    const result = await getAllAmountFetch();
     const { data, ok, msg, error } = result;
 
     if (error) throw new Error(error);
@@ -56,38 +61,7 @@ export const getAllAmountAsync = createAsyncThunk('amount/getAll', async () => {
 
     //
   } catch (error) {
-    return error.toString();
-  }
-});
-
-export const getByIdRegisterAsync = createAsyncThunk('amount/getById', async (amountId) => {
-  try {
-    //
-
-    const result = await getAllAmountFetch(amountId);
-    const { data, ok, msg, error } = result;
-
-    if (error) throw new Error(error);
-    return { data, ok, msg };
-
-    //
-  } catch (error) {
-    return error.toString();
-  }
-});
-
-export const getWhereGoestAsync = createAsyncThunk('goest/getWhere', async (where) => {
-  try {
-    //
-
-    const result = await getWhereAmountFetch(where);
-    const { data, ok, msg, error } = result;
-
-    if (error) throw new Error(error);
-    return { data, ok, msg };
-
-    //
-  } catch (error) {
-    return { error: error.toString() };
+    console.log({ step: 'error getWhereAmountAsync amount/getWhere', error: error.toString() });
+    return { ok: false, error: error.toString() };
   }
 });
