@@ -25,10 +25,9 @@ export const getAllRoomAsync = createAsyncThunk('room/getAll', async (page = 1) 
 export const getByIdRoomAsync = createAsyncThunk('room/getById', async (roomId) => {
   try {
     //
-
     if (!roomId) throw new Error('id is required');
 
-    const res = await fetch(ENPOINT.register_getAll + roomId);
+    const res = await fetch(ENPOINT.room_getAll + roomId);
     const result = await res.json();
     const { data, ok, msg, error } = result;
 

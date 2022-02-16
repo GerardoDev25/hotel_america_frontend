@@ -60,7 +60,8 @@ const H2Text = styled.p`
   }
 `;
 
-const Description = ({ status, kindOfRoom, maxGuest, registerId }) => {
+// const Description = ({ status, kindOfRoom, maxGuest, registerId, roomid }) => {
+const Description = ({ status, kindOfRoom, maxGuest, ids }) => {
   //
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -81,7 +82,7 @@ const Description = ({ status, kindOfRoom, maxGuest, registerId }) => {
     case 'used':
       return (
         <CardInfo>
-          {modalVisible && <ModalCardRoomInfo modalVisible={modalVisible} handleOk={handleOk} handleCancel={handleCancel} registerId={registerId} />}
+          {modalVisible && <ModalCardRoomInfo modalVisible={modalVisible} handleOk={handleOk} handleCancel={handleCancel} ids={ids} />}
           <SectionTop>
             <ParagraphText>
               <strong>Kind of Room: </strong>
@@ -103,7 +104,7 @@ const Description = ({ status, kindOfRoom, maxGuest, registerId }) => {
     case 'free':
       return (
         <CardInfo>
-          {modalVisible && <ModalCardRoomInfo modalVisible={modalVisible} handleOk={handleOk} handleCancel={handleCancel} registerId={registerId} />}
+          {modalVisible && <ModalCardRoomInfo modalVisible={modalVisible} handleOk={handleOk} handleCancel={handleCancel} ids={ids} />}
           <SectionTop>
             <ParagraphText>
               <strong>Kind of Room: </strong>
@@ -142,12 +143,12 @@ const CardRoom = ({ room, ids = {} }) => {
   //
 
   const { registerId = false } = ids;
-  const { numberRoom, available, kindOfRoom, maxGuest } = room;
+  const { numberRoom, available, kindOfRoom, maxGuest, roomId } = room;
   const status = available && registerId ? 'used' : available && !registerId ? 'free' : 'disabled';
 
   return (
     <CardComponent title={`Room Number - ${numberRoom} (${status})`} hoverable={available} status={status}>
-      <Meta description={<Description status={status} kindOfRoom={kindOfRoom} maxGuest={maxGuest} registerId={registerId} />} />
+      <Meta description={<Description status={status} kindOfRoom={kindOfRoom} maxGuest={maxGuest} ids={{ registerId, roomId }} />} />
     </CardComponent>
   );
 };
