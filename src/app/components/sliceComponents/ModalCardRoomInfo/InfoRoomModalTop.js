@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Typography, Col, Row, Empty } from 'antd';
 
 import { selectCurrentRoom } from '../../../redux/reducers/room';
+import { midlleQuery } from '../../../helpers/settings';
 
 const { Title } = Typography;
 
@@ -29,6 +30,7 @@ const TitleStyled = styled(Title)`
 const ParagraphComponent = styled.p`
   margin-bottom: 0;
   font-weight: bold;
+  text-decoration: underline;
 `;
 
 const ContainerInfo = styled.div`
@@ -39,6 +41,12 @@ const ContainerInfo = styled.div`
 const RowComponent = styled(Row)`
   width: 100%;
   height: 100%;
+`;
+
+const ColComponent = styled(Col)`
+  @media screen and (max-width: ${midlleQuery}) {
+    text-align: center;
+  }
 `;
 
 const RowChidlComponent = styled(Row)`
@@ -65,41 +73,41 @@ const InfoRoomModalTop = () => {
               <Col span={12}>
                 <RowChidlComponent>
                   <Col span={12}>
-                    <ParagraphComponent>Availability:</ParagraphComponent>
+                    <ParagraphComponent>Availability</ParagraphComponent>
                   </Col>
-                  <Col span={12}>{infoRoom.available ? 'True' : 'False'}</Col>
+                  <ColComponent span={12}>{infoRoom.available ? 'True' : 'False'}</ColComponent>
                 </RowChidlComponent>
                 <RowChidlComponent>
                   <Col span={12}>
-                    <ParagraphComponent>Double Bed:</ParagraphComponent>
+                    <ParagraphComponent>Double Bed</ParagraphComponent>
                   </Col>
-                  <Col span={12}>{infoRoom.doubleBed}</Col>
+                  <ColComponent span={12}>{infoRoom.doubleBed}</ColComponent>
                 </RowChidlComponent>
                 <RowChidlComponent>
                   <Col span={12}>
-                    <ParagraphComponent>Single Bed:</ParagraphComponent>
+                    <ParagraphComponent>Single Bed</ParagraphComponent>
                   </Col>
-                  <Col span={12}>{infoRoom.singleBed}</Col>
+                  <ColComponent span={12}>{infoRoom.singleBed}</ColComponent>
                 </RowChidlComponent>
               </Col>
               <Col span={12}>
                 <RowChidlComponent>
                   <Col span={12}>
-                    <ParagraphComponent>Number Room:</ParagraphComponent>
+                    <ParagraphComponent>Number Room</ParagraphComponent>
                   </Col>
-                  <Col span={12}>{infoRoom.numberRoom}</Col>
+                  <ColComponent span={12}>{infoRoom.numberRoom}</ColComponent>
                 </RowChidlComponent>
                 <RowChidlComponent>
                   <Col span={12}>
-                    <ParagraphComponent>Kind of Room:</ParagraphComponent>
+                    <ParagraphComponent>Kind of Room</ParagraphComponent>
                   </Col>
-                  <Col span={12}>{infoRoom.kindOfRoom}</Col>
+                  <ColComponent span={12}>{infoRoom.kindOfRoom}</ColComponent>
                 </RowChidlComponent>
                 <RowChidlComponent>
                   <Col span={12}>
-                    <ParagraphComponent>Max Guest:</ParagraphComponent>
+                    <ParagraphComponent>Max Guest</ParagraphComponent>
                   </Col>
-                  <Col span={12}>{infoRoom.maxGuest}</Col>
+                  <ColComponent span={12}>{infoRoom.maxGuest}</ColComponent>
                 </RowChidlComponent>
               </Col>
             </RowComponent>

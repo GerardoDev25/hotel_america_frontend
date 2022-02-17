@@ -1,81 +1,43 @@
 import React from 'react';
 import styled from 'styled-components';
-import { midlleQuery } from '../../../helpers/settings';
 import { Typography, Table, Empty } from 'antd';
-import { useSelector } from 'react-redux';
-import { selectWhereGoest } from '../../../redux/reducers/goest';
-import { selectWhereAmount } from '../../../redux/reducers/amount';
+
+import { midlleQuery } from '../../../helpers/settings';
 
 const { Title } = Typography;
 
 const MainContent = styled.section`
-  overflow: auto;
+  width: 100%;
+  display: flex;
   margin-top: 1rem;
   min-height: 5rem;
-  max-height: 10rem;
+  max-height: 20rem;
+  border-radius: 0.5rem;
   margin-bottom: 1rem;
-  width: calc(50% - 0.7rem);
+  flex-direction: column;
   outline: 1px dotted black;
+  width: calc(50% - .5rem);
   @media screen and (max-width: ${midlleQuery}) {
     width: 100%;
-    margin-top: 0;
+    margin-bottom: 0;
   }
 `;
 
 const TitleContent = styled(Title)`
+  height: 2rem;
+  padding-left: 0.5rem;
   background-color: #ccc;
   padding-bottom: 0.5rem;
   text-decoration: underline;
 `;
 
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-];
-const dataSource = [
-  {
-    key: '1',
-    name: 'Mike',
-    age: 32,
-    address: '10 Downing Street',
-  },
-  {
-    key: '2',
-    name: 'John',
-    age: 42,
-    address: '10 Downing Street',
-  },
-];
+const InfoContent = styled.div`
+  width: 100%;
+  overflow: auto;
+  height: calc(100% - 2.5rem);
+`;
 
-export const MiddleContainerLeft = () => {
-  const { data = {}, msg, ok } = useSelector(selectWhereGoest);
-  const { rows = [], total = 0 } = data;
-  
-  const items = rows.map((e) => ({
-    name: `${e.name} ${e.lastName}`,
-    ci: e.ci,
-    home: e.home,
-    phone: e.phone,
-    numberRoom: e.numberRoom,
-    posting: `${e.origin} -> ${e.posting}`,
-    city: e.city,
-  }));
-
-  console.log({ items, total });
-
+const InfoRoomModalMiddle = ({ columns, items, msg, ok, title }) => {
   return (
     <MainContent>
       {!ok ? (
@@ -83,40 +45,15 @@ export const MiddleContainerLeft = () => {
       ) : (
         <>
           <TitleContent level={4} type="secondary">
-            MiddleContainerLeft
+            {title}
           </TitleContent>
-          <Table dataSource={dataSource} columns={columns} />
+          <InfoContent>
+            <Table dataSource={items} columns={columns} pagination={false} />
+          </InfoContent>
         </>
       )}
     </MainContent>
   );
 };
 
-export const MiddleContainerRight = () => {
-  const { data, msg, ok } = useSelector(selectWhereAmount);
-
-  const { rows = [], total = 0 } = data;
-  console.log({ rows, total });
-
-  // amountId: "620c04c9e6c29aef142c7a14"
-  // description: "description 6"
-  // registerId: "620315e800e76a274fcba733"
-  // role: "frigobar"
-  // staffId: "61f1d5e9742a3abde5acbce8"
-  // totalAmount: 60
-
-  return (
-    <MainContent>
-      {!ok ? (
-        <Empty description={msg} />
-      ) : (
-        <>
-          <TitleContent level={4} type="secondary">
-            MainContaintRight
-          </TitleContent>
-          <Table dataSource={dataSource} columns={columns} />{' '}
-        </>
-      )}
-    </MainContent>
-  );
-};
+export default InfoRoomModalMiddle;
