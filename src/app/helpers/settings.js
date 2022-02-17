@@ -1,6 +1,9 @@
-const ENDPOINT_BASE = 'http://localhost:3001/api';
-
 export const roles = { role_admin: 'Admin', role_laundry: 'Laundry', role_reception: 'Reception', role_Cafeteria: 'Cafeteria' };
+
+export const midlleQuery = '600px';
+export const minZise = '390px';
+
+const ENDPOINT_BASE = 'http://localhost:3001/api';
 
 export const ENPOINT = {
   auth_login: `${ENDPOINT_BASE}/auth/login`,

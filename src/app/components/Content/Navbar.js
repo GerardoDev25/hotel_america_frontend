@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, Layout, Button, Typography, message } from 'antd';
 
-import { roles } from '../../helpers/settings';
+import { midlleQuery, roles } from '../../helpers/settings';
 import { logout, selectAuth } from '../../redux/reducers/auth';
 import { capitalizeWorlds, getLetersInitials } from '../../helpers';
 import { openPanel, selectNavbar } from '../../redux/reducers/navbar';
@@ -41,7 +41,7 @@ const NavContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${midlleQuery}) {
     position: relative;
   }
 `;
@@ -61,7 +61,7 @@ const NavContainerRight = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${midlleQuery}) {
     display: none;
   }
 `;
@@ -85,7 +85,7 @@ const LogoutContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${midlleQuery}) {
     align-self: flex-end;
   }
 `;
@@ -94,7 +94,7 @@ const InfoContainerLeft = styled.div`
   width: 65%;
   height: 100%;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${midlleQuery}) {
     width: 100%;
     color: white;
   }
@@ -106,7 +106,7 @@ const InfoContainerRight = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${midlleQuery}) {
     display: none;
   }
 `;
@@ -120,7 +120,7 @@ const AvatarContainerMedia = styled(Avatar)`
   cursor: pointer;
   margin-right: 1rem;
   background-color: gray;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${midlleQuery}) {
     display: block;
   }
 `;

@@ -3,11 +3,16 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
-import ViewUsed from './ViewUsed';
-import ViewFree from './ViewFree';
+import { minZise } from '../../../helpers/settings';
+
 import { getByIdRoomAsync } from '../../../redux/ActionsAsync/roomAA';
 
-const ModalComponent = styled(Modal)``;
+import ViewUsed from './ViewUsed';
+import ViewFree from './ViewFree';
+
+const ModalComponent = styled(Modal)`
+  min-width: ${minZise} !important;
+`;
 
 const ModalCardRoomInfo = ({ modalVisible, handleOk, handleCancel, ids }) => {
   //

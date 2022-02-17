@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Typography, Button, message } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { roles } from '../../helpers/settings';
 import { capitalizeWorlds } from '../../helpers';
+import { midlleQuery, roles } from '../../helpers/settings';
 
 import { cheanRoom } from '../../redux/reducers/room';
 import { cheanGoest } from '../../redux/reducers/goest';
@@ -26,7 +26,7 @@ const MainContainer = styled.div`
   transition: top 0.2s ease-in;
   background-color: transparent;
   top: ${({ panel }) => (panel ? '0%' : '-150%')};
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${midlleQuery}) {
     display: block;
   }
 `;
@@ -55,8 +55,8 @@ const BottomSecption = styled.div`
 `;
 
 const TitleComponent = styled(Typography.Title)`
-  color: white !important;
   letter-spacing: 0.1rem;
+  color: white !important;
 `;
 
 const ParagraphComponent = styled(Typography.Paragraph)`

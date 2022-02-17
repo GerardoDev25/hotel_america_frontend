@@ -11,12 +11,13 @@ import Navbar from '../components/Content/Navbar';
 import ContentComponent from '../components/Content';
 import FooterComponent from '../components/Content/Footer';
 import PanelComponent from '../components/sliceComponents/PanelComponent';
+import { minZise } from '../helpers/settings';
 
 const LayautMain = styled(Layout)`
   width: 100%;
   height: 100vh;
   display: flex;
-  min-width: 390px;
+  min-width: ${minZise};
   min-height: 600px;
   position: relative;
   flex-direction: column;
