@@ -133,8 +133,8 @@ const ViewUsed = ({ registerId }) => {
   useLayoutEffect(() => {
     if (registerId) {
       dispatch(getByIdRegisterAsync(registerId));
-      dispatch(getWhereGoestAsync({ registerId }));
-      dispatch(getWhereAmountAsync({ registerId }));
+      dispatch(getWhereGoestAsync({ registerId, limit: 0 }));
+      dispatch(getWhereAmountAsync({ registerId, limit: 0 }));
     }
   }, [registerId, dispatch]);
 

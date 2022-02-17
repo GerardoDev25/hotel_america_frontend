@@ -6,8 +6,13 @@ export const getAllGoestAsync = createAsyncThunk('goest/getAll', async (page = 1
   try {
     //
 
-    let res;
-    page > 1 ? (res = await fetch(`${ENPOINT.goest_getAll}/?limit=10&offset=${page * 10 - 10}`)) : (res = await fetch(ENPOINT.goest_getAll));
+    let param = ``;
+
+    if (page === 1) param = ``;
+    else if (page === 0) param = `?limit=0&offset=0`;
+    else param = `?limit=10&offset=${page * 10 - 10}`;
+
+    const res = await fetch(ENPOINT.goest_get + param);
     const result = await res.json();
     const { data, ok, msg, error } = result;
 
@@ -27,7 +32,7 @@ export const getByIdGoestAsync = createAsyncThunk('goest/getById', async (goestI
 
     if (!goestId) throw new Error('id is required');
 
-    const res = await fetch(ENPOINT.goest_getAll + goestId);
+    const res = await fetch(ENPOINT.goest_get + goestId);
     const result = await res.json();
     const { data, ok, msg, error } = result;
 

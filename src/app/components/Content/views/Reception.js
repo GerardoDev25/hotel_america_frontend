@@ -1,11 +1,13 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+import { message } from 'antd';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectAllRoom } from '../../../redux/reducers/room';
-import { selectAllRegister } from '../../../redux/reducers/register';
+import { cheanRegister, selectAllRegister } from '../../../redux/reducers/register';
+
 import { getAllRoomAsync } from '../../../redux/ActionsAsync/roomAA';
 
 import CardRoom from '../../sliceComponents/CardRoom';
@@ -42,26 +44,38 @@ const Reception = () => {
   // total, error, loading, msg, pageCount, ok
 
   const dispatch = useDispatch();
-  const {
-    data: { rows: rooms, total: totalRoom },
-  } = useSelector(selectAllRoom);
-  const {
-    data: { rows: registers },
-  } = useSelector(selectAllRegister);
+  const navigator = useNavigate();
+
+  const { data: dataRoom = {} } = useSelector(selectAllRoom);
+  const { data: dataRegister = {}, ok, msg, error } = useSelector(selectAllRegister);
+
+  useEffect(() => {
+    if (!ok && error) {
+      console.log(error);
+      message.error(msg);
+      dispatch(cheanRegister);
+      navigator('/login', { replace: true });
+    }
+  }, [dispatch, navigator, ok, error, msg]);
+  
+  const { rows: itemsRegisters = [] } = dataRegister;
+  const { rows: itemsRooms = [], total: totalRoom } = dataRoom;
 
   useEffect(() => {
     dispatch(getAllRoomAsync());
   }, [dispatch]);
 
   const Rooms = useCallback(() => {
-    const RegisterIdArr = Array.from(registers.map((e) => ({ registerId: e.registerId, roomId: e.roomId })));
+    const RegisterIdArr = Array.from(itemsRegisters.map((e) => ({ registerId: e.registerId, roomId: e.roomId })));
 
-    return rooms.map((room) => <CardRoom key={room.roomId} room={room} ids={RegisterIdArr.find((e) => (e.roomId === room.roomId ? e : false))} />);
-  }, [registers, rooms]);
+    return itemsRooms.map((room) => (
+      <CardRoom key={room.roomId} room={room} ids={RegisterIdArr.find((e) => (e.roomId === room.roomId ? e : false))} />
+    ));
+  }, [itemsRegisters, itemsRooms]);
 
   return (
     <Main>
-      <Container>{rooms && registers && <Rooms />}</Container>
+      <Container>{itemsRooms && itemsRegisters && <Rooms />}</Container>
       <PaginationComponent total={totalRoom} type="room" />
     </Main>
   );

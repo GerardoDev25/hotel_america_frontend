@@ -16,9 +16,9 @@ const MainContent = styled.section`
   margin-bottom: 1rem;
   flex-direction: column;
   outline: 1px dotted black;
-  width: calc(50% - .5rem);
+  /* width: calc(50% - .5rem); */
+  width: 100%;
   @media screen and (max-width: ${midlleQuery}) {
-    width: 100%;
     margin-bottom: 0;
   }
 `;

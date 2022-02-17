@@ -6,11 +6,16 @@ export const getAllAmountAsync = createAsyncThunk('amount/getAll', async (page =
   try {
     //
 
-    let res;
-    page > 1 ? (res = await fetch(`${ENPOINT.amount_getAll}/?limit=10&offset=${page * 10 - 10}`)) : (res = await fetch(ENPOINT.amount_getAll));
-    const result = await res.json();
-    const { data, ok, msg, error } = result;
+    let param = ``;
 
+    if (page === 1) param = ``;
+    else if (page === 0) param = `?limit=0&offset=0`;
+    else param = `?limit=10&offset=${page * 10 - 10}`;
+
+    const res = await fetch(ENPOINT.amount_get + param);
+    const result = await res.json();
+
+    const { data, ok, msg, error } = result;
     if (error) throw new Error(error);
     return { data, ok, msg };
 
@@ -27,7 +32,7 @@ export const getByIdAmountAsync = createAsyncThunk('amount/getById', async (amou
 
     if (!amountId) throw new Error('id is required');
 
-    const res = await fetch(ENPOINT.amount_getAll + amountId);
+    const res = await fetch(ENPOINT.amount_get + amountId);
     const result = await res.json();
     const { data, ok, msg, error } = result;
 
@@ -55,6 +60,8 @@ export const getWhereAmountAsync = createAsyncThunk('amount/getWhere', async (wh
     const result = await res.json();
 
     const { data, ok, msg, error } = result;
+
+    console.log(data);
 
     if (error) throw new Error(error);
     return { data, ok, msg };

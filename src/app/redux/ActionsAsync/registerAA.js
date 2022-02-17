@@ -6,8 +6,14 @@ export const getAllRegisterAsync = createAsyncThunk('register/getAll', async (pa
   try {
     //
 
-    let res;
-    page > 1 ? (res = await fetch(`${ENPOINT.register_getAll}/?limit=10&offset=${page * 10 - 10}`)) : (res = await fetch(ENPOINT.register_getAll));
+    
+    let param = ``;
+
+    if (page === 1) param = ``;
+    else if (page === 0) param = `?limit=0&offset=0`;
+    else param = `?limit=10&offset=${page * 10 - 10}`;
+
+    const res = await fetch(ENPOINT.register_get + param);
     const result = await res.json();
     const { data, ok, msg, error } = result;
 
@@ -27,7 +33,7 @@ export const getByIdRegisterAsync = createAsyncThunk('register/getById', async (
 
     if (!registerId) throw new Error('id is required');
 
-    const res = await fetch(ENPOINT.register_getAll + registerId);
+    const res = await fetch(ENPOINT.register_get + registerId);
     const result = await res.json();
     const { data, ok, msg, error } = result;
 
