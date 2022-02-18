@@ -9,15 +9,13 @@ const { Title } = Typography;
 const MainContent = styled.section`
   width: 100%;
   display: flex;
+  flex-direction: column;
+
   margin-top: 1rem;
   min-height: 5rem;
   max-height: 20rem;
   border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  flex-direction: column;
-  outline: 1px dotted black;
-  /* width: calc(50% - .5rem); */
-  width: 100%;
+  border: 3px solid #ddd;
   @media screen and (max-width: ${midlleQuery}) {
     margin-bottom: 0;
   }
@@ -48,7 +46,7 @@ const InfoRoomModalMiddle = ({ columns, items, msg, ok, title }) => {
             {title}
           </TitleContent>
           <InfoContent>
-            <Table dataSource={items} columns={columns} pagination={false} />
+            <Table dataSource={items} columns={columns} pagination={false} size='small'/>
           </InfoContent>
         </>
       )}

@@ -26,7 +26,8 @@ const MainContainer = styled.div`
 
 const InfoRoomModalBottom = styled.section`
   width: 100%;
-  outline: 1px dotted black;
+  margin-top: 1rem;
+  border: 3px solid #ccc;
 `;
 
 const ViewUsed = ({ registerId }) => {
@@ -56,7 +57,7 @@ const ViewUsed = ({ registerId }) => {
     origin: e.role,
     totalAmount: Math.abs(Number.parseInt(e.totalAmount)),
     type: Number.parseInt(e.totalAmount) > 0 ? 'position' : 'payment',
-    descrition: e.description.length > 10 ? e.description.slice(0, 10) + '...' : e.description,
+    descrition: e.description.length > 15 ? e.description.slice(0, 15) + '...' : e.description,
   }));
 
   const columsGoest = [
@@ -147,6 +148,7 @@ const ViewUsed = ({ registerId }) => {
       <InfoRoomModalMiddle columns={columsGoest} items={itemsGoest} msg={msgGoest} ok={okGoest} total={totalGoest} title="Goest List" />
 
       <InfoRoomModalMiddle columns={columsAmount} items={itemsAmount} msg={msgAmount} ok={okAmount} total={totalAmount} title="Amount List" />
+
       <InfoRoomModalBottom>
         <Title level={4} type="secondary">
           InfoRoomModalBottom
