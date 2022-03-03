@@ -57,7 +57,7 @@ const Reception = () => {
       navigator('/login', { replace: true });
     }
   }, [dispatch, navigator, ok, error, msg]);
-  
+
   const { rows: itemsRegisters = [] } = dataRegister;
   const { rows: itemsRooms = [], total: totalRoom } = dataRoom;
 

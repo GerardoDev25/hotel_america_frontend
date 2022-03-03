@@ -46,7 +46,7 @@ const InfoRoomModalMiddle = ({ columns, items, msg, ok, title }) => {
             {title}
           </TitleContent>
           <InfoContent>
-            <Table dataSource={items} columns={columns} pagination={false} size='small'/>
+            <Table dataSource={items} columns={columns} pagination={false} size="small" />
           </InfoContent>
         </>
       )}

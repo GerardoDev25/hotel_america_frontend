@@ -82,7 +82,9 @@ const Description = ({ status, kindOfRoom, maxGuest, ids }) => {
     case 'used':
       return (
         <CardInfo>
-          {modalVisible && <ModalCardRoomInfo modalVisible={modalVisible} handleOk={handleOk} handleCancel={handleCancel} ids={ids} />}
+          {modalVisible && (
+            <ModalCardRoomInfo modalVisible={modalVisible} handleOk={handleOk} handleCancel={handleCancel} ids={ids} />
+          )}
           <SectionTop>
             <ParagraphText>
               <strong>Kind of Room: </strong>
@@ -104,7 +106,9 @@ const Description = ({ status, kindOfRoom, maxGuest, ids }) => {
     case 'free':
       return (
         <CardInfo>
-          {modalVisible && <ModalCardRoomInfo modalVisible={modalVisible} handleOk={handleOk} handleCancel={handleCancel} ids={ids} />}
+          {modalVisible && (
+            <ModalCardRoomInfo modalVisible={modalVisible} handleOk={handleOk} handleCancel={handleCancel} ids={ids} />
+          )}
           <SectionTop>
             <ParagraphText>
               <strong>Kind of Room: </strong>
@@ -148,7 +152,9 @@ const CardRoom = ({ room, ids = {} }) => {
 
   return (
     <CardComponent title={`Room Number - ${numberRoom} (${status})`} hoverable={available} status={status}>
-      <Meta description={<Description status={status} kindOfRoom={kindOfRoom} maxGuest={maxGuest} ids={{ registerId, roomId }} />} />
+      <Meta
+        description={<Description status={status} kindOfRoom={kindOfRoom} maxGuest={maxGuest} ids={{ registerId, roomId }} />}
+      />
     </CardComponent>
   );
 };

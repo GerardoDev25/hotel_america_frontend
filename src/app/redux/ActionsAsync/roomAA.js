@@ -13,7 +13,7 @@ export const getAllRoomAsync = createAsyncThunk('room/getAll', async (page = 1) 
     else param = `?limit=10&offset=${page * 10 - 10}`;
 
     const res = await fetch(ENPOINT.room_get + param);
-    const result = await res.json();    
+    const result = await res.json();
     const { data, ok, msg, error } = result;
 
     if (error) throw new Error(error);

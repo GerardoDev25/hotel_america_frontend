@@ -145,9 +145,23 @@ const ViewUsed = ({ registerId }) => {
     <MainContainer>
       <InfoRoomModalTop />
 
-      <InfoRoomModalMiddle columns={columsGoest} items={itemsGoest} msg={msgGoest} ok={okGoest} total={totalGoest} title="Goest List" />
+      <InfoRoomModalMiddle
+        columns={columsGoest}
+        items={itemsGoest}
+        msg={msgGoest}
+        ok={okGoest}
+        total={totalGoest}
+        title="Goest List"
+      />
 
-      <InfoRoomModalMiddle columns={columsAmount} items={itemsAmount} msg={msgAmount} ok={okAmount} total={totalAmount} title="Amount List" />
+      <InfoRoomModalMiddle
+        columns={columsAmount}
+        items={itemsAmount}
+        msg={msgAmount}
+        ok={okAmount}
+        total={totalAmount}
+        title="Amount List"
+      />
 
       <InfoRoomModalBottom>
         <Title level={4} type="secondary">
