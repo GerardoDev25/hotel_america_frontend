@@ -6,6 +6,7 @@ export const getAllRegisterAsync = createAsyncThunk('register/getAll', async (pa
   try {
     //
 
+    
     let param = ``;
 
     if (page === 1) param = ``;

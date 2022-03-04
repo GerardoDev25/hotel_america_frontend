@@ -41,8 +41,6 @@ const Container = styled.div`
 const Reception = () => {
   //
 
-  // total, error, loading, msg, pageCount, ok
-
   const dispatch = useDispatch();
   const navigator = useNavigate();
 

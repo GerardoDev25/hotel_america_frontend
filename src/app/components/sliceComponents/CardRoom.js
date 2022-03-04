@@ -151,7 +151,12 @@ const CardRoom = ({ room, ids = {} }) => {
   const status = available && registerId ? 'used' : available && !registerId ? 'free' : 'disabled';
 
   return (
-    <CardComponent title={`Room Number - ${numberRoom} (${status})`} hoverable={available} status={status}>
+    <CardComponent
+      status={status}
+      hoverable={available}
+      className="animate__animated animate__fadeIn"
+      title={`Room Number - ${numberRoom} (${status})`}
+    >
       <Meta
         description={<Description status={status} kindOfRoom={kindOfRoom} maxGuest={maxGuest} ids={{ registerId, roomId }} />}
       />

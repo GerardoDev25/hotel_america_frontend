@@ -23,18 +23,7 @@ const loginFetch = async (fields) => {
     });
 
     const result = await res.json();
-
-    if (result.ok) {
-      message.success({
-        content: capitalizeWorlds(result.msg),
-        className: 'custom-class',
-        style: {
-          marginTop: '5vh',
-          marginLeft: '80%',
-        },
-      });
-      return result;
-    } else message.error(capitalizeWorlds(result.msg));
+    return result;
   } catch (error) {
     console.log({ step: 'error loginFetch', error: error.toString() });
     return { error };
@@ -44,15 +33,29 @@ const loginFetch = async (fields) => {
 export const loginAsync = createAsyncThunk('auth/login', async (fields) => {
   try {
     const result = await loginFetch(fields);
+
     const { token, ok, msg, error } = result;
 
+    if (ok) {
+      message.success({
+        content: capitalizeWorlds(result.msg),
+        className: 'custom-class',
+        style: {
+          marginTop: '5vh',
+          marginLeft: '80%',
+        },
+      });
+    } else message.error(capitalizeWorlds(msg));
+
     if (error) throw new Error(error);
+
+    // return { ok: false, msg: 'Mensaje ', error: 'error', called: true };
 
     const data = parseJwt(token);
     return { data, ok, msg, token };
 
     //
   } catch (error) {
-    return error.toString();
+    return { msg: error.toString(), ok: false, called: true };
   }
 });
