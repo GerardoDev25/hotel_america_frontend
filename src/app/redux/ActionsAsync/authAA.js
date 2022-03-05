@@ -50,6 +50,7 @@ export const loginAsync = createAsyncThunk('auth/login', async (fields) => {
       : message.error(capitalizeWorlds(msg));
 
     const data = parseJwt(token);
+
     return { data, ok, msg, token, called };
 
     //

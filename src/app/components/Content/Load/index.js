@@ -3,6 +3,7 @@ import { Spin, Typography } from 'antd';
 
 import { selectLoad } from '../../../redux/reducers/load';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 const Container = styled.div`
   height: 100vh;
@@ -29,6 +30,10 @@ const Paragraph = styled(Typography.Paragraph)`
 
 const LoadComponent = () => {
   const { visible } = useSelector(selectLoad);
+  useEffect(() => {
+    console.log(visible);
+  }, [visible]);
+
   return (
     <Container visible={visible} className="animate__animated animate__fadeIn">
       <Spin size="large" />
