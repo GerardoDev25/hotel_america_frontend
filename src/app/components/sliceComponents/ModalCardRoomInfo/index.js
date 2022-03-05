@@ -25,7 +25,13 @@ const ModalCardRoomInfo = ({ modalVisible, handleOk, handleCancel, ids }) => {
   }, [dispatch, roomId]);
 
   return (
-    <ModalComponent visible={modalVisible} onOk={handleOk} onCancel={handleCancel} width={1300}>
+    <ModalComponent
+      footer={false}
+      visible={modalVisible}
+      onOk={handleOk}
+      onCancel={handleCancel}
+      width={1300}
+    >
       {registerId ? <ViewUsed registerId={registerId} /> : <ViewFree />}
     </ModalComponent>
   );

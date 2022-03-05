@@ -23,3 +23,7 @@ export const ENPOINT = {
   staff_get: `${ENDPOINT_BASE}/staff/`,
   staff_getWhere: `${ENDPOINT_BASE}/staff/where`,
 };
+
+export const MESSAGE = {
+  errorDB: 'error connecting to server',
+};
