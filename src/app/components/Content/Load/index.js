@@ -22,6 +22,9 @@ const Paragraph = styled(Typography.Paragraph)`
   font-size: 1.5rem;
   font-weight: bold;
   text-decoration: underline;
+  ::before {
+    content: 'Loading wait please...';
+  }
 `;
 
 const LoadComponent = () => {
@@ -29,7 +32,7 @@ const LoadComponent = () => {
   return (
     <Container visible={visible} className="animate__animated animate__fadeIn">
       <Spin size="large" />
-      <Paragraph>Loading wait please...</Paragraph>
+      <Paragraph />
     </Container>
   );
 };

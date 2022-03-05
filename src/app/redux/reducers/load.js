@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const init = {
-  visible: true,
+  visible: false,
 };
 
 const LoadSlice = createSlice({
