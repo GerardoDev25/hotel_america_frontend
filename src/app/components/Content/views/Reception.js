@@ -1,7 +1,6 @@
 import { message } from 'antd';
-import { useEffect } from 'react';
-import { useCallback } from 'react';
 import styled from 'styled-components';
+import { useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 

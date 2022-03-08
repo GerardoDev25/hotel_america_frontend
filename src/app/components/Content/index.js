@@ -40,7 +40,7 @@ const ContentComponent = () => {
       case 'role_reception':
         return <Reception />;
 
-      case 'role_Cafeteria':
+      case 'role_Cafe':
         return <Cafeteria />;
 
       default:

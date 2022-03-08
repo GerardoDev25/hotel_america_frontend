@@ -1,4 +1,4 @@
-export const roles = { role_admin: 'Admin', role_laundry: 'Laundry', role_reception: 'Reception', role_Cafeteria: 'Cafeteria' };
+export const roles = { role_admin: 'Admin', role_laundry: 'Laundry', role_reception: 'Reception', role_Cafe: 'Cafeteria' };
 
 export const minZise = '390px';
 export const midlleQuery = '600px';
@@ -22,6 +22,9 @@ export const ENPOINT = {
 
   staff_get: `${ENDPOINT_BASE}/staff/`,
   staff_getWhere: `${ENDPOINT_BASE}/staff/where`,
+
+  cafe_get: `${ENDPOINT_BASE}/cafe/`,
+  cafe_getWhere: `${ENDPOINT_BASE}/cafe/where`,
 };
 
 export const MESSAGE = {
