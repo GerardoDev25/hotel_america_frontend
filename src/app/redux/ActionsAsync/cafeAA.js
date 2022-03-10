@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
 import { ENPOINT } from '../../helpers/settings';
 
 export const getAllCafeAsync = createAsyncThunk('cafe/getAll', async (page = 1) => {
@@ -47,6 +46,36 @@ export const getWhereCafeAsync = createAsyncThunk('cafe/getWhere', async (where 
     //
   } catch (error) {
     console.log({ step: 'error getWhereCafeAsync cafe/getWhere', error: error.toString() });
+    return { ok: false, error: error.toString() };
+  }
+});
+
+export const updateCafeAsync = createAsyncThunk('cafe/update', async (fields) => {
+  try {
+    //
+
+    const { token, ...rest } = fields;
+
+    const params = {
+      method: 'PUT',
+      body: JSON.stringify(rest),
+      headers: {
+        'Content-Type': 'application/json',
+        token,
+      },
+    };
+
+    const res = await fetch(ENPOINT.cafe_update + fields.cafeId, params);
+    const result = await res.json();
+
+    const { data, ok, msg, error } = result;
+
+    if (error) throw new Error(error);
+    return { data, ok, msg };
+
+    //
+  } catch (error) {
+    console.log({ step: 'error updateCafeAsync cafe/update', error: error.toString() });
     return { ok: false, error: error.toString() };
   }
 });

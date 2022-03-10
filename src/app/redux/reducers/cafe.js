@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllCafeAsync, getWhereCafeAsync } from '../ActionsAsync/cafeAA';
+import { getAllCafeAsync, getWhereCafeAsync, updateCafeAsync } from '../ActionsAsync/cafeAA';
 const init = {
   current: {
     data: {},
@@ -37,6 +37,7 @@ const cafeSlice = createSlice({
         state.all.loading = false;
         state.all.error = action.payload;
       });
+
     builder
       .addCase(getWhereCafeAsync.pending, (state) => {
         state.where.loading = true;
@@ -49,6 +50,19 @@ const cafeSlice = createSlice({
       .addCase(getWhereCafeAsync.rejected, (state, action) => {
         state.where.loading = false;
         state.where.error = action.payload;
+      });
+
+    builder
+      .addCase(updateCafeAsync.pending, (state) => {
+        state.current.loading = true;
+      })
+      .addCase(updateCafeAsync.fulfilled, (state, action) => {
+        state.current = action.payload;
+        state.current.loading = false;
+      })
+      .addCase(updateCafeAsync.rejected, (state, action) => {
+        state.current.loading = false;
+        state.current.error = action.payload;
       });
   },
 });

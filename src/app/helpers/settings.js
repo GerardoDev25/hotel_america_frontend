@@ -25,6 +25,7 @@ export const ENPOINT = {
 
   cafe_get: `${ENDPOINT_BASE}/cafe/`,
   cafe_getWhere: `${ENDPOINT_BASE}/cafe/where`,
+  cafe_update: `${ENDPOINT_BASE}/cafe/`,
 };
 
 export const MESSAGE = {

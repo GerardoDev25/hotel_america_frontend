@@ -39,3 +39,9 @@ code {
   background: #fff;
   height: auto;
 }
+
+.disble-colums,
+.disble-colums:focus {
+  background-color: #ccc;
+  /* color: white; */
+}
