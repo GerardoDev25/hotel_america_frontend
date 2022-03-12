@@ -3,15 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { Typography, Button, message } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { capitalizeWorlds } from '../../helpers';
+import { capitalizeWorlds, cleanLocalStorage } from '../../helpers';
 import { midlleQuery, roles } from '../../helpers/settings';
 
-import { cheanRoom } from '../../redux/reducers/room';
-import { cheanGoest } from '../../redux/reducers/goest';
-import { cheanStaff } from '../../redux/reducers/staff';
-import { cheanAmount } from '../../redux/reducers/amount';
-import { cheanRegister } from '../../redux/reducers/register';
-import { selectAuth, logout } from '../../redux/reducers/auth';
+import { selectAuth } from '../../redux/reducers/auth';
 import { selectNavbar, clesedPanel } from '../../redux/reducers/navbar';
 
 const MainContainer = styled.div`
@@ -81,14 +76,7 @@ const PanelComponent = () => {
   };
 
   const handleClick = () => {
-    dispatch(logout());
-    dispatch(cheanRoom());
-    dispatch(cheanGoest());
-    dispatch(cheanStaff());
-    dispatch(cheanAmount());
-    dispatch(cheanRegister());
-    navigate('/login', { replace: true });
-    message.info('logged');
+    cleanLocalStorage(dispatch, navigate, message);
   };
 
   return (

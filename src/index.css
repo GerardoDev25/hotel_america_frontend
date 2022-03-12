@@ -42,6 +42,6 @@ code {
 
 .disble-colums,
 .disble-colums:focus {
-  background-color: #ccc;
-  /* color: white; */
+  background-color: #ddd;
+  cursor: not-allowed;
 }

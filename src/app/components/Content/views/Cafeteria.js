@@ -1,14 +1,14 @@
 import moment from 'moment';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
 import { Typography, Table, Tag } from 'antd';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { capitalizeWorlds } from '../../../helpers';
 import { selectAuth } from '../../../redux/reducers/auth';
 import { selectWhereCafe } from '../../../redux/reducers/cafe';
 
-import { getWhereCafeAsync, updateCafeAsync } from '../../../redux/ActionsAsync/cafeAA';
+import { getWhereCafeAsync, createCafeAsync, updateCafeAsync } from '../../../redux/ActionsAsync/cafeAA';
 
 const Container = styled.div`
   height: 100%;
@@ -22,90 +22,103 @@ const Main = styled.div`
 
 const Title = styled(Typography.Title)``;
 
+const Rows = ({ rows, token }) => {
+  //
+  console.log({ rows, token });
+  const dispatch = useDispatch();
+  const [selectionType] = useState('checkbox');
+
+  const rowClassName = (record) => (record.active ? 'disble-colums' : '');
+
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      for (const item of selectedRows) {
+        if (item.active === false) {
+          dispatch(updateCafeAsync({ active: true, cafeId: item.id, token }));
+          item.active = true;
+        }
+      }
+    },
+    getCheckboxProps: (record) => ({
+      disabled: record.active === true,
+    }),
+  };
+
+  const columns = [
+    {
+      title: 'index',
+      dataIndex: 'key',
+      key: 'key',
+    },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Number Room',
+      dataIndex: 'numberRoom',
+      key: 'numberRoom',
+    },
+    {
+      title: 'Breakfast',
+      dataIndex: 'active',
+      key: 'active',
+      render: (active) => <Tag color={active ? 'error' : 'blue'}>{active ? 'disabled' : 'enabled'}</Tag>,
+    },
+  ];
+
+  return (
+    <Table
+      rowSelection={{
+        type: selectionType,
+        ...rowSelection,
+      }}
+      rowClassName={rowClassName}
+      columns={columns}
+      dataSource={rows}
+      pagination={false}
+    />
+  );
+};
+
 const Cafeteria = () => {
   //
 
+  let items = useRef();
   const dispatch = useDispatch();
 
-  const [selectionType] = useState('checkbox');
   const { token } = useSelector(selectAuth);
-  const { data } = useSelector(selectWhereCafe);
+  const { data, ok } = useSelector(selectWhereCafe);
   const { rows = [] } = data;
 
-  const items = rows.map((item, index) => ({
-    key: index + 1,
-    id: item.cafeId,
-    active: item.active,
-    name: capitalizeWorlds(item.name),
-    numberRoom: item.numberRoom,
-  }));
+  useEffect(() => {
+    if (ok && !rows.length) dispatch(createCafeAsync(token));
+  }, [ok, rows, dispatch, token]);
+
+  useEffect(() => {
+    items.current = rows.map((item, index) => ({
+      key: index + 1,
+      id: item.cafeId,
+      active: item.active,
+      name: capitalizeWorlds(item.name),
+      numberRoom: item.numberRoom,
+    }));
+
+    // console.log({ tems: items.current, rows });
+  }, [rows]);
 
   useEffect(() => {
     const where = { date: moment().format('L') };
     dispatch(getWhereCafeAsync(where));
   }, [dispatch]);
 
-  const Rows = () => {
-    //
-
-    const rowClassName = (record) => (record.active ? 'disble-colums' : '');
-    const rowSelection = {
-      onChange: (selectedRowKeys, selectedRows) => {
-        for (const item of selectedRows) {
-          if (item.active === false) {
-            dispatch(updateCafeAsync({ active: true, cafeId: item.id, token }));
-            item.active = true;
-          }
-        }
-      },
-      getCheckboxProps: (record) => ({
-        disabled: record.active === true,
-      }),
-    };
-
-    const columns = [
-      {
-        title: 'index',
-        dataIndex: 'key',
-        key: 'key',
-      },
-      {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-      },
-      {
-        title: 'Number Room',
-        dataIndex: 'numberRoom',
-        key: 'numberRoom',
-      },
-      {
-        title: 'Breakfast',
-        dataIndex: 'active',
-        key: 'active',
-        render: (active) => <Tag color={active ? 'error' : 'blue'}>{active ? 'disabled' : 'enabled'}</Tag>,
-      },
-    ];
-
-    return (
-      <Table
-        rowSelection={{
-          type: selectionType,
-          ...rowSelection,
-        }}
-        rowClassName={rowClassName}
-        columns={columns}
-        dataSource={items}
-        pagination={false}
-      />
-    );
-  };
-
   return (
     <Container>
       <Title>Cafeteria</Title>
       <Main>
-        <Rows />
+        {ok && items.current && <Rows rows={items.current} token={token} />}
+        {console.log(items)}
       </Main>
     </Container>
   );

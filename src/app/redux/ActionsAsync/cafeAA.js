@@ -50,6 +50,33 @@ export const getWhereCafeAsync = createAsyncThunk('cafe/getWhere', async (where 
   }
 });
 
+export const createCafeAsync = createAsyncThunk('cafe/create', async (token) => {
+  try {
+    //
+
+    const params = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        token,
+      },
+    };
+
+    const res = await fetch(ENPOINT.cafe_create, params);
+    const result = await res.json();
+
+    const { data, ok, msg, error } = result;
+
+    if (error) throw new Error(error);
+    return { data, ok, msg };
+
+    //
+  } catch (error) {
+    console.log({ step: 'error createCafeAsync cafe/create', error: error.toString() });
+    return { ok: false, error: error.toString() };
+  }
+});
+
 export const updateCafeAsync = createAsyncThunk('cafe/update', async (fields) => {
   try {
     //
