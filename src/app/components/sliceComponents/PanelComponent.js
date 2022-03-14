@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Typography, Button, message } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { capitalizeWorlds, cleanLocalStorage } from '../../helpers';
 import { midlleQuery, roles } from '../../helpers/settings';
+import { capitalizeWorlds, cleanLocalStorage } from '../../helpers';
 
 import { selectAuth } from '../../redux/reducers/auth';
 import { selectNavbar, clesedPanel } from '../../redux/reducers/navbar';
@@ -87,7 +87,7 @@ const PanelComponent = () => {
           <ParagraphComponent>{roles[staff.role]}</ParagraphComponent>
         </TopSecption>
         <BottomSecption>
-          <ButtonComponent danger onClick={handleClick}>
+          <ButtonComponent type="primary" danger onClick={handleClick}>
             Logout
           </ButtonComponent>
         </BottomSecption>

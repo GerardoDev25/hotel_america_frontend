@@ -1,7 +1,7 @@
 import moment from 'moment';
 import styled from 'styled-components';
+import { useCallback, useEffect, useState } from 'react';
 import { Typography, Table, Tag } from 'antd';
-import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { capitalizeWorlds } from '../../../helpers';
@@ -9,6 +9,7 @@ import { selectAuth } from '../../../redux/reducers/auth';
 import { selectWhereCafe } from '../../../redux/reducers/cafe';
 
 import { getWhereCafeAsync, createCafeAsync, updateCafeAsync } from '../../../redux/ActionsAsync/cafeAA';
+import { selectAllRegister } from '../../../redux/reducers/register';
 
 const Container = styled.div`
   height: 100%;
@@ -24,14 +25,21 @@ const Title = styled(Typography.Title)``;
 
 const Rows = ({ rows, token }) => {
   //
-  console.log({ rows, token });
   const dispatch = useDispatch();
   const [selectionType] = useState('checkbox');
+
+  const items = rows.map((item, index) => ({
+    key: index + 1,
+    id: item.cafeId,
+    active: item.active,
+    name: capitalizeWorlds(item.name),
+    numberRoom: item.numberRoom,
+  }));
 
   const rowClassName = (record) => (record.active ? 'disble-colums' : '');
 
   const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
+    onChange: (_, selectedRows) => {
       for (const item of selectedRows) {
         if (item.active === false) {
           dispatch(updateCafeAsync({ active: true, cafeId: item.id, token }));
@@ -76,7 +84,7 @@ const Rows = ({ rows, token }) => {
       }}
       rowClassName={rowClassName}
       columns={columns}
-      dataSource={rows}
+      dataSource={items}
       pagination={false}
     />
   );
@@ -85,28 +93,21 @@ const Rows = ({ rows, token }) => {
 const Cafeteria = () => {
   //
 
-  let items = useRef();
   const dispatch = useDispatch();
 
   const { token } = useSelector(selectAuth);
-  const { data, ok } = useSelector(selectWhereCafe);
-  const { rows = [] } = data;
+  const { data: dataCafe = {} } = useSelector(selectWhereCafe);
+  const { data: dataRegister } = useSelector(selectAllRegister);
 
-  useEffect(() => {
-    if (ok && !rows.length) dispatch(createCafeAsync(token));
-  }, [ok, rows, dispatch, token]);
+  const { total: totalRegister = 0 } = dataRegister;
+  const { rows: rowsCafe = [], total: totalCafe = 0 } = dataCafe;
 
-  useEffect(() => {
-    items.current = rows.map((item, index) => ({
-      key: index + 1,
-      id: item.cafeId,
-      active: item.active,
-      name: capitalizeWorlds(item.name),
-      numberRoom: item.numberRoom,
-    }));
+  const call = useCallback(() => dispatch(createCafeAsync(token)), [dispatch, token]);
 
-    // console.log({ tems: items.current, rows });
-  }, [rows]);
+  if (totalRegister && !totalCafe) {
+    console.log('called');
+    // call();
+  }
 
   useEffect(() => {
     const where = { date: moment().format('L') };
@@ -117,8 +118,7 @@ const Cafeteria = () => {
     <Container>
       <Title>Cafeteria</Title>
       <Main>
-        {ok && items.current && <Rows rows={items.current} token={token} />}
-        {console.log(items)}
+        <Rows rows={rowsCafe} token={token} />
       </Main>
     </Container>
   );

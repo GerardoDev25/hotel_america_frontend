@@ -151,7 +151,7 @@ const Navbar = () => {
             </InfoContainerRight>
           </InfoContainer>
           <LogoutContainer>
-            <Button danger onClick={handleClick}>
+            <Button type='primary' danger onClick={handleClick}>
               Logout
             </Button>
           </LogoutContainer>
