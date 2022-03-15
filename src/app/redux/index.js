@@ -9,9 +9,10 @@ import cafe from './reducers/cafe';
 import staff from './reducers/staff';
 import goest from './reducers/goest';
 import amount from './reducers/amount';
+import lodging from './reducers/lodging';
 import register from './reducers/register';
 
 const store = configureStore({
-  reducer: { load, navbar, auth, room, cafe, staff, goest, amount, register },
+  reducer: { load, navbar, auth, room, cafe, staff, goest, amount, lodging, register },
 });
 export default store;

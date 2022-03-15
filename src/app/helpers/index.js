@@ -4,6 +4,7 @@ import { cheanRoom } from '../redux/reducers/room';
 import { cheanStaff } from '../redux/reducers/staff';
 import { cheanGoest } from '../redux/reducers/goest';
 import { cheanAmount } from '../redux/reducers/amount';
+import { cheanLodging } from '../redux/reducers/lodging';
 import { cheanRegister } from '../redux/reducers/register';
 
 export const capitalizeWorlds = (str) => {
@@ -37,6 +38,7 @@ export const cleanLocalStorage = (dispatch, navigate, message) => {
   dispatch(cheanGoest());
   dispatch(cheanStaff());
   dispatch(cheanAmount());
+  dispatch(cheanLodging());
   dispatch(cheanRegister());
   navigate('/login', { replace: true });
   message.info('logged');

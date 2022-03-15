@@ -12,6 +12,9 @@ export const ENPOINT = {
   goest_get: `${ENDPOINT_BASE}/goest/`,
   goest_getWhere: `${ENDPOINT_BASE}/goest/where`,
 
+  lodging_get: `${ENDPOINT_BASE}/lodging/`,
+  lodging_getWhere: `${ENDPOINT_BASE}/lodging/where`,
+
   room_get: `${ENDPOINT_BASE}/room/`,
   room_getWhere: `${ENDPOINT_BASE}/room/where`,
 

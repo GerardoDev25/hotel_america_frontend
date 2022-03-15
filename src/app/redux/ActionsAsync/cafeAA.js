@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ENPOINT } from '../../helpers/settings';
+import { renewAsync } from './authAA';
 
 export const getAllCafeAsync = createAsyncThunk('cafe/getAll', async (page = 1) => {
   try {
@@ -49,7 +50,7 @@ export const getWhereCafeAsync = createAsyncThunk('cafe/getWhere', async (where 
   }
 });
 
-export const createCafeAsync = createAsyncThunk('cafe/create', async (token) => {
+export const createCafeAsync = createAsyncThunk('cafe/create', async (token, { dispatch }) => {
   try {
     //
 
@@ -63,8 +64,14 @@ export const createCafeAsync = createAsyncThunk('cafe/create', async (token) => 
 
     const res = await fetch(ENPOINT.cafe_create, params);
     const result = await res.json();
-    const { error } = result;
+    const { error, msg = '' } = result;
 
+    if (msg.includes('TokenExpiredError')) {
+      dispatch(renewAsync());
+      // dispatch(createCafeAsync(token));
+    }
+
+    // console.log(msg);
     if (error) throw new Error(error);
     return { ...result };
 

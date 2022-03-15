@@ -103,14 +103,35 @@ const Cafeteria = () => {
     dispatch(createCafeAsync(token));
   }, [dispatch, token]);
 
-  const handleClick = (e) => {
-    dispatch(renewAsync(token))
+  const handleDispatch = () => {
+    dispatch(renewAsync(token));
   };
-  
+  const handleClick = (e) => {
+    localStorage.setItem(
+      'auth',
+      JSON.stringify({
+        loading: false,
+        login: true,
+        staff: {
+          staffId: '6216da3d3babf8c796d79924',
+          role: 'role_Cafe',
+          name: 'Marta Cafe',
+          iat: 1647375893,
+          exp: 1647404693,
+        },
+        local: 'true',
+        token:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdGFmZklkIjoiNjIxNmRhM2QzYmFiZjhjNzk2ZDc5OTI0Iiwicm9sZSI6InJvbGVfQ2FmZSIsIm5hbWUiOiJNYXJ0YSBDYWZlIiwiaWF0IjoxNjQ3MzgzOTY3LCJleHAiOjE2NDc0MTI3Njd9.X5g7RGQfYUcv77uRo858JqWol1ldsGlKpye2HJ0MEFo',
+        called: true,
+      })
+    );
+  };
+
   return (
     <Container>
       <Title>Cafeteria</Title>
-      <button onClick={handleClick}>See</button>
+      {/* <button onClick={handleClick}>See</button>
+      <button onClick={handleDispatch}>dispatch</button> */}
       <Main>{ok && <Rows rows={rows} token={token} />}</Main>
     </Container>
   );

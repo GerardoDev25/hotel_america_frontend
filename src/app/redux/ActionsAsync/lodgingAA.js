@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { ENPOINT } from '../../helpers/settings';
 
-export const getAllAmountAsync = createAsyncThunk('amount/getAll', async (page = 1) => {
+export const getAllLodgingAsync = createAsyncThunk('lodging/getAll', async (page = 1) => {
   try {
     //
 
@@ -12,7 +12,7 @@ export const getAllAmountAsync = createAsyncThunk('amount/getAll', async (page =
     else if (page === 0) param = `?limit=0&offset=0`;
     else param = `?limit=10&offset=${page * 10 - 10}`;
 
-    const res = await fetch(ENPOINT.amount_get + param);
+    const res = await fetch(ENPOINT.lodging_get + param);
     const result = await res.json();
 
     const { data, ok, msg, error } = result;
@@ -21,18 +21,18 @@ export const getAllAmountAsync = createAsyncThunk('amount/getAll', async (page =
 
     //
   } catch (error) {
-    console.log({ step: 'error getAllAmountAsync amount/getAll', error: error.toString() });
+    console.log({ step: 'error getAllLodgingAsync lodging/getAll', error: error.toString() });
     return { ok: false, error: error.toString() };
   }
 });
 
-export const getByIdAmountAsync = createAsyncThunk('amount/getById', async (amountId) => {
+export const getByIdLodgingAsync = createAsyncThunk('lodging/getById', async (lodgingId) => {
   try {
     //
 
-    if (!amountId) throw new Error('id is required');
+    if (!lodgingId) throw new Error('id is required');
 
-    const res = await fetch(ENPOINT.amount_get + amountId);
+    const res = await fetch(ENPOINT.lodging_get + lodgingId);
     const result = await res.json();
     const { data, ok, msg, error } = result;
 
@@ -41,12 +41,12 @@ export const getByIdAmountAsync = createAsyncThunk('amount/getById', async (amou
 
     //
   } catch (error) {
-    console.log({ step: 'error getByIdAmountAsync amount/getById', error: error.toString() });
+    console.log({ step: 'error getByIdlodgingAsync lodging/getById', error: error.toString() });
     return { ok: false, error: error.toString() };
   }
 });
 
-export const getWhereAmountAsync = createAsyncThunk('amount/getWhere', async (where = {}) => {
+export const getWhereLodgingAsync = createAsyncThunk('lodging/getWhere', async (where = {}) => {
   try {
     const params = {
       method: 'POST',
@@ -56,7 +56,7 @@ export const getWhereAmountAsync = createAsyncThunk('amount/getWhere', async (wh
       },
     };
 
-    const res = await fetch(ENPOINT.amount_getWhere, params);
+    const res = await fetch(ENPOINT.lodging_getWhere, params);
     const result = await res.json();
     const { data, ok, msg, error } = result;
 
@@ -65,7 +65,7 @@ export const getWhereAmountAsync = createAsyncThunk('amount/getWhere', async (wh
 
     //
   } catch (error) {
-    console.log({ step: 'error getWhereAmountAsync amount/getWhere', error: error.toString() });
+    console.log({ step: 'error getWhereLodgingAsync lodging/getWhere', error: error.toString() });
     return { ok: false, error: error.toString() };
   }
 });

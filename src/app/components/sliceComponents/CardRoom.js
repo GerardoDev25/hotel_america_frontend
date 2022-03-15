@@ -60,7 +60,6 @@ const H2Text = styled.p`
   }
 `;
 
-// const Description = ({ status, kindOfRoom, maxGuest, registerId, roomid }) => {
 const Description = ({ status, kindOfRoom, maxGuest, ids }) => {
   //
 

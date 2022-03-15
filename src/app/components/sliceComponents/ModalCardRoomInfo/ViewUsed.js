@@ -1,20 +1,19 @@
-import { Typography } from 'antd';
 import styled from 'styled-components';
 import { useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getWhereGoestAsync } from '../../../redux/ActionsAsync/goestAA';
 import { getWhereAmountAsync } from '../../../redux/ActionsAsync/amountAA';
+import { getWhereLodgingAsync } from '../../../redux/ActionsAsync/lodgingAA';
 import { getByIdRegisterAsync } from '../../../redux/ActionsAsync/registerAA';
 
 import { selectWhereGoest } from '../../../redux/reducers/goest';
 import { selectWhereAmount } from '../../../redux/reducers/amount';
-// import { selectCurrentRegister } from '../../../redux/reducers/register';
+import { selectWhereLodging } from '../../../redux/reducers/lodging';
 
 import InfoRoomModalTop from './InfoRoomModalTop';
+import InfoRoomModalDown from './InfoRoomModalDown';
 import InfoRoomModalMiddle from './InfoRoomModalMiddle';
-
-const { Title } = Typography;
 
 const MainContainer = styled.div`
   width: 100%;
@@ -24,20 +23,16 @@ const MainContainer = styled.div`
   justify-content: space-between;
 `;
 
-const InfoRoomModalBottom = styled.section`
-  width: 100%;
-  margin-top: 1rem;
-  border: 3px solid #ccc;
-`;
-
 const ViewUsed = ({ registerId }) => {
   const dispatch = useDispatch();
-  // const register = useSelector(selectCurrentRegister);
+  
   const { data: dataGoest = {}, msg: msgGoest, ok: okGoest } = useSelector(selectWhereGoest);
   const { data: dataAmount = {}, msg: msgAmount, ok: okAmount } = useSelector(selectWhereAmount);
+  const { data: dataLodging = {}, msg: msgLodging, ok: okLodging } = useSelector(selectWhereLodging);
 
   const { rows: rowsGoest = [], total: totalGoest = 0 } = dataGoest;
   const { rows: rowsAmount = [], total: totalAmount = 0 } = dataAmount;
+  const { rows: rowsLodging = [], total: totalLodging = 0 } = dataLodging;
 
   const itemsGoest = rowsGoest.map((e, i) => ({
     key: i,
@@ -58,6 +53,13 @@ const ViewUsed = ({ registerId }) => {
     totalAmount: Math.abs(Number.parseInt(e.totalAmount)),
     type: Number.parseInt(e.totalAmount) > 0 ? 'position' : 'payment',
     descrition: e.description.length > 15 ? e.description.slice(0, 15) + '...' : e.description,
+  }));
+
+  const itemsLodging = rowsLodging.map((e, i) => ({
+    key: i,
+    n: i + 1,
+    amount: e.amount,
+    date: e.date,
   }));
 
   const columsGoest = [
@@ -131,15 +133,32 @@ const ViewUsed = ({ registerId }) => {
     },
   ];
 
+  const columsLodging = [
+    {
+      title: 'N',
+      dataIndex: 'n',
+      key: 'n',
+    },
+    {
+      title: 'Amount',
+      dataIndex: 'amount',
+      key: 'amount',
+    },
+    {
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
+    },
+  ];
+
   useLayoutEffect(() => {
     if (registerId) {
       dispatch(getByIdRegisterAsync(registerId));
       dispatch(getWhereGoestAsync({ registerId, limit: 0 }));
       dispatch(getWhereAmountAsync({ registerId, limit: 0 }));
+      dispatch(getWhereLodgingAsync({ registerId, limit: 0 }));
     }
   }, [registerId, dispatch]);
-
-  // console.log({ itemsAmount ,rowsAmount});
 
   return (
     <MainContainer>
@@ -163,11 +182,14 @@ const ViewUsed = ({ registerId }) => {
         title="Amount List"
       />
 
-      <InfoRoomModalBottom>
-        <Title level={4} type="secondary">
-          InfoRoomModalBottom
-        </Title>
-      </InfoRoomModalBottom>
+      <InfoRoomModalDown
+        columns={columsLodging}
+        items={itemsLodging}
+        msg={msgLodging}
+        ok={okLodging}
+        total={totalLodging}
+        title="Lodging List"
+      />
     </MainContainer>
   );
 };
