@@ -7,6 +7,7 @@ const ENDPOINT_BASE = 'http://localhost:3001/api';
 
 export const ENPOINT = {
   auth_login: `${ENDPOINT_BASE}/auth/login`,
+  auth_renew: `${ENDPOINT_BASE}/auth/renew`,
 
   goest_get: `${ENDPOINT_BASE}/goest/`,
   goest_getWhere: `${ENDPOINT_BASE}/goest/where`,

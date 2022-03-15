@@ -59,3 +59,31 @@ export const loginAsync = createAsyncThunk('auth/login', async (fields) => {
     return { error: true, ok: false, msg: MESSAGE.errorDB, called: true };
   }
 });
+
+export const renewAsync = createAsyncThunk('auth/renew', async (_, { getState }) => {
+  try {
+    //
+
+    const params = {
+      method: 'POST',
+      body: JSON.stringify({ token: getState().auth.token }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const res = await fetch(ENPOINT.auth_renew, params);
+    const result = await res.json();
+
+    const { token, ok, msg, error } = result;
+    if (error) throw new Error(error);
+
+    const data = parseJwt(token);
+    return { data, ok, msg, token, called: true };
+
+    //
+  } catch (error) {
+    console.log({ step: 'error renewAsync', error: error.toString() });
+    return { error: true, ok: false, msg: MESSAGE.errorDB, called: true };
+  }
+});

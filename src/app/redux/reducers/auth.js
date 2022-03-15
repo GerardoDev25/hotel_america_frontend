@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginAsync } from '../ActionsAsync/authAA';
+import { loginAsync, renewAsync } from '../ActionsAsync/authAA';
 
 const init = {
   loading: false,
@@ -32,6 +32,23 @@ const authSlice = createSlice({
         localStorage.setItem('auth', JSON.stringify(state));
       })
       .addCase(loginAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+    builder
+      .addCase(renewAsync.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(renewAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.login = action.payload.ok;
+        state.staff = action.payload.data;
+        state.token = action.payload.token;
+        state.error = action.payload.error;
+        state.called = action.payload.called;
+        localStorage.setItem('auth', JSON.stringify(state));
+      })
+      .addCase(renewAsync.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

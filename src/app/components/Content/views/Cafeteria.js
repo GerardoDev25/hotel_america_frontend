@@ -8,6 +8,7 @@ import { selectAuth } from '../../../redux/reducers/auth';
 import { selectWhereCafe } from '../../../redux/reducers/cafe';
 
 import { createCafeAsync, updateCafeAsync } from '../../../redux/ActionsAsync/cafeAA';
+import { renewAsync } from '../../../redux/ActionsAsync/authAA';
 
 const Container = styled.div`
   height: 100%;
@@ -102,9 +103,14 @@ const Cafeteria = () => {
     dispatch(createCafeAsync(token));
   }, [dispatch, token]);
 
+  const handleClick = (e) => {
+    dispatch(renewAsync(token))
+  };
+  
   return (
     <Container>
       <Title>Cafeteria</Title>
+      <button onClick={handleClick}>See</button>
       <Main>{ok && <Rows rows={rows} token={token} />}</Main>
     </Container>
   );
