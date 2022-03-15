@@ -37,7 +37,6 @@ export const getWhereCafeAsync = createAsyncThunk('cafe/getWhere', async (where 
 
     const res = await fetch(ENPOINT.cafe_getWhere, params);
     const result = await res.json();
-
     const { data, ok, msg, error } = result;
 
     if (error) throw new Error(error);
@@ -64,11 +63,9 @@ export const createCafeAsync = createAsyncThunk('cafe/create', async (token) => 
 
     const res = await fetch(ENPOINT.cafe_create, params);
     const result = await res.json();
-
     const { error } = result;
 
     if (error) throw new Error(error);
-    // return { ...result, ok: true };
     return { ...result };
 
     //
@@ -95,7 +92,6 @@ export const updateCafeAsync = createAsyncThunk('cafe/update', async (fields) =>
 
     const res = await fetch(ENPOINT.cafe_update + fields.cafeId, params);
     const result = await res.json();
-
     const { data, ok, msg, error } = result;
 
     if (error) throw new Error(error);
