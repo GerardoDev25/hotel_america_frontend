@@ -65,10 +65,11 @@ export const createCafeAsync = createAsyncThunk('cafe/create', async (token) => 
     const res = await fetch(ENPOINT.cafe_create, params);
     const result = await res.json();
 
-    const { data, ok, msg, error } = result;
+    const { error } = result;
 
     if (error) throw new Error(error);
-    return { data, ok, msg };
+    // return { ...result, ok: true };
+    return { ...result };
 
     //
   } catch (error) {
