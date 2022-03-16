@@ -1,7 +1,6 @@
 import React from 'react';
 
 const InfoRoomModalDown = ({ itemsGoest, itemsAmount, itemsLodging }) => {
-  console.log({ itemsGoest, itemsAmount, itemsLodging });
 
   let totalDebt = 0;
   let totalLodging = 0;
@@ -17,8 +16,8 @@ const InfoRoomModalDown = ({ itemsGoest, itemsAmount, itemsLodging }) => {
   }
 
   totalToPay = totalLodging + totalPayment - totalDebt;
-  
-  console.log({ totalLodging, totalDebt, totalPayment, totalToPay });
+
+  // console.log({ totalLodging, totalDebt, totalPayment, totalToPay });
 
   return <div>InfoRoomModalDown</div>;
 };

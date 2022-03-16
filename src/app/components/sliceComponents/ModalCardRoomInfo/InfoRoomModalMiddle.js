@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Typography, Table, Empty } from 'antd';
+import { Typography, Table, Empty, Button } from 'antd';
 
 import { midlleQuery } from '../../../helpers/settings';
+import { PlusOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 
@@ -21,10 +22,19 @@ const MainContent = styled.section`
   }
 `;
 
+const HeadleContainer = styled.div`
+  width: 100%;
+  height: auto;
+  background-color: #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 0.5%;
+  padding-right: 0.5%;
+`;
+
 const TitleContent = styled(Title)`
   height: 2rem;
-  padding-left: 0.5rem;
-  background-color: #ccc;
   padding-bottom: 0.5rem;
   text-decoration: underline;
 `;
@@ -35,16 +45,27 @@ const InfoContent = styled.div`
   height: calc(100% - 2.5rem);
 `;
 
-const InfoRoomModalMiddle = ({ columns, items, msg, ok, title }) => {
+const InfoRoomModalMiddle = ({ columns, items, msg, ok, title, addNew }) => {
+  //
+
   return (
     <MainContent>
       {!ok ? (
         <Empty description={msg} />
       ) : (
         <>
-          <TitleContent level={4} type="secondary">
-            {title}
-          </TitleContent>
+          {
+            <HeadleContainer>
+              <TitleContent level={4} type="secondary">
+                {title}
+              </TitleContent>
+              {addNew && (
+                <Button onClick={addNew} type="link" icon={<PlusOutlined />}>
+                  Add
+                </Button>
+              )}
+            </HeadleContainer>
+          }
           <InfoContent>
             <Table dataSource={items} columns={columns} pagination={false} size="small" />
           </InfoContent>

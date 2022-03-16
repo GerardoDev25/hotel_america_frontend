@@ -1,5 +1,7 @@
+import { Button, Tag } from 'antd';
 import styled from 'styled-components';
 import { useLayoutEffect } from 'react';
+import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getWhereGoestAsync } from '../../../redux/ActionsAsync/goestAA';
@@ -23,8 +25,23 @@ const MainContainer = styled.div`
   justify-content: space-between;
 `;
 
+const ActionsContainer = styled.div`
+  width: 10rem;
+  display: flex;
+  justify-content: space-between;
+`;
+
 const ViewUsed = ({ registerId }) => {
   const dispatch = useDispatch();
+
+  useLayoutEffect(() => {
+    if (registerId) {
+      dispatch(getByIdRegisterAsync(registerId));
+      dispatch(getWhereGoestAsync({ registerId, limit: 0 }));
+      dispatch(getWhereAmountAsync({ registerId, limit: 0 }));
+      dispatch(getWhereLodgingAsync({ registerId, limit: 0 }));
+    }
+  }, [registerId, dispatch]);
 
   const { data: dataGoest = {}, msg: msgGoest, ok: okGoest } = useSelector(selectWhereGoest);
   const { data: dataAmount = {}, msg: msgAmount, ok: okAmount } = useSelector(selectWhereAmount);
@@ -33,6 +50,41 @@ const ViewUsed = ({ registerId }) => {
   const { rows: rowsGoest = [], total: totalGoest = 0 } = dataGoest;
   const { rows: rowsAmount = [], total: totalAmount = 0 } = dataAmount;
   const { rows: rowsLodging = [], total: totalLodging = 0 } = dataLodging;
+
+  // * handle add
+  const andleAddNewGoest = (e) => {
+    console.log('add new Goest');
+  };
+
+  const andleAddNewAmount = (e) => {
+    console.log('add new Amount');
+  };
+
+  // * handle update
+  const handleUpdateGoest = (id) => {
+    console.log(id);
+  };
+
+  const handleUpdateAmount = (id) => {
+    console.log(id);
+  };
+
+  const handleUpdateLodging = (id) => {
+    console.log(id);
+  };
+
+  // * handle delete
+  const handleDeleteGoest = (id) => {
+    console.log(id);
+  };
+
+  const handleDeleteAmount = (id) => {
+    console.log(id);
+  };
+
+  const handleDeleteLodging = (id) => {
+    console.log(id);
+  };
 
   const itemsGoest = rowsGoest.map((e, i) => ({
     key: i,
@@ -44,6 +96,7 @@ const ViewUsed = ({ registerId }) => {
     numberRoom: e.numberRoom,
     name: `${e.name} ${e.lastName}`,
     origin: e.origin,
+    goestId: e.goestId,
   }));
 
   const itemsAmount = rowsAmount.map((e, i) => ({
@@ -53,6 +106,7 @@ const ViewUsed = ({ registerId }) => {
     totalAmount: Math.abs(Number.parseInt(e.totalAmount)),
     type: Number.parseInt(e.totalAmount) > 0 ? 'debt' : 'payment',
     descrition: e.description.length > 15 ? e.description.slice(0, 15) + '...' : e.description,
+    amountId: e.amountId,
   }));
 
   const itemsLodging = rowsLodging.map((e, i) => ({
@@ -60,6 +114,7 @@ const ViewUsed = ({ registerId }) => {
     n: i + 1,
     amount: e.amount,
     date: e.date,
+    lodgingId: e.lodgingId,
   }));
 
   const columsGoest = [
@@ -103,6 +158,21 @@ const ViewUsed = ({ registerId }) => {
       dataIndex: 'city',
       key: 'city',
     },
+    {
+      title: 'Actions',
+      dataIndex: 'goestId',
+      key: 'goestId',
+      render: (id) => (
+        <ActionsContainer>
+          <Button type="primary" onClick={() => handleUpdateGoest(id)}>
+            update
+          </Button>
+          <Button danger type="primary" onClick={() => handleDeleteGoest(id)}>
+            delete
+          </Button>
+        </ActionsContainer>
+      ),
+    },
   ];
 
   const columsAmount = [
@@ -110,11 +180,6 @@ const ViewUsed = ({ registerId }) => {
       title: 'N',
       dataIndex: 'n',
       key: 'n',
-    },
-    {
-      title: 'Origin',
-      dataIndex: 'origin',
-      key: 'origin',
     },
     {
       title: 'Total Amount',
@@ -125,11 +190,31 @@ const ViewUsed = ({ registerId }) => {
       title: 'Type',
       dataIndex: 'type',
       key: 'type',
+      render: (type) => (
+        <Tag color={type === 'payment' ? 'green' : 'red'}>
+          {type === 'payment' ? <CaretUpOutlined /> : <CaretDownOutlined />} {type}
+        </Tag>
+      ),
     },
     {
       title: 'Descrition',
       dataIndex: 'descrition',
       key: 'descrition',
+    },
+    {
+      title: 'Actions',
+      dataIndex: 'amountId',
+      key: 'amountId',
+      render: (id) => (
+        <ActionsContainer>
+          <Button type="primary" onClick={() => handleUpdateAmount(id)}>
+            update
+          </Button>
+          <Button danger type="primary" onClick={() => handleDeleteAmount(id)}>
+            delete
+          </Button>
+        </ActionsContainer>
+      ),
     },
   ];
 
@@ -149,46 +234,54 @@ const ViewUsed = ({ registerId }) => {
       dataIndex: 'date',
       key: 'date',
     },
+    {
+      title: 'Actions',
+      dataIndex: 'lodgingId',
+      key: 'lodgingId',
+      render: (id) => (
+        <ActionsContainer>
+          <Button type="primary" onClick={() => handleUpdateLodging(id)}>
+            update
+          </Button>
+          <Button danger type="primary" onClick={() => handleDeleteLodging(id)}>
+            delete
+          </Button>
+        </ActionsContainer>
+      ),
+    },
   ];
-
-  useLayoutEffect(() => {
-    if (registerId) {
-      dispatch(getByIdRegisterAsync(registerId));
-      dispatch(getWhereGoestAsync({ registerId, limit: 0 }));
-      dispatch(getWhereAmountAsync({ registerId, limit: 0 }));
-      dispatch(getWhereLodgingAsync({ registerId, limit: 0 }));
-    }
-  }, [registerId, dispatch]);
 
   return (
     <MainContainer>
       <InfoRoomModalTop />
 
       <InfoRoomModalMiddle
-        columns={columsGoest}
-        items={itemsGoest}
-        msg={msgGoest}
         ok={okGoest}
-        total={totalGoest}
+        msg={msgGoest}
         title="Goest List"
+        items={itemsGoest}
+        total={totalGoest}
+        columns={columsGoest}
+        addNew={andleAddNewGoest}
       />
 
       <InfoRoomModalMiddle
-        columns={columsAmount}
-        items={itemsAmount}
-        msg={msgAmount}
         ok={okAmount}
-        total={totalAmount}
+        msg={msgAmount}
         title="Amount List"
+        items={itemsAmount}
+        total={totalAmount}
+        columns={columsAmount}
+        addNew={andleAddNewAmount}
       />
 
       <InfoRoomModalMiddle
-        columns={columsLodging}
-        items={itemsLodging}
-        msg={msgLodging}
         ok={okLodging}
-        total={totalLodging}
+        msg={msgLodging}
         title="Lodging List"
+        items={itemsLodging}
+        total={totalLodging}
+        columns={columsLodging}
       />
 
       <InfoRoomModalDown itemsGoest={itemsGoest} itemsAmount={itemsAmount} itemsLodging={itemsLodging} />
