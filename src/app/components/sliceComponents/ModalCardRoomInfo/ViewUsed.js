@@ -25,7 +25,7 @@ const MainContainer = styled.div`
 
 const ViewUsed = ({ registerId }) => {
   const dispatch = useDispatch();
-  
+
   const { data: dataGoest = {}, msg: msgGoest, ok: okGoest } = useSelector(selectWhereGoest);
   const { data: dataAmount = {}, msg: msgAmount, ok: okAmount } = useSelector(selectWhereAmount);
   const { data: dataLodging = {}, msg: msgLodging, ok: okLodging } = useSelector(selectWhereLodging);
@@ -51,7 +51,7 @@ const ViewUsed = ({ registerId }) => {
     n: i + 1,
     origin: e.role,
     totalAmount: Math.abs(Number.parseInt(e.totalAmount)),
-    type: Number.parseInt(e.totalAmount) > 0 ? 'position' : 'payment',
+    type: Number.parseInt(e.totalAmount) > 0 ? 'debt' : 'payment',
     descrition: e.description.length > 15 ? e.description.slice(0, 15) + '...' : e.description,
   }));
 
@@ -182,7 +182,7 @@ const ViewUsed = ({ registerId }) => {
         title="Amount List"
       />
 
-      <InfoRoomModalDown
+      <InfoRoomModalMiddle
         columns={columsLodging}
         items={itemsLodging}
         msg={msgLodging}
@@ -190,6 +190,8 @@ const ViewUsed = ({ registerId }) => {
         total={totalLodging}
         title="Lodging List"
       />
+
+      <InfoRoomModalDown itemsGoest={itemsGoest} itemsAmount={itemsAmount} itemsLodging={itemsLodging} />
     </MainContainer>
   );
 };
