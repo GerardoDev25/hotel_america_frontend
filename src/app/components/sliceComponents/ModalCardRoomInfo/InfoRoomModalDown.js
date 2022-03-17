@@ -1,23 +1,24 @@
 import React from 'react';
 
-const InfoRoomModalDown = ({ itemsGoest, itemsAmount, itemsLodging }) => {
-
+const InfoRoomModalDown = ({ items }) => {
   let totalDebt = 0;
   let totalLodging = 0;
   let totalPayment = 0;
   let totalToPay = 0;
 
-  for (const item of itemsLodging) {
+  const [datagoest, dataAmount, dataLodging] = items;
+
+  for (const item of dataLodging) {
     totalLodging += item.amount;
   }
 
-  for (const item of itemsAmount) {
+  for (const item of dataAmount) {
     item.type === 'payment' ? (totalPayment += item.totalAmount) : (totalDebt += item.totalAmount);
   }
 
   totalToPay = totalLodging + totalPayment - totalDebt;
 
-  // console.log({ totalLodging, totalDebt, totalPayment, totalToPay });
+  console.log({ totalLodging, totalDebt, totalPayment, totalToPay });
 
   return <div>InfoRoomModalDown</div>;
 };
