@@ -6,13 +6,15 @@ const InfoRoomModalDown = ({ items }) => {
   let totalPayment = 0;
   let totalToPay = 0;
 
-  const [datagoest, dataAmount, dataLodging] = items;
+  const [goest, amount, lodging] = items;
 
-  for (const item of dataLodging) {
+  console.log(goest, amount, lodging);
+
+  for (const item of lodging.data) {
     totalLodging += item.amount;
   }
 
-  for (const item of dataAmount) {
+  for (const item of amount.data) {
     item.type === 'payment' ? (totalPayment += item.totalAmount) : (totalDebt += item.totalAmount);
   }
 

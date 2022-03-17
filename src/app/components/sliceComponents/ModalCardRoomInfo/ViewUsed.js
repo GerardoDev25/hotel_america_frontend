@@ -52,17 +52,9 @@ const ViewUsed = ({ registerId }) => {
   return (
     <MainContainer>
       <InfoRoomModalTop />
-      {items.map((item, index) => (
-        <InfoRoomModalMiddle
-          key={index}
-          items={item}
-          ok={item[index].ok}
-          msg={item[index].msg}
-          columns={colums[index]}
-          title={item[index].title}
-          total={item[index].total}
-          addNew={item[index].add}
-        />
+
+      {items.map(({ data, info }, index) => (
+        <InfoRoomModalMiddle key={index} items={data} columns={colums[index]} info={info} />
       ))}
 
       <InfoRoomModalDown items={items} />

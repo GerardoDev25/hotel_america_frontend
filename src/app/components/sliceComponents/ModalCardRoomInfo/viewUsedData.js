@@ -16,52 +16,68 @@ export const itemsData = (allDataGoest, allDataAmount, allDataLodging) => {
     key: i,
     n: i + 1,
     ci: e.ci,
-    ok: okGoest,
     city: e.city,
     home: e.home,
-    msg: msgGoest,
     phone: e.phone,
     origin: e.origin,
-    total: totalGoest,
     goestId: e.goestId,
-    title: 'Goest List',
     numberRoom: e.numberRoom,
     name: `${e.name} ${e.lastName}`,
-    add: function () {
-      console.log('add goest');
-    },
   }));
 
   const itemsAmount = rowsAmount.map((e, i) => ({
     key: i,
     n: i + 1,
-    ok: okAmount,
     origin: e.type,
-    msg: msgAmount,
-    total: totalAmount,
-    title: 'Amount List',
     amountId: e.amountId,
     totalAmount: Math.abs(Number.parseInt(e.totalAmount)),
     type: Number.parseInt(e.totalAmount) > 0 ? 'debt' : 'payment',
     descrition: e.description.length > 15 ? e.description.slice(0, 15) + '...' : e.description,
-    add: function () {
-      console.log('add amount');
-    },
   }));
 
   const itemsLodging = rowsLodging.map((e, i) => ({
     key: i,
     n: i + 1,
     date: e.date,
-    ok: okLodging,
-    msg: msgLodging,
     amount: e.amount,
-    total: totalLodging,
-    title: 'Lodging List',
     lodgingId: e.lodgingId,
   }));
 
-  return [itemsGoest, itemsAmount, itemsLodging];
+  return [
+    {
+      data: itemsGoest,
+      info: {
+        ok: okGoest,
+        msg: msgGoest,
+        total: totalGoest,
+        title: 'Goest List',
+        add: function () {
+          console.log('add Goest');
+        },
+      },
+    },
+    {
+      data: itemsAmount,
+      info: {
+        ok: okAmount,
+        msg: msgAmount,
+        total: totalAmount,
+        title: 'Amount List',
+        add: function () {
+          console.log('add amount');
+        },
+      },
+    },
+    {
+      data: itemsLodging,
+      info: {
+        ok: okLodging,
+        msg: msgLodging,
+        total: totalLodging,
+        title: 'Lodging List',
+      },
+    },
+  ];
 };
 
 export const columsData = (ActionsContainer) => {
@@ -77,7 +93,6 @@ export const columsData = (ActionsContainer) => {
     console.log(id);
   };
 
-  // * handle delete
   const handleDeleteGoest = (id) => {
     console.log(id);
   };

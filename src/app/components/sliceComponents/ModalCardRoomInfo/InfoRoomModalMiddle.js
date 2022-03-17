@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import { Typography, Table, Empty, Button } from 'antd';
 
@@ -45,8 +44,10 @@ const InfoContent = styled.div`
   height: calc(100% - 2.5rem);
 `;
 
-const InfoRoomModalMiddle = ({ columns, items, msg, ok, title, addNew }) => {
+const InfoRoomModalMiddle = ({ columns, items, info }) => {
   //
+
+  const { ok, msg, add, title } = info;
 
   return (
     <MainContent>
@@ -59,8 +60,8 @@ const InfoRoomModalMiddle = ({ columns, items, msg, ok, title, addNew }) => {
               <TitleContent level={4} type="secondary">
                 {title}
               </TitleContent>
-              {addNew && (
-                <Button onClick={addNew} type="link" icon={<PlusOutlined />}>
+              {add && (
+                <Button onClick={add} type="link" icon={<PlusOutlined />}>
                   Add
                 </Button>
               )}
