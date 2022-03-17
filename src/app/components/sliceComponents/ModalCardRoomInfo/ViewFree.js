@@ -14,8 +14,6 @@ const MainContainer = styled.div`
 const ViewFree = () => {
   const room = useSelector(selectCurrentRoom);
 
-  console.log(room);
-
   return (
     <MainContainer>
       <InfoRoomModalTop />

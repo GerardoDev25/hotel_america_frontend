@@ -1,4 +1,4 @@
-import { Modal } from 'antd';
+import { Modal, Button } from 'antd';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
@@ -14,7 +14,7 @@ const ModalComponent = styled(Modal)`
   min-width: ${minZise} !important;
 `;
 
-const ModalCardRoomInfo = ({ modalVisible, handleOk, handleCancel, ids }) => {
+const ModalCardRoomInfo = ({ ids, handleOk, modalVisible }) => {
   //
 
   const dispatch = useDispatch();
@@ -24,14 +24,25 @@ const ModalCardRoomInfo = ({ modalVisible, handleOk, handleCancel, ids }) => {
     roomId && dispatch(getByIdRoomAsync(roomId));
   }, [dispatch, roomId]);
 
+  const handleCheckIn = () => {
+    console.log('make check in');
+  };
+
+  const handleCheckOut = () => {
+    console.log('make check out');
+  };
+
+  const footer = [
+    <Button key="ok" type="primary" onClick={handleOk}>
+      ok
+    </Button>,
+    <Button key="make" type="ghost" danger onClick={registerId ? handleCheckOut : handleCheckIn}>
+      {registerId ? 'Make CheckOut' : 'Make CheckIn'}
+    </Button>,
+  ];
+
   return (
-    <ModalComponent
-      footer={false}
-      visible={modalVisible}
-      onOk={handleOk}
-      onCancel={handleCancel}
-      width={1300}
-    >
+    <ModalComponent footer={footer} visible={modalVisible} onOk={handleOk} onCancel={handleOk} width={1300}>
       {registerId ? <ViewUsed registerId={registerId} /> : <ViewFree />}
     </ModalComponent>
   );

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import React, { useCallback } from 'react';
 import { Card, Button, Typography } from 'antd';
 
 import ModalCardRoomInfo from './ModalCardRoomInfo';
@@ -65,25 +64,14 @@ const Description = ({ status, kindOfRoom, maxGuest, ids }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleOk = useCallback(() => {
-    setModalVisible(false);
-  }, []);
-
-  const handleCancel = useCallback(() => {
-    setModalVisible(false);
-  }, []);
-
-  const handleClick = () => {
-    setModalVisible(true);
-  };
+  const handleOk = () => setModalVisible(false);
+  const handleOpenModal = () => setModalVisible(true);
 
   switch (status) {
     case 'used':
       return (
         <CardInfo>
-          {modalVisible && (
-            <ModalCardRoomInfo modalVisible={modalVisible} handleOk={handleOk} handleCancel={handleCancel} ids={ids} />
-          )}
+          {modalVisible && <ModalCardRoomInfo ids={ids} handleOk={handleOk} modalVisible={modalVisible} />}
           <SectionTop>
             <ParagraphText>
               <strong>Kind of Room: </strong>
@@ -95,7 +83,7 @@ const Description = ({ status, kindOfRoom, maxGuest, ids }) => {
             </ParagraphText>
           </SectionTop>
           <>
-            <Button size="small" onClick={handleClick} type="text">
+            <Button size="small" onClick={handleOpenModal} type="text">
               Show more
             </Button>
           </>
@@ -105,9 +93,7 @@ const Description = ({ status, kindOfRoom, maxGuest, ids }) => {
     case 'free':
       return (
         <CardInfo>
-          {modalVisible && (
-            <ModalCardRoomInfo modalVisible={modalVisible} handleOk={handleOk} handleCancel={handleCancel} ids={ids} />
-          )}
+          {modalVisible && <ModalCardRoomInfo modalVisible={modalVisible} handleOk={handleOk} ids={ids} />}
           <SectionTop>
             <ParagraphText>
               <strong>Kind of Room: </strong>
@@ -119,7 +105,7 @@ const Description = ({ status, kindOfRoom, maxGuest, ids }) => {
             </ParagraphText>
           </SectionTop>
           <>
-            <Button size="small" onClick={handleClick} type="text">
+            <Button size="small" onClick={handleOpenModal} type="text">
               Show more
             </Button>
           </>
