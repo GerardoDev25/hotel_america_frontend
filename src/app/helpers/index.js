@@ -7,6 +7,14 @@ import { cheanAmount } from '../redux/reducers/amount';
 import { cheanLodging } from '../redux/reducers/lodging';
 import { cheanRegister } from '../redux/reducers/register';
 
+export const parseJwt = (token) => {
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch (e) {
+    return null;
+  }
+};
+
 export const capitalizeWorlds = (str) => {
   if (!str) return;
 

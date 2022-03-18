@@ -8,7 +8,6 @@ import { DoubleRightOutlined, UserOutlined } from '@ant-design/icons';
 import { selectAuth } from '../redux/reducers/auth';
 import { loginAsync } from '../redux/ActionsAsync/authAA';
 
-// * styled components
 const Title = styled.h1`
   text-align: center;
   text-decoration: underline;

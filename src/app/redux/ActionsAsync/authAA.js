@@ -1,16 +1,8 @@
 import { message } from 'antd';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { capitalizeWorlds } from '../../helpers';
+import { capitalizeWorlds, parseJwt } from '../../helpers';
 import { ENPOINT, MESSAGE } from '../../helpers/settings';
-
-const parseJwt = (token) => {
-  try {
-    return JSON.parse(atob(token.split('.')[1]));
-  } catch (e) {
-    return null;
-  }
-};
 
 const loginFetch = async (fields) => {
   try {

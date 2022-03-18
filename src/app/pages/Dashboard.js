@@ -4,8 +4,12 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { parseJwt } from '../helpers';
 import { minZise } from '../helpers/settings';
+
 import { selectAuth } from '../redux/reducers/auth';
+
+import { renewAsync } from '../redux/ActionsAsync/authAA';
 import { getAllRegisterAsync } from '../redux/ActionsAsync/registerAA';
 
 import Navbar from '../components/Content/Navbar';
@@ -26,17 +30,26 @@ const LayautMain = styled(Layout)`
 const Dashboard = () => {
   //
 
-  const auth = useSelector(selectAuth);
+  const { login, token } = useSelector(selectAuth);
   const navigator = useNavigate();
   const dispatch = useDispatch();
 
+  // * redirect to login if is not auth
   useEffect(() => {
-    !auth.login && navigator('/login', { replace: true });
-  }, [auth, navigator]);
+    !login && navigator('/login', { replace: true });
+  }, [login, navigator]);
 
+  // * get all register id
   useEffect(() => {
     dispatch(getAllRegisterAsync());
-  }, [dispatch]);
+  }, [login, dispatch]);
+
+  // * check is token is expired
+  useEffect(() => {
+    const { exp } = parseJwt(token);
+    const isExpired = Date.now() >= exp * 1000;
+    isExpired && dispatch(renewAsync());
+  }, [token, dispatch]);
 
   return (
     <LayautMain>
