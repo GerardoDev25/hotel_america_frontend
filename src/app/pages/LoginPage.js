@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { Form, Input, Button } from 'antd';
-import { LoadingOutlined, UserOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { DoubleRightOutlined, UserOutlined } from '@ant-design/icons';
 
 import { selectAuth } from '../redux/reducers/auth';
 import { loginAsync } from '../redux/ActionsAsync/authAA';
@@ -37,14 +37,12 @@ const LoginPage = () => {
 
   const dispatch = useDispatch();
   const navigator = useNavigate();
-  const { login } = useSelector(selectAuth);
+  const { login, loading } = useSelector(selectAuth);
 
   const [fields, setFields] = useState({
     username: '',
     password: '',
   });
-
-  const [click, setClick] = useState(false);
 
   useEffect(() => {
     if (login) navigator('/dashboard', { replace: true });
@@ -59,8 +57,6 @@ const LoginPage = () => {
   const handleSubmit = () => {
     dispatch(loginAsync(fields));
   };
-
-  const handleClick = () => setClick(true);
 
   return (
     <Container>
@@ -81,13 +77,7 @@ const LoginPage = () => {
             <Input.Password value={password} name="password" onChange={handleChange} prefix={<UserOutlined />} />
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button
-              type="primary"
-              htmlType="submit"
-              onClick={handleClick}
-              disabled={!username || !password}
-              icon={click && <LoadingOutlined />}
-            >
+            <Button type="primary" htmlType="submit" loading={loading} icon={<DoubleRightOutlined />}>
               Login
             </Button>
           </Form.Item>
