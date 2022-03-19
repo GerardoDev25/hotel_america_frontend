@@ -28,6 +28,10 @@ const ModalCardRoomInfo = ({ ids, handleOk, modalVisible }) => {
     console.log('make check in');
   };
 
+  const handleupdate = () => {
+    console.log('make update');
+  };
+
   const handleCheckOut = () => {
     console.log('make check out');
   };
@@ -35,6 +39,9 @@ const ModalCardRoomInfo = ({ ids, handleOk, modalVisible }) => {
   const footer = [
     <Button key="ok" type="primary" onClick={handleOk}>
       ok
+    </Button>,
+    <Button key="update" type="ghost" style={{ display: registerId ? 'block' : 'none' }} danger onClick={handleupdate}>
+      Update
     </Button>,
     <Button key="make" type="ghost" danger onClick={registerId ? handleCheckOut : handleCheckIn}>
       {registerId ? 'Make CheckOut' : 'Make CheckIn'}

@@ -9,28 +9,26 @@ export const ENPOINT = {
   auth_login: `${ENDPOINT_BASE}/auth/login`,
   auth_renew: `${ENDPOINT_BASE}/auth/renew`,
 
-  goest_get: `${ENDPOINT_BASE}/goest/`,
+  goest: `${ENDPOINT_BASE}/goest/`,
   goest_getWhere: `${ENDPOINT_BASE}/goest/where`,
 
-  lodging_get: `${ENDPOINT_BASE}/lodging/`,
+  lodging: `${ENDPOINT_BASE}/lodging/`,
   lodging_getWhere: `${ENDPOINT_BASE}/lodging/where`,
 
-  room_get: `${ENDPOINT_BASE}/room/`,
+  room: `${ENDPOINT_BASE}/room/`,
   room_getWhere: `${ENDPOINT_BASE}/room/where`,
 
-  amount_get: `${ENDPOINT_BASE}/amount/`,
+  amount: `${ENDPOINT_BASE}/amount/`,
   amount_getWhere: `${ENDPOINT_BASE}/amount/where`,
 
-  register_get: `${ENDPOINT_BASE}/register/`,
+  register: `${ENDPOINT_BASE}/register/`,
   register_getWhere: `${ENDPOINT_BASE}/register/where`,
 
-  staff_get: `${ENDPOINT_BASE}/staff/`,
+  staff: `${ENDPOINT_BASE}/staff/`,
   staff_getWhere: `${ENDPOINT_BASE}/staff/where`,
 
-  cafe_get: `${ENDPOINT_BASE}/cafe/`,
+  cafe: `${ENDPOINT_BASE}/cafe/`,
   cafe_getWhere: `${ENDPOINT_BASE}/cafe/where`,
-  cafe_create: `${ENDPOINT_BASE}/cafe/`,
-  cafe_update: `${ENDPOINT_BASE}/cafe/`,
 };
 
 export const MESSAGE = {

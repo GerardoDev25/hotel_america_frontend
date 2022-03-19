@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllLodgingAsync, getByIdLodgingAsync, getWhereLodgingAsync } from '../ActionsAsync/lodgingAA';
+import { getAllLodgingAsync, getWhereLodgingAsync } from '../ActionsAsync/lodgingAA';
 
 const init = {
   current: {
@@ -39,19 +39,19 @@ const lodgingSlice = createSlice({
         state.all.error = action.payload;
       });
 
-    builder
-      .addCase(getByIdLodgingAsync.pending, (state) => {
-        state.current.loading = true;
-      })
-      .addCase(getByIdLodgingAsync.fulfilled, (state, action) => {
-        state.current.loading = false;
-        state.current = action.payload;
-        localStorage.setItem('lodging', JSON.stringify(state));
-      })
-      .addCase(getByIdLodgingAsync.rejected, (state, action) => {
-        state.current.loading = false;
-        state.current.error = action.payload;
-      });
+    // builder
+    //   .addCase(getByIdLodgingAsync.pending, (state) => {
+    //     state.current.loading = true;
+    //   })
+    //   .addCase(getByIdLodgingAsync.fulfilled, (state, action) => {
+    //     state.current.loading = false;
+    //     state.current = action.payload;
+    //     localStorage.setItem('lodging', JSON.stringify(state));
+    //   })
+    //   .addCase(getByIdLodgingAsync.rejected, (state, action) => {
+    //     state.current.loading = false;
+    //     state.current.error = action.payload;
+    //   });
 
     builder
       .addCase(getWhereLodgingAsync.pending, (state) => {

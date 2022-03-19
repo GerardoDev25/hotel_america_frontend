@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ENPOINT } from '../../helpers/settings';
-import { renewAsync } from './authAA';
 
 export const getAllCafeAsync = createAsyncThunk('cafe/getAll', async (page = 1) => {
   try {
@@ -12,7 +11,7 @@ export const getAllCafeAsync = createAsyncThunk('cafe/getAll', async (page = 1) 
     else if (page === 0) param = `?limit=0&offset=0`;
     else param = `?limit=10&offset=${page * 10 - 10}`;
 
-    const res = await fetch(ENPOINT.cafe_get + param);
+    const res = await fetch(ENPOINT.cafe + param);
     const result = await res.json();
 
     const { data, ok, msg, error } = result;
@@ -50,7 +49,7 @@ export const getWhereCafeAsync = createAsyncThunk('cafe/getWhere', async (where 
   }
 });
 
-export const createCafeAsync = createAsyncThunk('cafe/create', async (token, { dispatch }) => {
+export const createCafeAsync = createAsyncThunk('cafe/create', async (_, { getState }) => {
   try {
     //
 
@@ -58,20 +57,14 @@ export const createCafeAsync = createAsyncThunk('cafe/create', async (token, { d
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        token,
+        token: getState().auth.token,
       },
     };
 
-    const res = await fetch(ENPOINT.cafe_create, params);
+    const res = await fetch(ENPOINT.cafe, params);
     const result = await res.json();
-    const { error, msg = '' } = result;
+    const { error } = result;
 
-    if (msg.includes('TokenExpiredError')) {
-      dispatch(renewAsync());
-      // dispatch(createCafeAsync(token));
-    }
-
-    // console.log(msg);
     if (error) throw new Error(error);
     return { ...result };
 
@@ -82,27 +75,23 @@ export const createCafeAsync = createAsyncThunk('cafe/create', async (token, { d
   }
 });
 
-export const updateCafeAsync = createAsyncThunk('cafe/update', async (fields) => {
+export const updateCafeAsync = createAsyncThunk('cafe/update', async ({ cafeId, ...rest }, { getState }) => {
+  //
+
   try {
-    //
-
-    const { token, ...rest } = fields;
-
     const params = {
       method: 'PUT',
-      body: JSON.stringify(rest),
+      body: JSON.stringify({ ...rest }),
       headers: {
         'Content-Type': 'application/json',
-        token,
+        token: getState().auth.token,
       },
     };
 
-    const res = await fetch(ENPOINT.cafe_update + fields.cafeId, params);
+    const res = await fetch(ENPOINT.cafe + cafeId, params);
     const result = await res.json();
-    const { data, ok, msg, error } = result;
 
-    if (error) throw new Error(error);
-    return { data, ok, msg };
+    return result;
 
     //
   } catch (error) {
