@@ -48,6 +48,7 @@ export const cleanLocalStorage = (dispatch, navigate, message) => {
   dispatch(cheanAmount());
   dispatch(cheanLodging());
   dispatch(cheanRegister());
+  localStorage.clear();
   navigate('/login', { replace: true });
   message.info('logged');
 };

@@ -12,10 +12,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: JSON.parse(localStorage.getItem('auth')) || init,
   reducers: {
-    logout() {
-      localStorage.removeItem('auth');
-      return init;
-    },
+    logout: () => init,
   },
   extraReducers(builder) {
     builder

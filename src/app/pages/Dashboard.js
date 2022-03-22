@@ -36,7 +36,13 @@ const Dashboard = () => {
 
   // * redirect to login if is not auth
   useEffect(() => {
-    !login && navigator('/login', { replace: true });
+    // !login && navigator('/login', { replace: true });
+    if (!login) {
+      localStorage.clear();
+      navigator('/login', { replace: true });
+    }
+
+    // cleanLocalStorage(dispatch, navigator, message);
   }, [login, navigator]);
 
   // * get all register id

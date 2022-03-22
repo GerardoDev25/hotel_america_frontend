@@ -1,28 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllRegisterAsync, getByIdRegisterAsync, getWhereGoestAsync } from '../ActionsAsync/registerAA';
+import {
+  getAllRegisterAsync,
+  getByIdRegisterAsync,
+  getWhereGoestAsync,
+  createRegisterAsync,
+  deleteRegisterAsync,
+  updateRegisterAsync,
+} from '../ActionsAsync/registerAA';
 
-const init = {
-  current: {
-    data: {},
-    ok: false,
-    loading: false,
-  },
-  where: {
-    data: {},
-    ok: false,
-    loading: false,
-  },
-  all: { data: {}, ok: false, loading: false },
-};
+import { initialState } from '../../helpers/settings';
 
 const registerSlice = createSlice({
   name: 'register',
-  initialState: JSON.parse(localStorage.getItem('register')) || init,
+  initialState: JSON.parse(localStorage.getItem('register')) || initialState,
   reducers: {
-    cheanRegister() {
-      localStorage.removeItem('register');
-      return init;
-    },
+    cheanRegister: () => initialState,
+    cleanAllRegister: (state) => ({ ...state, all: initialState.all }),
+    cleanWhereRegister: (state) => ({ ...state, where: initialState.where }),
+    cleanByIdRegister: (state) => ({ ...state, getById: initialState.getById }),
+    cleanCreateRegister: (state) => ({ ...state, create: initialState.create }),
+    cleanUpdateRegister: (state) => ({ ...state, update: initialState.update }),
+    cleanDeleteRegister: (state) => ({ ...state, delete: initialState.delete }),
   },
   extraReducers(builder) {
     builder
@@ -66,13 +64,65 @@ const registerSlice = createSlice({
         state.where.loading = false;
         state.where.error = action.payload;
       });
+
+    builder
+      .addCase(createRegisterAsync.pending, (state) => {
+        state.create.loading = true;
+      })
+      .addCase(createRegisterAsync.fulfilled, (state, action) => {
+        state.create = action.payload;
+        state.create.loading = false;
+        localStorage.setItem('register', JSON.stringify(state));
+      })
+      .addCase(createRegisterAsync.rejected, (state, action) => {
+        state.create.loading = false;
+        state.create.error = action.payload;
+      });
+
+    builder
+      .addCase(updateRegisterAsync.pending, (state) => {
+        state.update.loading = true;
+      })
+      .addCase(updateRegisterAsync.fulfilled, (state, action) => {
+        state.update = action.payload;
+        state.update.loading = false;
+        localStorage.setItem('register', JSON.stringify(state));
+      })
+      .addCase(updateRegisterAsync.rejected, (state, action) => {
+        state.update.loading = false;
+        state.update.error = action.payload;
+      });
+
+    builder
+      .addCase(deleteRegisterAsync.pending, (state) => {
+        state.delete.loading = true;
+      })
+      .addCase(deleteRegisterAsync.fulfilled, (state, action) => {
+        state.delete = action.payload;
+        state.delete.loading = false;
+        localStorage.setItem('register', JSON.stringify(state));
+      })
+      .addCase(deleteRegisterAsync.rejected, (state, action) => {
+        state.delete.loading = false;
+        state.delete.error = action.payload;
+      });
   },
 });
 
 export const selectAllRegister = (state) => state.register.all;
 export const selectWhereRegister = (state) => state.register.where;
 export const selectCurrentRegister = (state) => state.register.current;
-
-export const { cheanRegister } = registerSlice.actions;
+export const selectCreateRegister = (state) => state.register.create;
+export const selectUpdateRegister = (state) => state.register.update;
+export const selectDeleteRegister = (state) => state.register.delete;
+export const {
+  cheanRegister,
+  cleanAllRegister,
+  cleanByIdRegister,
+  cleanCreateRegister,
+  cleanDeleteRegister,
+  cleanUpdateRegister,
+  cleanWhereRegister,
+} = registerSlice.actions;
 
 export default registerSlice.reducer;

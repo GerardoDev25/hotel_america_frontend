@@ -34,3 +34,28 @@ export const ENPOINT = {
 export const MESSAGE = {
   errorDB: 'error connecting to server',
 };
+
+export const initialState = {
+  all: { data: {}, ok: false, loading: false },
+  getById: { data: {}, ok: false, loading: false },
+  where: {
+    data: {},
+    ok: false,
+    loading: false,
+  },
+  create: {
+    data: {},
+    ok: false,
+    loading: false,
+  },
+  update: {
+    data: {},
+    ok: false,
+    loading: false,
+  },
+  delete: {
+    data: {},
+    ok: false,
+    loading: false,
+  },
+};

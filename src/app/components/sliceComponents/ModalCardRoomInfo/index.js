@@ -40,7 +40,7 @@ const ModalCardRoomInfo = ({ ids, handleOk, modalVisible }) => {
     <Button key="ok" type="primary" onClick={handleOk}>
       ok
     </Button>,
-    <Button key="update" type="ghost" style={{ display: registerId ? 'block' : 'none' }} danger onClick={handleupdate}>
+    <Button key="update" type="ghost" style={{ display: registerId ? 'inline-block' : 'none' }} danger onClick={handleupdate}>
       Update
     </Button>,
     <Button key="make" type="ghost" danger onClick={registerId ? handleCheckOut : handleCheckIn}>

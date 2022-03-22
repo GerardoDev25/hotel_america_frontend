@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { Typography, Col, Row, Empty } from 'antd';
 
-import { selectCurrentRoom } from '../../../redux/reducers/room';
+import { selectGetByIdRoom } from '../../../redux/reducers/room';
 import { midlleQuery } from '../../../helpers/settings';
 
 const { Title } = Typography;
@@ -55,7 +55,7 @@ const RowChidlComponent = styled(Row)`
 `;
 
 const InfoRoomModalTop = () => {
-  const { data, ok } = useSelector(selectCurrentRoom);
+  const { data, ok } = useSelector(selectGetByIdRoom);
 
   const infoRoom = data[0];
 

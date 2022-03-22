@@ -1,28 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createCafeAsync, getAllCafeAsync, getWhereCafeAsync, updateCafeAsync } from '../ActionsAsync/cafeAA';
 
-const init = {
-  current: {
-    data: {},
-    ok: false,
-    loading: false,
-  },
-  where: {
-    data: {},
-    ok: false,
-    loading: false,
-  },
-  all: { loading: false, ok: false, data: {} },
-};
+import { initialState } from '../../helpers/settings';
 
 const cafeSlice = createSlice({
   name: 'cafe',
-  initialState: JSON.parse(localStorage.getItem('cafe')) || init,
+  initialState: JSON.parse(localStorage.getItem('cafe')) || initialState,
   reducers: {
-    cheanCafe() {
-      localStorage.removeItem('cafe');
-      return init;
-    },
+    cheanCafe: () => initialState,
+    cleanAllCafe: (state) => ({ ...state, all: initialState.all }),
+    cleanWhereCafe: (state) => ({ ...state, where: initialState.where }),
+    cleanCreateCafe: (state) => ({ ...state, create: initialState.create }),
+    cleanUpdateCafe: (state) => ({ ...state, update: initialState.update }),
   },
   extraReducers(builder) {
     builder
@@ -87,6 +76,6 @@ export const selectAllCafe = (state) => state.cafe.all;
 export const selectWhereCafe = (state) => state.cafe.where;
 export const selectCurrentCafe = (state) => state.cafe.current;
 
-export const { cheanCafe } = cafeSlice.actions;
+export const { cheanCafe, cleanAllCafe, cleanCreateCafe, cleanUpdateCafe, cleanWhereCafe } = cafeSlice.actions;
 
 export default cafeSlice.reducer;
