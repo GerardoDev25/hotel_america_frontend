@@ -1,4 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+
+import { initialState } from '../../helpers/settings';
+
 import {
   getAllLodgingAsync,
   getWhereLodgingAsync,
@@ -6,8 +9,6 @@ import {
   deleteLodgingAsync,
   updateLodgingAsync,
 } from '../ActionsAsync/lodgingAA';
-
-import { initialState } from '../../helpers/settings';
 
 const lodgingSlice = createSlice({
   name: 'lodging',

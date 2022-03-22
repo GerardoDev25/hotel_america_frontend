@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createCafeAsync, getAllCafeAsync, getWhereCafeAsync, updateCafeAsync } from '../ActionsAsync/cafeAA';
 
 import { initialState } from '../../helpers/settings';
+
+import { createCafeAsync, getAllCafeAsync, getWhereCafeAsync, updateCafeAsync } from '../ActionsAsync/cafeAA';
+
 
 const cafeSlice = createSlice({
   name: 'cafe',

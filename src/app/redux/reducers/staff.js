@@ -1,4 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+
+import { initialState } from '../../helpers/settings';
+
 import {
   getAllStaffAsync,
   getByIdStaffAsync,
@@ -7,8 +10,6 @@ import {
   deleteStaffAsync,
   updateStaffAsync,
 } from '../ActionsAsync/staffAA';
-
-import { initialState } from '../../helpers/settings';
 
 const staffSlice = createSlice({
   name: 'staff',

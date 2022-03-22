@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { initialState } from '../../helpers/settings';
+
 import {
   getAllRoomAsync,
   getByIdRoomAsync,
@@ -8,8 +10,6 @@ import {
   deleteRoomAsync,
   updateRoomAsync,
 } from '../ActionsAsync/roomAA';
-
-import { initialState } from '../../helpers/settings';
 
 const roomSlice = createSlice({
   name: 'room',

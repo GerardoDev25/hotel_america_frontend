@@ -1,4 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+
+import { initialState } from '../../helpers/settings';
+
 import {
   getAllRegisterAsync,
   getByIdRegisterAsync,
@@ -7,8 +10,6 @@ import {
   deleteRegisterAsync,
   updateRegisterAsync,
 } from '../ActionsAsync/registerAA';
-
-import { initialState } from '../../helpers/settings';
 
 const registerSlice = createSlice({
   name: 'register',

@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { initialState } from '../../helpers/settings';
+
 import {
   getAllAmountAsync,
   getByIdAmountAsync,
