@@ -5,6 +5,7 @@ const initialState = {
   action: '',
   placement: 'left',
   width: 600,
+  id: '',
 };
 
 const drawerSlice = createSlice({

@@ -30,7 +30,7 @@ const ActionsContainer = styled.div`
   justify-content: space-between;
 `;
 
-const ViewUsed = ({ registerId }) => {
+const ViewUsed = ({ registerId, setModalVisible }) => {
   const dispatch = useDispatch();
 
   useLayoutEffect(() => {
@@ -46,8 +46,8 @@ const ViewUsed = ({ registerId }) => {
   const allDataAmount = useSelector(selectWhereAmount);
   const allDataLodging = useSelector(selectWhereLodging);
 
-  const colums = columsData(ActionsContainer);
-  const items = itemsData(allDataGoest, allDataAmount, allDataLodging);
+  const colums = columsData(ActionsContainer, dispatch, setModalVisible);
+  const items = itemsData(allDataGoest, allDataAmount, allDataLodging, registerId, dispatch, setModalVisible);
 
   return (
     <MainContainer>

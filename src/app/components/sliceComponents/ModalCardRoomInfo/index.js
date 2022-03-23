@@ -16,7 +16,7 @@ const ModalComponent = styled(Modal)`
   min-width: ${minZise} !important;
 `;
 
-const ModalCardRoomInfo = ({ ids, handleOk, modalVisible }) => {
+const ModalCardRoomInfo = ({ ids, handleOk, modalVisible, setModalVisible }) => {
   //
 
   const text = 'Are you sure to make this operation?';
@@ -35,7 +35,13 @@ const ModalCardRoomInfo = ({ ids, handleOk, modalVisible }) => {
 
   const handleOpenDrawer = () => {
     console.log('make open drawer');
-    dispatch(drawerOpen({ width: calculateWidth(), action: registerId ? drawerActions.checkOut : drawerActions.checkIn }));
+    dispatch(
+      drawerOpen({
+        width: calculateWidth(),
+        action: registerId ? drawerActions.checkOut : drawerActions.checkIn,
+        id: registerId || roomId,
+      })
+    );
     handleOk();
   };
 
@@ -55,7 +61,7 @@ const ModalCardRoomInfo = ({ ids, handleOk, modalVisible }) => {
 
   return (
     <ModalComponent footer={footer} visible={modalVisible} onOk={handleOk} onCancel={handleOk} width={1300}>
-      {registerId ? <ViewUsed registerId={registerId} /> : <ViewFree />}
+      {registerId ? <ViewUsed setModalVisible={setModalVisible} registerId={registerId} /> : <ViewFree />}
     </ModalComponent>
   );
 };

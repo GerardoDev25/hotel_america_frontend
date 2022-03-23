@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import { Card, Button, Typography } from 'antd';
 
 import ModalCardRoomInfo from './ModalCardRoomInfo';
+
+import { cleanByIdRoom } from '../../redux/reducers/room';
+import { cleanByIdRegister } from '../../redux/reducers/register';
 
 const { Meta } = Card;
 const { Paragraph } = Typography;
@@ -62,16 +66,29 @@ const H2Text = styled.p`
 const Description = ({ status, kindOfRoom, maxGuest, ids }) => {
   //
 
+  const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleOk = () => setModalVisible(false);
+  const handleOk = () => {
+    dispatch(cleanByIdRegister());
+    dispatch(cleanByIdRoom());
+    setModalVisible(false);
+  };
   const handleOpenModal = () => setModalVisible(true);
 
   switch (status) {
     case 'used':
       return (
         <CardInfo>
-          {modalVisible && <ModalCardRoomInfo ids={ids} handleOk={handleOk} modalVisible={modalVisible} />}
+          {modalVisible && (
+            <ModalCardRoomInfo
+              //
+              ids={ids}
+              setModalVisible={setModalVisible}
+              handleOk={handleOk}
+              modalVisible={modalVisible}
+            />
+          )}
           <SectionTop>
             <ParagraphText>
               <strong>Kind of Room: </strong>

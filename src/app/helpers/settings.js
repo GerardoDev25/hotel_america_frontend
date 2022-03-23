@@ -9,6 +9,8 @@ export const drawerActions = {
   createAcount: 'Create Acount',
   updateAcount: 'Update Acount',
   updateLodging: 'Update Lodging',
+  addGoest: 'Add new Goest',
+  addAcount: 'Add new Acount',
 };
 
 export const minZise = '390px';

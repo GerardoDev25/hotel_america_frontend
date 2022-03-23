@@ -1,7 +1,12 @@
 import { Button, Tag } from 'antd';
 import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
 
-export const itemsData = (allDataGoest, allDataAmount, allDataLodging) => {
+import { drawerOpen } from '../../../redux/reducers/drawer';
+
+import { calculateWidth } from '../../../helpers';
+import { drawerActions } from '../../../helpers/settings';
+
+export const itemsData = (allDataGoest, allDataAmount, allDataLodging, registerId, dispatch, setModalVisible) => {
   //
 
   const { data: dataGoest = {}, msg: msgGoest, ok: okGoest } = allDataGoest;
@@ -52,7 +57,14 @@ export const itemsData = (allDataGoest, allDataAmount, allDataLodging) => {
         total: totalGoest,
         title: 'Goest List',
         add: function () {
-          console.log('add Goest');
+          setModalVisible(false);
+          dispatch(
+            drawerOpen({
+              width: calculateWidth(),
+              action: drawerActions.addGoest,
+              id: registerId,
+            })
+          );
         },
       },
     },
@@ -64,7 +76,14 @@ export const itemsData = (allDataGoest, allDataAmount, allDataLodging) => {
         total: totalAmount,
         title: 'Amount List',
         add: function () {
-          console.log('add amount');
+          setModalVisible(false);
+          dispatch(
+            drawerOpen({
+              width: calculateWidth(),
+              action: drawerActions.addAcount,
+              id: registerId,
+            })
+          );
         },
       },
     },
@@ -80,17 +99,38 @@ export const itemsData = (allDataGoest, allDataAmount, allDataLodging) => {
   ];
 };
 
-export const columsData = (ActionsContainer) => {
+export const columsData = (ActionsContainer, dispatch, setModalVisible) => {
   const handleUpdateGoest = (id) => {
-    console.log(id);
+    setModalVisible(false);
+    dispatch(
+      drawerOpen({
+        width: calculateWidth(),
+        action: drawerActions.updateGoest,
+        id,
+      })
+    );
   };
 
   const handleUpdateAmount = (id) => {
-    console.log(id);
+    setModalVisible(false);
+    dispatch(
+      drawerOpen({
+        width: calculateWidth(),
+        action: drawerActions.updateAcount,
+        id,
+      })
+    );
   };
 
   const handleUpdateLodging = (id) => {
-    console.log(id);
+    setModalVisible(false);
+    dispatch(
+      drawerOpen({
+        width: calculateWidth(),
+        action: drawerActions.updateLodging,
+        id,
+      })
+    );
   };
 
   const handleDeleteGoest = (id) => {

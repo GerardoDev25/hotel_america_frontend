@@ -1,6 +1,4 @@
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { selectGetByIdRoom } from '../../../redux/reducers/room';
 import InfoRoomModalTop from './InfoRoomModalTop';
 
 const MainContainer = styled.div`
@@ -12,13 +10,11 @@ const MainContainer = styled.div`
 `;
 
 const ViewFree = () => {
-  const room = useSelector(selectGetByIdRoom);
-
   return (
     <MainContainer>
       <InfoRoomModalTop />
     </MainContainer>
-  ); 
+  );
 };
 
 export default ViewFree;
