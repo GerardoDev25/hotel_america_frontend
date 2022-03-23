@@ -1,14 +1,16 @@
-import { Modal, Button } from 'antd';
+import { Popconfirm, Modal, Button } from 'antd';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
-import { minZise } from '../../../helpers/settings';
+import { drawerActions, minZise } from '../../../helpers/settings';
 
 import { getByIdRoomAsync } from '../../../redux/ActionsAsync/roomAA';
 
 import ViewUsed from './ViewUsed';
 import ViewFree from './ViewFree';
+import { calculateWidth } from '../../../helpers';
+import { drawerOpen } from '../../../redux/reducers/drawer';
 
 const ModalComponent = styled(Modal)`
   min-width: ${minZise} !important;
@@ -17,6 +19,8 @@ const ModalComponent = styled(Modal)`
 const ModalCardRoomInfo = ({ ids, handleOk, modalVisible }) => {
   //
 
+  const text = 'Are you sure to make this operation?';
+
   const dispatch = useDispatch();
   const { registerId, roomId } = ids;
 
@@ -24,28 +28,29 @@ const ModalCardRoomInfo = ({ ids, handleOk, modalVisible }) => {
     roomId && dispatch(getByIdRoomAsync(roomId));
   }, [dispatch, roomId]);
 
-  const handleCheckIn = () => {
-    console.log('make check in');
+  const handleUpdate = () => {
+    dispatch(drawerOpen({ width: calculateWidth(), action: drawerActions.updateRegister }));
+    handleOk();
   };
 
-  const handleupdate = () => {
-    console.log('make update');
-  };
-
-  const handleCheckOut = () => {
-    console.log('make check out');
+  const handleOpenDrawer = () => {
+    console.log('make open drawer');
+    dispatch(drawerOpen({ width: calculateWidth(), action: registerId ? drawerActions.checkOut : drawerActions.checkIn }));
+    handleOk();
   };
 
   const footer = [
     <Button key="ok" type="primary" onClick={handleOk}>
       ok
     </Button>,
-    <Button key="update" type="ghost" style={{ display: registerId ? 'inline-block' : 'none' }} danger onClick={handleupdate}>
+    <Button key="update" type="ghost" style={{ display: registerId ? 'inline-block' : 'none' }} danger onClick={handleUpdate}>
       Update
     </Button>,
-    <Button key="make" type="ghost" danger onClick={registerId ? handleCheckOut : handleCheckIn}>
-      {registerId ? 'Make CheckOut' : 'Make CheckIn'}
-    </Button>,
+    <Popconfirm key="make" placement="topLeft" title={text} onConfirm={handleOpenDrawer} okText="Yes" cancelText="No">
+      <Button type="ghost" danger>
+        {registerId ? 'Make CheckOut' : 'Make CheckIn'}
+      </Button>
+    </Popconfirm>,
   ];
 
   return (

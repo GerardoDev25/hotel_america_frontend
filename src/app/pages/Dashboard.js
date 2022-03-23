@@ -16,6 +16,7 @@ import Navbar from '../components/Content/Navbar';
 import ContentComponent from '../components/Content';
 import FooterComponent from '../components/Content/Footer';
 import PanelComponent from '../components/sliceComponents/PanelComponent';
+import DrawerComponet from '../components/sliceComponents/Drawer';
 
 const LayautMain = styled(Layout)`
   width: 100%;
@@ -36,13 +37,10 @@ const Dashboard = () => {
 
   // * redirect to login if is not auth
   useEffect(() => {
-    // !login && navigator('/login', { replace: true });
     if (!login) {
       localStorage.clear();
       navigator('/login', { replace: true });
     }
-
-    // cleanLocalStorage(dispatch, navigator, message);
   }, [login, navigator]);
 
   // * get all register id
@@ -60,6 +58,7 @@ const Dashboard = () => {
   return (
     <LayautMain>
       <PanelComponent />
+      <DrawerComponet />
       <Navbar />
       <ContentComponent />
       <FooterComponent />

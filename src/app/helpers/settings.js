@@ -1,5 +1,16 @@
 export const roles = { role_admin: 'Admin', role_laundry: 'Laundry', role_reception: 'Reception', role_Cafe: 'Cafeteria' };
 
+export const drawerActions = {
+  checkIn: 'Make Check In',
+  checkOut: 'Make Check Out',
+  updateRegister: 'Update Register',
+  createGoest: 'Create Goest',
+  updateGoest: 'Update Goest',
+  createAcount: 'Create Acount',
+  updateAcount: 'Update Acount',
+  updateLodging: 'Update Lodging',
+};
+
 export const minZise = '390px';
 export const midlleQuery = '600px';
 

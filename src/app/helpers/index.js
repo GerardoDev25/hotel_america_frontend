@@ -52,3 +52,10 @@ export const cleanLocalStorage = (dispatch, navigate, message) => {
   navigate('/login', { replace: true });
   message.info('logged');
 };
+
+export const calculateWidth = () => {
+  const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  if (width > 750) return 750;
+  else if (width <= 750 && width >= 390) return width;
+  else return 390;
+};

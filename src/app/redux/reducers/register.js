@@ -40,16 +40,16 @@ const registerSlice = createSlice({
 
     builder
       .addCase(getByIdRegisterAsync.pending, (state) => {
-        state.current.loading = true;
+        state.getById.loading = true;
       })
       .addCase(getByIdRegisterAsync.fulfilled, (state, action) => {
-        state.current.loading = false;
-        state.current = action.payload;
+        state.getById.loading = false;
+        state.getById = action.payload;
         localStorage.setItem('register', JSON.stringify(state));
       })
       .addCase(getByIdRegisterAsync.rejected, (state, action) => {
-        state.current.loading = false;
-        state.current.error = action.payload;
+        state.getById.loading = false;
+        state.getById.error = action.payload;
       });
 
     builder
