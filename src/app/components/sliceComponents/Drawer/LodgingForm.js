@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, InputNumber, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button, Form, InputNumber, message, Typography } from 'antd';
+
+import { capitalizeWorlds } from '../../../helpers';
+
 import { drawerClose, selectDrawer } from '../../../redux/reducers/drawer';
-import { getByIdlodgingAsync, updateLodgingAsync } from '../../../redux/ActionsAsync/lodgingAA';
 import {
   selectGetByIdLodging,
   selectUpdateLodging,
   cleanUpdateLodging,
   cleanGetByIdLodging,
 } from '../../../redux/reducers/lodging';
+import { getByIdlodgingAsync, updateLodgingAsync } from '../../../redux/ActionsAsync/lodgingAA';
+
 import NotFoundForm from './NotFoundForm';
 
 const LodgingForm = () => {
@@ -18,7 +22,7 @@ const LodgingForm = () => {
   const { loading: loadingUpdate, called, ok: okUpdate, msg: msgUpdate } = useSelector(selectUpdateLodging);
 
   const [fiels, setFiels] = useState({
-    amount: dataById[0]?.amount || 0,
+    amount: 0,
   });
 
   const { amount } = fiels;
@@ -32,27 +36,36 @@ const LodgingForm = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (called) dispatch(drawerClose());
-  }, [dispatch, called, okUpdate]);
+    if (called) {
+      okUpdate
+        ? message.success({
+            content: capitalizeWorlds(msgUpdate),
+            className: 'custom-class',
+          })
+        : message.error(capitalizeWorlds(msgUpdate));
+      dispatch(drawerClose());
+    }
+  }, [dispatch, called, okUpdate, msgUpdate]);
 
   const handleChange = (e) => {
     setFiels({ ...fiels, amount: e });
-    console.log(fiels);
   };
 
   const handleSubmit = () => {
-    dispatch(updateLodgingAsync({ lodgingId: id, ...fiels, registerId: dataById[0].registerId }));
+    if (!Number.isNaN(amount) && amount > 0)
+      dispatch(updateLodgingAsync({ lodgingId: id, ...fiels, registerId: dataById[0].registerId }));
+    else message.error(capitalizeWorlds("input isn't valid"));
   };
 
   return (
     <>
-      {!okById ? (
+      {!okById || loadingById ? (
         <NotFoundForm />
       ) : (
         <Form onFinish={handleSubmit} initialValues={{ remember: true }}>
-          <Typography.Paragraph> the current value is: {amount}</Typography.Paragraph>
+          <Typography.Paragraph> the current value is: {dataById[0]?.amount || "don't Found"}</Typography.Paragraph>
           <Form.Item label="Amount" name="amount">
-            <InputNumber value={amount} onChange={handleChange} />
+            <InputNumber value={amount} onChange={handleChange} min={0} autoFocus />
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit" loading={loadingUpdate}>

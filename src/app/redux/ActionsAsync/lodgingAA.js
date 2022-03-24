@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { ENPOINT } from '../../helpers/settings';
+import { ENPOINT, MESSAGE } from '../../helpers/settings';
 
 export const getAllLodgingAsync = createAsyncThunk('lodging/getAll', async (page = 1) => {
   try {
@@ -97,8 +97,6 @@ export const createLodgingAsync = createAsyncThunk('lodging/create', async (fiel
 export const updateLodgingAsync = createAsyncThunk('lodging/update', async ({ lodgingId, ...rest }, { getState }) => {
   //
 
-  // console.log({ lodgingId, ...rest });
-
   try {
     const params = {
       method: 'PUT',
@@ -112,14 +110,14 @@ export const updateLodgingAsync = createAsyncThunk('lodging/update', async ({ lo
     const res = await fetch(ENPOINT.lodging + lodgingId, params);
     const result = await res.json();
 
-    // console.log({ ...result, called: true });
+    if (result.error) throw new Error(MESSAGE.errorDB);
 
     return { ...result, called: true };
 
     //
   } catch (error) {
     console.log({ step: 'error updatelodgingAsync lodging/update', error: error.toString() });
-    return { ok: false, error: error.toString() };
+    return { ok: false, error: error.toString(), called: true, msg: MESSAGE.errorDB };
   }
 });
 
