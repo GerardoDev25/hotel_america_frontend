@@ -4,13 +4,14 @@ export const drawerActions = {
   checkIn: 'Make Check In',
   checkOut: 'Make Check Out',
   updateRegister: 'Update Register',
-  createGoest: 'Create Goest',
-  updateGoest: 'Update Goest',
-  createAcount: 'Create Acount',
-  updateAcount: 'Update Acount',
-  updateLodging: 'Update Lodging',
+
   addGoest: 'Add new Goest',
+  updateGoest: 'Update Goest',
+
   addAcount: 'Add new Acount',
+  updateAcount: 'Update Acount',
+
+  updateLodging: 'Update Lodging',
 };
 
 export const minZise = '390px';

@@ -40,16 +40,16 @@ const staffSlice = createSlice({
 
     builder
       .addCase(getByIdStaffAsync.pending, (state) => {
-        state.current.loading = true;
+        state.getById.loading = true;
       })
       .addCase(getByIdStaffAsync.fulfilled, (state, action) => {
-        state.current.loading = false;
-        state.current = action.payload;
+        state.getById.loading = false;
+        state.getById = action.payload;
         localStorage.setItem('staff', JSON.stringify(state));
       })
       .addCase(getByIdStaffAsync.rejected, (state, action) => {
-        state.current.loading = false;
-        state.current.error = action.payload;
+        state.getById.loading = false;
+        state.getById.error = action.payload;
       });
 
     builder
@@ -112,7 +112,7 @@ const staffSlice = createSlice({
 
 export const selectAllStaff = (state) => state.staff.all;
 export const selectWhereStaff = (state) => state.staff.where;
-export const selectCurrentStaff = (state) => state.staff.current;
+export const selectGetByIdStaff = (state) => state.staff.getById;
 export const selectCreateStaff = (state) => state.staff.create;
 export const selectUpdateStaff = (state) => state.staff.update;
 export const selectDeleteStaff = (state) => state.staff.delete;

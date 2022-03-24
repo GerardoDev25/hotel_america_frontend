@@ -26,6 +26,26 @@ export const getAllLodgingAsync = createAsyncThunk('lodging/getAll', async (page
   }
 });
 
+export const getByIdlodgingAsync = createAsyncThunk('lodging/getById', async (lodgingId) => {
+  try {
+    //
+
+    if (!lodgingId) throw new Error('id is required');
+
+    const res = await fetch(ENPOINT.lodging + lodgingId);
+    const result = await res.json();
+    const { data, ok, msg, error } = result;
+
+    if (error) throw new Error(error);
+    return { data, ok, msg };
+
+    //
+  } catch (error) {
+    console.log({ step: 'error getByIdLodgingAsync lodging/getById', error: error.toString() });
+    return { ok: false, error: error.toString() };
+  }
+});
+
 export const getWhereLodgingAsync = createAsyncThunk('lodging/getWhere', async (where = {}) => {
   try {
     const params = {
@@ -77,6 +97,8 @@ export const createLodgingAsync = createAsyncThunk('lodging/create', async (fiel
 export const updateLodgingAsync = createAsyncThunk('lodging/update', async ({ lodgingId, ...rest }, { getState }) => {
   //
 
+  // console.log({ lodgingId, ...rest });
+
   try {
     const params = {
       method: 'PUT',
@@ -90,7 +112,9 @@ export const updateLodgingAsync = createAsyncThunk('lodging/update', async ({ lo
     const res = await fetch(ENPOINT.lodging + lodgingId, params);
     const result = await res.json();
 
-    return result;
+    // console.log({ ...result, called: true });
+
+    return { ...result, called: true };
 
     //
   } catch (error) {

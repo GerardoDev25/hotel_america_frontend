@@ -41,16 +41,16 @@ const goestSlice = createSlice({
 
     builder
       .addCase(getByIdGoestAsync.pending, (state) => {
-        state.current.loading = true;
+        state.getById.loading = true;
       })
       .addCase(getByIdGoestAsync.fulfilled, (state, action) => {
-        state.current.loading = false;
-        state.current = action.payload;
+        state.getById.loading = false;
+        state.getById = action.payload;
         localStorage.setItem('goest', JSON.stringify(state));
       })
       .addCase(getByIdGoestAsync.rejected, (state, action) => {
-        state.current.loading = false;
-        state.current.error = action.payload;
+        state.getById.loading = false;
+        state.getById.error = action.payload;
       });
 
     builder
@@ -113,7 +113,7 @@ const goestSlice = createSlice({
 
 export const selectGoest = (state) => state.goest;
 export const selectWhereGoest = (state) => state.goest.where;
-export const selectCurrentGoest = (state) => state.goest.current;
+export const selectgetByIdGoest = (state) => state.goest.getById;
 export const selectCreateGoest = (state) => state.goest.create;
 export const selectUpdateGoest = (state) => state.goest.update;
 export const selectDeleteGoest = (state) => state.goest.delete;

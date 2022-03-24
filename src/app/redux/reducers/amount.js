@@ -40,16 +40,16 @@ const amountSlice = createSlice({
 
     builder
       .addCase(getByIdAmountAsync.pending, (state) => {
-        state.current.loading = true;
+        state.getById.loading = true;
       })
       .addCase(getByIdAmountAsync.fulfilled, (state, action) => {
-        state.current.loading = false;
-        state.current = action.payload;
+        state.getById.loading = false;
+        state.getById = action.payload;
         localStorage.setItem('amount', JSON.stringify(state));
       })
       .addCase(getByIdAmountAsync.rejected, (state, action) => {
-        state.current.loading = false;
-        state.current.error = action.payload;
+        state.getById.loading = false;
+        state.getById.error = action.payload;
       });
 
     builder
@@ -121,10 +121,10 @@ export const {
   cheanAmount,
   cleanAllAmount,
   cleanByIdAmount,
+  cleanWhereAmount,
   cleanCreateAmount,
   cleanDeleteAmount,
   cleanUpdateAmount,
-  cleanWhereAmount,
 } = amountSlice.actions;
 
 export default amountSlice.reducer;
