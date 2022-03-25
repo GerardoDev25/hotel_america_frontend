@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { ENPOINT } from '../../helpers/settings';
+import { ENPOINT, MESSAGE } from '../../helpers/settings';
 
 export const getAllAmountAsync = createAsyncThunk('amount/getAll', async (page = 1) => {
   try {
@@ -86,12 +86,14 @@ export const createAmountAsync = createAsyncThunk('amount/create', async (fiels,
     const res = await fetch(ENPOINT.amount, params);
     const result = await res.json();
 
-    return result;
+    if (result.error) throw new Error(MESSAGE.errorDB);
+
+    return { ...result, called: true };
 
     //
   } catch (error) {
     console.log({ step: 'error createAmountAsync amount/create', error: error.toString() });
-    return { ok: false, error: error.toString() };
+    return { ok: false, error: error.toString(), called: true, msg: MESSAGE.errorDB };
   }
 });
 export const updateAmountAsync = createAsyncThunk('amount/update', async ({ amountId, ...rest }, { getState }) => {
@@ -110,12 +112,14 @@ export const updateAmountAsync = createAsyncThunk('amount/update', async ({ amou
     const res = await fetch(ENPOINT.amount + amountId, params);
     const result = await res.json();
 
-    return result;
+    if (result.error) throw new Error(MESSAGE.errorDB);
+
+    return { ...result, called: true };
 
     //
   } catch (error) {
     console.log({ step: 'error updateAmountAsync amount/update', error: error.toString() });
-    return { ok: false, error: error.toString() };
+    return { ok: false, error: error.toString(), called: true, msg: MESSAGE.errorDB };
   }
 });
 

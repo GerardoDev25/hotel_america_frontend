@@ -69,7 +69,7 @@ const LodgingForm = () => {
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit" loading={loadingUpdate}>
-              Submit
+              Update
             </Button>
           </Form.Item>
         </Form>

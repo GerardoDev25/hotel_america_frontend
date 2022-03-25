@@ -1,4 +1,5 @@
 export const roles = { role_admin: 'Admin', role_laundry: 'Laundry', role_reception: 'Reception', role_Cafe: 'Cafeteria' };
+export const DESCRIPTION_AMOUNTS = ['advance', 'surcharge', 'laundry', 'frigobar', 'others'];
 
 export const drawerActions = {
   checkIn: 'Make Check In',

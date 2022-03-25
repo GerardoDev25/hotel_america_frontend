@@ -18,7 +18,7 @@ export const parseJwt = (token) => {
 export const capitalizeWorlds = (str) => {
   if (!str) return;
 
-  const exclude = ['the', 'or', 'in', 'of', "isn't"];
+  const exclude = ['the', 'or', 'in', 'of', 'is', 'on', 'at', "isn't", "don't"];
 
   const arr = str.split(' ');
 
