@@ -43,8 +43,8 @@ const amountSlice = createSlice({
         state.getById.loading = true;
       })
       .addCase(getByIdAmountAsync.fulfilled, (state, action) => {
-        state.getById.loading = false;
         state.getById = action.payload;
+        state.getById.loading = false;
         localStorage.setItem('amount', JSON.stringify(state));
       })
       .addCase(getByIdAmountAsync.rejected, (state, action) => {

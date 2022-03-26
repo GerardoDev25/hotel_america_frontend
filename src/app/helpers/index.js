@@ -3,6 +3,7 @@ import { cheanCafe } from '../redux/reducers/cafe';
 import { cheanRoom } from '../redux/reducers/room';
 import { cheanStaff } from '../redux/reducers/staff';
 import { cheanGoest } from '../redux/reducers/goest';
+import { drawerClose } from '../redux/reducers/drawer';
 import { cheanAmount } from '../redux/reducers/amount';
 import { cheanLodging } from '../redux/reducers/lodging';
 import { cheanRegister } from '../redux/reducers/register';
@@ -45,6 +46,7 @@ export const cleanLocalStorage = (dispatch, navigate, message) => {
   dispatch(cheanRoom());
   dispatch(cheanGoest());
   dispatch(cheanStaff());
+  dispatch(drawerClose());
   dispatch(cheanAmount());
   dispatch(cheanLodging());
   dispatch(cheanRegister());

@@ -15,14 +15,15 @@ export const getAllAmountAsync = createAsyncThunk('amount/getAll', async (page =
     const res = await fetch(ENPOINT.amount + param);
     const result = await res.json();
 
-    const { data, ok, msg, error } = result;
+    const { error } = result;
     if (error) throw new Error(error);
-    return { data, ok, msg };
+
+    return { ...result, called: true };
 
     //
   } catch (error) {
     console.log({ step: 'error getAllAmountAsync amount/getAll', error: error.toString() });
-    return { ok: false, error: error.toString() };
+    return { ok: false, error: error.toString(), called: true, msg: MESSAGE.errorDB };
   }
 });
 
@@ -38,15 +39,15 @@ export const getWhereAmountAsync = createAsyncThunk('amount/getWhere', async (wh
 
     const res = await fetch(ENPOINT.amount_getWhere, params);
     const result = await res.json();
-    const { data, ok, msg, error } = result;
+    const { error } = result;
 
     if (error) throw new Error(error);
-    return { data, ok, msg };
+    return { ...result, called: true };
 
     //
   } catch (error) {
     console.log({ step: 'error getWhereAmountAsync amount/getWhere', error: error.toString() });
-    return { ok: false, error: error.toString() };
+    return { ok: false, error: error.toString(), called: true, msg: MESSAGE.errorDB };
   }
 });
 
@@ -58,15 +59,15 @@ export const getByIdAmountAsync = createAsyncThunk('amount/getById', async (amou
 
     const res = await fetch(ENPOINT.amount + amountId);
     const result = await res.json();
-    const { data, ok, msg, error } = result;
+    const { error } = result;
 
     if (error) throw new Error(error);
-    return { data, ok, msg };
+    return { ...result, called: true };
 
     //
   } catch (error) {
     console.log({ step: 'error getByIdAmountAsync amount/getById', error: error.toString() });
-    return { ok: false, error: error.toString() };
+    return { ok: false, error: error.toString(), called: true, msg: MESSAGE.errorDB };
   }
 });
 
@@ -96,6 +97,7 @@ export const createAmountAsync = createAsyncThunk('amount/create', async (fiels,
     return { ok: false, error: error.toString(), called: true, msg: MESSAGE.errorDB };
   }
 });
+
 export const updateAmountAsync = createAsyncThunk('amount/update', async ({ amountId, ...rest }, { getState }) => {
   //
 
@@ -138,11 +140,11 @@ export const deleteAmountAsync = createAsyncThunk('amount/delete', async (amount
     const res = await fetch(ENPOINT.amount + amountId, params);
     const result = await res.json();
 
-    return result;
+    return { ...result, called: true };
 
     //
   } catch (error) {
     console.log({ step: 'error deleteAmountAsync amount/delete', error: error.toString() });
-    return { ok: false, error: error.toString() };
+    return { ok: false, error: error.toString(), called: true, msg: MESSAGE.errorDB };
   }
 });
