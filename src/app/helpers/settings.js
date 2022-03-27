@@ -9,8 +9,8 @@ export const drawerActions = {
   addGoest: 'Add new Goest',
   updateGoest: 'Update Goest',
 
-  addAcount: 'Add new Acount',
-  updateAcount: 'Update Acount',
+  addAcount: 'Add new Amount',
+  updateAcount: 'Update Amount',
 
   updateLodging: 'Update Lodging',
 };
