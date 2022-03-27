@@ -3,6 +3,7 @@ export const DESCRIPTION_AMOUNTS = ['advance', 'surcharge', 'laundry', 'frigobar
 
 export const typeInput = {
   number: 'number',
+  phone: 'phone',
   dataPiker: 'dataPiker',
   dataPikerDouble: 'dataPikerDouble',
   select: 'select',

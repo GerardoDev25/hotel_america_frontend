@@ -9,12 +9,12 @@ import { DESCRIPTION_AMOUNTS, drawerActions, typeInput } from '../../../helpers/
 import { selectAuth } from '../../../redux/reducers/auth';
 import { selectDrawer, drawerClose } from '../../../redux/reducers/drawer';
 import {
-  selectUpdateAmount,
-  selectGetByIdAmount,
-  selectCreateAmount,
-  cleanUpdateAmount,
   cleanByIdAmount,
+  cleanUpdateAmount,
   cleanCreateAmount,
+  selectUpdateAmount,
+  selectCreateAmount,
+  selectGetByIdAmount,
 } from '../../../redux/reducers/amount';
 import { getByIdAmountAsync, updateAmountAsync, createAmountAsync } from '../../../redux/ActionsAsync/amountAA';
 
