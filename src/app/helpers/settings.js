@@ -1,6 +1,16 @@
 export const roles = { role_admin: 'Admin', role_laundry: 'Laundry', role_reception: 'Reception', role_Cafe: 'Cafeteria' };
 export const DESCRIPTION_AMOUNTS = ['advance', 'surcharge', 'laundry', 'frigobar', 'others'];
 
+export const typeInput = {
+  number: 'number',
+  dataPiker: 'dataPiker',
+  dataPikerDouble: 'dataPikerDouble',
+  select: 'select',
+  simpleString: 'simpleString',
+  texAreaString: 'texAreaString',
+  check: 'check',
+};
+
 export const drawerActions = {
   checkIn: 'Make Check In',
   checkOut: 'Make Check Out',
