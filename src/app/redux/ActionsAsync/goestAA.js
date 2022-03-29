@@ -14,15 +14,15 @@ export const getAllGoestAsync = createAsyncThunk('goest/getAll', async (page = 1
 
     const res = await fetch(ENPOINT.goest + param);
     const result = await res.json();
-    const { data, ok, msg, error } = result;
+    const { error } = result;
 
     if (error) throw new Error(error);
-    return { data, ok, msg };
+    return { ...result, called: true };
 
     //
   } catch (error) {
     console.log({ step: 'error getAllGoestAsync goest/getAll', error: error.toString() });
-    return { ok: false, error: error.toString() };
+    return { ok: false, error: error.toString(), called: true };
   }
 });
 
@@ -34,15 +34,15 @@ export const getByIdGoestAsync = createAsyncThunk('goest/getById', async (goestI
 
     const res = await fetch(ENPOINT.goest + goestId);
     const result = await res.json();
-    const { data, ok, msg, error } = result;
+    const { error } = result;
 
     if (error) throw new Error(error);
-    return { data, ok, msg };
+    return { ...result, called: true };
 
     //
   } catch (error) {
     console.log({ step: 'error getByIdGoestAsync goest/getById', error: error.toString() });
-    return { ok: false, error: error.toString() };
+    return { ok: false, error: error.toString(), called: true };
   }
 });
 
@@ -60,15 +60,15 @@ export const getWhereGoestAsync = createAsyncThunk('goest/getWhere', async (wher
 
     const res = await fetch(ENPOINT.goest_getWhere, params);
     const result = await res.json();
-    const { data, ok, msg, error } = result;
+    const { error } = result;
 
     if (error) throw new Error(error);
-    return { data, ok, msg };
+    return { ...result, called: true };
 
     //
   } catch (error) {
     console.log({ step: 'error getWhereGoestFetch goest/getWhere', error: error.toString() });
-    return { ok: false, error: error.toString() };
+    return { ok: false, error: error.toString(), called: true };
   }
 });
 
@@ -87,13 +87,15 @@ export const createGoestAsync = createAsyncThunk('goest/create', async (fiels, {
 
     const res = await fetch(ENPOINT.goest, params);
     const result = await res.json();
+    const { error } = result;
 
-    return result;
+    if (error) throw new Error(error);
+    return { ...result, called: true };
 
     //
   } catch (error) {
     console.log({ step: 'error createGoestAsync goest/create', error: error.toString() });
-    return { ok: false, error: error.toString() };
+    return { ok: false, error: error.toString(), called: true };
   }
 });
 export const updateGoestAsync = createAsyncThunk('goest/update', async ({ goestId, ...rest }, { getState }) => {
@@ -112,12 +114,15 @@ export const updateGoestAsync = createAsyncThunk('goest/update', async ({ goestI
     const res = await fetch(ENPOINT.goest + goestId, params);
     const result = await res.json();
 
-    return result;
+    const { error } = result;
+
+    if (error) throw new Error(error);
+    return { ...result, called: true };
 
     //
   } catch (error) {
     console.log({ step: 'error updateGoestAsync goest/update', error: error.toString() });
-    return { ok: false, error: error.toString() };
+    return { ok: false, error: error.toString(), called: true };
   }
 });
 
@@ -135,12 +140,15 @@ export const deleteGoestAsync = createAsyncThunk('goest/delete', async (goestId,
 
     const res = await fetch(ENPOINT.goest + goestId, params);
     const result = await res.json();
+    const { error } = result;
 
-    return result;
+    if (error) throw new Error(error);
+    return { ...result, called: true };
+
 
     //
   } catch (error) {
     console.log({ step: 'error deleteGoestAsync goest/delete', error: error.toString() });
-    return { ok: false, error: error.toString() };
+    return { ok: false, error: error.toString(), called: true };
   }
 });

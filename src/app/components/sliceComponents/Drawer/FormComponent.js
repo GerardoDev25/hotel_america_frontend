@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import moment from 'moment';
 import { Button, DatePicker, Form, Input, InputNumber, Select } from 'antd';
 
@@ -28,7 +29,10 @@ const formItemLayout = {
 const Inputs = ({ typeData }) => {
   //
 
-  const { label, name, type, required, options } = typeData;
+  const [valid, setValid] = useState(false);
+  const [typevalid, setTypeValid] = useState('');
+
+  const { label, name, type, required, options, index } = typeData;
 
   const rulesRequired = [
     {
@@ -37,19 +41,47 @@ const Inputs = ({ typeData }) => {
     },
   ];
 
+  const handleChange = () => {
+    setValid(true);
+    setTypeValid('success');
+  };
+
   const Entry = () => {
     switch (type) {
       case typeInput.number:
         return (
-          <Item label={label} name={name} rules={required ? [{ ...rulesRequired[0], type: 'number' }] : false}>
-            <InputNumber size="small" autoFocus />
+          <Item
+            label={label}
+            name={name}
+            validateStatus={typevalid}
+            rules={required ? [{ ...rulesRequired[0], type: 'number' }] : false}
+          >
+            <InputNumber size="small" autoFocus={index === 0} onChange={handleChange} />
+          </Item>
+        );
+
+      case typeInput.simpleString:
+        return (
+          <Item
+            label={label}
+            name={name}
+            hasFeedback={valid}
+            validateStatus={typevalid}
+            rules={required ? [{ ...rulesRequired[0], type: 'string' }] : false}
+          >
+            <Input size="small" autoFocus={index === 0} onChange={handleChange} />
           </Item>
         );
 
       case typeInput.select:
         return (
-          <Item label={label} name={name} rules={required ? [{ ...rulesRequired[0], type: 'string' }] : false}>
-            <Select>
+          <Item
+            label={label}
+            name={name}
+            validateStatus={typevalid}
+            rules={required ? [{ ...rulesRequired[0], type: 'string' }] : false}
+          >
+            <Select autoFocus={index === 0} onChange={handleChange}>
               {options.map((item) => (
                 <Select.Option key={item} value={item}>
                   {capitalizeWorlds(item)}
@@ -61,18 +93,36 @@ const Inputs = ({ typeData }) => {
 
       case typeInput.dataPiker:
         return (
-          <Item label={label} name="currentDate" rules={required ? [{ ...rulesRequired[0], type: 'date' }] : false}>
-            <DatePicker format={'DD/MM/YYYY'} />
+          <Item
+            label={label}
+            name="currentDate"
+            validateStatus={typevalid}
+            rules={required ? [{ ...rulesRequired[0], type: 'date' }] : false}
+          >
+            <DatePicker format={'DD/MM/YYYY'} autoFocus={index === 0} onChange={handleChange} />
           </Item>
         );
 
       case typeInput.texAreaString:
         return (
-          <Item label={label} name={name} rules={required ? [{ ...rulesRequired[0], type: 'string' }] : false}>
-            <Input.TextArea autoSize={{ minRows: 3, maxRows: 5 }} placeholder="Decription..." />
+          <Item
+            label={label}
+            name={name}
+            validateStatus={typevalid}
+            rules={required ? [{ ...rulesRequired[0], type: 'string' }] : false}
+          >
+            <Input.TextArea
+              autoFocus={index === 0}
+              onChange={handleChange}
+              placeholder="Decription..."
+              autoSize={{ minRows: 3, maxRows: 5 }}
+            />
           </Item>
         );
       default:
+        <Item>
+          <pre> {JSON.stringify(typeData)}</pre>;
+        </Item>;
         break;
     }
   };
@@ -83,7 +133,7 @@ const Inputs = ({ typeData }) => {
 const FormComponent = ({ fields = [], isCreate, handleData, inputsType, loading }) => {
   //
 
-  const currentDate = fields.find((item) => item.name[0] === 'date');
+  const currentDate = fields.find((item) => item.name[0] === 'date' || item.name[0] === 'dateOfBirth');
   let entries = [];
 
   const handleChageAll = (_, allFields = []) => {
@@ -112,7 +162,7 @@ const FormComponent = ({ fields = [], isCreate, handleData, inputsType, loading 
       initialValues={{ type: fields.filter((i) => i.name[0] === 'type'), currentDate: moment(currentDate.value, 'DD/MM/YYYY') }}
     >
       {inputsType.map((typeData, index) => (
-        <Inputs key={index} typeData={typeData} />
+        <Inputs key={index} typeData={{ ...typeData, index }} />
       ))}
       <Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit" loading={loading}>

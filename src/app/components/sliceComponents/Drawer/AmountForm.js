@@ -32,12 +32,12 @@ const AmountForm = () => {
   const { loading: loadingCreate, ok: okCreate, called: calledCreate, msg: msgCreate } = useSelector(selectCreateAmount);
   const { staff } = useSelector(selectAuth);
   const {
-    data: dataById,
     ok: okById,
+    msg: msgById,
+    data: dataById,
+    called: calledBYId,
     called: calledById,
     loading: loadingById,
-    msg: msgById,
-    called: calledBYId,
   } = useSelector(selectGetByIdAmount);
 
   const inputsType = [

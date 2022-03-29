@@ -112,7 +112,7 @@ const registerSlice = createSlice({
 
 export const selectAllRegister = (state) => state.register.all;
 export const selectWhereRegister = (state) => state.register.where;
-export const selectCurrentRegister = (state) => state.register.current;
+export const selectGetByIdRegister = (state) => state.register.getById;
 export const selectCreateRegister = (state) => state.register.create;
 export const selectUpdateRegister = (state) => state.register.update;
 export const selectDeleteRegister = (state) => state.register.delete;
