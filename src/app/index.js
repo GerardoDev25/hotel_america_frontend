@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import 'antd/dist/antd.min.css';
-
 import { Provider } from 'react-redux';
 
 import Router from './router';

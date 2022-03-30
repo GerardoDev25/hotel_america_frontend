@@ -22,6 +22,8 @@ const ContentStyled = styled(Content)`
 `;
 
 const ContentComponent = () => {
+  //
+
   const { staff } = useSelector(selectAuth);
   const { role } = staff;
 
@@ -38,7 +40,7 @@ const ContentComponent = () => {
       case 'role_reception':
         return <Reception />;
 
-      case 'role_Cafeteria':
+      case 'role_Cafe':
         return <Cafeteria />;
 
       default:

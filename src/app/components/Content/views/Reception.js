@@ -1,9 +1,12 @@
-import { useEffect } from 'react';
+import { message } from 'antd';
 import styled from 'styled-components';
+import { useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectRoom } from '../../../redux/reducers/room';
-import { selectRegister } from '../../../redux/reducers/register';
+import { selectAllRoom } from '../../../redux/reducers/room';
+import { cheanRegister, selectAllRegister } from '../../../redux/reducers/register';
+
 import { getAllRoomAsync } from '../../../redux/ActionsAsync/roomAA';
 
 import CardRoom from '../../sliceComponents/CardRoom';
@@ -11,52 +14,66 @@ import PaginationComponent from '../../sliceComponents/PaginationComponent';
 
 const Main = styled.div`
   height: 100%;
-  display: grid;
-  border-radius: 1rem;
   overflow: hidden;
+  border-radius: 1rem;
+  border-radius: 1rem;
+
+  display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 12fr 1fr;
-  border-radius: 1rem;
 `;
 
 const Container = styled.div`
   width: 100%;
   height: auto;
-  max-height: 45rem;
-
   overflow-y: auto;
+  max-height: 45rem;
   background-color: #ccc;
 
   display: grid;
   align-items: center;
-  justify-items: center !important;
   grid-auto-rows: 250px;
+  justify-items: center !important;
   grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
 `;
 
 const Reception = () => {
-  // total, error, loading, msg, pageCount, ok
+  //
 
   const dispatch = useDispatch();
-  const Room = useSelector(selectRoom);
-  const Register = useSelector(selectRegister);
+  const navigator = useNavigate();
+
+  const { data: dataRoom = {} } = useSelector(selectAllRoom);
+  const { data: dataRegister = {}, ok, msg, error } = useSelector(selectAllRegister);
+
+  useEffect(() => {
+    if (!ok && error) {
+      console.log(error);
+      message.error(msg);
+      dispatch(cheanRegister);
+      navigator('/login', { replace: true });
+    }
+  }, [dispatch, navigator, ok, error, msg]);
+
+  const { rows: itemsRegisters = [] } = dataRegister;
+  const { rows: itemsRooms = [], total: totalRoom } = dataRoom;
 
   useEffect(() => {
     dispatch(getAllRoomAsync());
   }, [dispatch]);
 
-  const Rooms = () => {
-    const RegisterIdArr = Array.from(Register.registers.map((e) => ({ registerId: e.registerId, roomId: e.roomId })));
+  const Rooms = useCallback(() => {
+    const RegisterIdArr = Array.from(itemsRegisters.map((e) => ({ registerId: e.registerId, roomId: e.roomId })));
 
-    return Room.rooms.map((room) => (
+    return itemsRooms.map((room) => (
       <CardRoom key={room.roomId} room={room} ids={RegisterIdArr.find((e) => (e.roomId === room.roomId ? e : false))} />
     ));
-  };
+  }, [itemsRegisters, itemsRooms]);
 
   return (
     <Main>
-      <Container>{Room.rooms && Register.registers && <Rooms />}</Container>
-      <PaginationComponent total={Room.total} type="room" />
+      <Container>{itemsRooms && itemsRegisters && <Rooms />}</Container>
+      <PaginationComponent total={totalRoom} type="room" />
     </Main>
   );
 };

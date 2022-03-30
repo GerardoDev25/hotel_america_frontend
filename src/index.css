@@ -6,8 +6,8 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -33,10 +33,15 @@ code {
 #components-layout-demo-custom-trigger .logo {
   height: 32px;
   margin: 16px;
-  /* background: rgba(255, 255, 255, 0.3); */
 }
 
 .site-layout .site-layout-background {
   background: #fff;
   height: auto;
+}
+
+.disble-colums,
+.disble-colums:focus {
+  background-color: #ddd;
+  cursor: not-allowed;
 }

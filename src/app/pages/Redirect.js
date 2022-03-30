@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { selectAuth } from '../redux/reducers/auth';
 
 const NotFoundPage = () => {
+  //
+
   const auth = useSelector(selectAuth);
   const navigator = useNavigate();
 
